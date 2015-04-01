@@ -1,0 +1,1 @@
+body{text-align:center;font-family:sans-serif}#alert{display:none;z-index:10;position:fixed;top:0;width:100%;padding:20px 0;background:cornflowerblue;color:white}#alert.success{background:limegreen}#alert.error{background:crimson}#alert.clickable{cursor:pointer}#gradient{background-image:linear-gradient(to right, #ffca00 10%, #ffe580, #00ffdf, #ff00f4, #ff80f9 90%)}

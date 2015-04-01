@@ -1,0 +1,25 @@
+{
+  "name": "hue-wheel",
+  "version": "0.1",
+  "authors": [
+    "Benjamin Knight <ben@benknight.me>"
+  ],
+  "description": "Control Philips Hue using an color theory on an artist's color wheel, inspired by Adobe Kuler.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jshue": "blargoner/jshue#~0.2.0",
+    "d3": "~3.5.3",
+    "tinycolor": "~1.1.2",
+    "kuler-colorwheel-with-d3": "benknight/kuler-colorwheel-with-d3",
+    "hue-hacking": "benknight/hue-hacking",
+    "spin.js": "~2.0.2"
+  }
+}
