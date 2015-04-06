@@ -1,6 +1,7 @@
 {
-  "name": "kuler-colorwheel-with-d3",
-  "homepage": "https://github.com/benknight/kuler-colorwheel-with-d3",
+  "name": "kuler-d3",
+  "version": "1.1",
+  "homepage": "https://github.com/benknight/kuler-d3",
   "authors": [
     "Benjamin Knight <ben@benknight.me>"
   ],
@@ -26,14 +27,5 @@
   "dependencies": {
     "tinycolor": "~1.1.2",
     "d3": "~3.5.5"
-  },
-  "_release": "02dfae837b",
-  "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "02dfae837be1f8468a7b2a31c2aae26f8e0b0c99"
-  },
-  "_source": "git://github.com/benknight/kuler-colorwheel-with-d3.git",
-  "_target": "*",
-  "_originalSource": "benknight/kuler-colorwheel-with-d3"
+  }
 }

@@ -18,7 +18,7 @@
     "jshue": "blargoner/jshue#~0.2.0",
     "d3": "~3.5.3",
     "tinycolor": "~1.1.2",
-    "kuler-colorwheel-with-d3": "benknight/kuler-colorwheel-with-d3",
+    "kuler-d3": "benknight/kuler-d3",
     "hue-hacking": "benknight/hue-hacking",
     "spin.js": "~2.0.2",
     "requirejs": "~2.1.17"
