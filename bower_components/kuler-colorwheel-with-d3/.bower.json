@@ -27,11 +27,11 @@
     "tinycolor": "~1.1.2",
     "d3": "~3.5.5"
   },
-  "_release": "ab1024a599",
+  "_release": "02dfae837b",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "ab1024a59922eb2384469ea00f11e31e7360d8b4"
+    "commit": "02dfae837be1f8468a7b2a31c2aae26f8e0b0c99"
   },
   "_source": "git://github.com/benknight/kuler-colorwheel-with-d3.git",
   "_target": "*",

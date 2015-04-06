@@ -73,8 +73,9 @@
 
   var modes = {
       ANALOGOUS: 'Analogous',
-      TRIAD: 'Triad',
       COMPLEMENTARY: 'Complementary',
+      TRIAD: 'Triad',
+      TETRAD: 'Tetrad',
       MONOCHROMATIC: 'Monochromatic',
       SHADES: 'Shades',
       CUSTOM: 'Custom'
@@ -99,10 +100,8 @@
   /** Constructor */
 
   var ColorWheel = function ColorWheel (data, container, options) {
+    // Cache a reference to this
     var self = this;
-
-    // Event Dispatch
-    this.dispatch = d3.dispatch('update', 'updateEnd');
 
     // Set configs
     this.options = {
@@ -131,13 +130,14 @@
     }
 
     if (data.constructor === Array) {
-      // Parse data as tinycolor and convert to HSV
+      // We were given data.
       var data = data.map(function (datum) {
         var d;
         if (typeof datum === 'string') {
           d = tinycolor(datum).toHsv();
         } else if (typeof datum === 'object') {
           d = tinycolor(datum.colorString).toHsv();
+          d.s = 1.0;
           d.name = datum.name;
         }
         return d;
@@ -155,44 +155,79 @@
     this.container = d3.select(container);
     this.r = this.options.width / 2;
 
-
     // --- Draw the UI ---
 
-    var wheel = this.container.append('svg')
-      .attr('class', 'wheel')
-      .attr('width', this.options.width + 2 * this.options.margin)
-      .attr('height', this.options.width + 2 * this.options.margin);
+    var wheel = this.container.append('svg').attr({
+      class: 'wheel',
+      width: this.options.width + 2 * this.options.margin,
+      height: this.options.width + 2 * this.options.margin
+    });
 
-    var markerTrailsContainer = wheel.append('g')
-      .attr('class', 'marker-trails')
-      .attr('width', this.options.width)
-      .attr('height', this.options.width)
-      .attr('transform', 'translate(' + this.options.margin + ', ' + this.options.margin + ')');
+    var wheelShadow = wheel.append('circle').attr({
+      fill: 'black',
+      r: this.r,
+      cx: this.r,
+      cy: this.r,
+      transform: 'translate(' + (this.options.margin + 4) + ', ' + (this.options.margin + 4) + ')'
+    });
+
+    var wheelImage = wheel.append('image').attr({
+      width: this.options.width,
+      height: this.options.width,
+      transform: 'translate(' + this.options.margin + ', ' + this.options.margin + ')',
+      'xlink:href': 'http://benknight.github.io/kuler-colorwheel-with-d3/colorwheel.png'
+    });
+
+    var markerTrailsContainer = wheel.append('g').attr({
+      class: 'marker-trails',
+      width: this.options.width,
+      height: this.options.width,
+      transform: 'translate(' + this.options.margin + ', ' + this.options.margin + ')'
+    });
 
     var markerTrails = markerTrailsContainer.selectAll('.marker-trail').data(data);
 
-    markerTrails.enter().append('line')
-      .attr('class', 'marker-trail')
-      .attr('x1', this.options.width / 2)
-      .attr('y1', this.options.width / 2);
+    markerTrails.enter().append('line').attr({
+      class: 'marker-trail',
+      x1: this.r,
+      y1: this.r,
+      stroke: 'white',
+      'stroke-opacity': '0.75',
+      'stroke-width': '3px',
+      'stroke-dasharray': '10, 6'
+    });
 
-    var markersContainer = wheel.append('g')
-      .attr('class', 'markers')
-      .attr('width', this.options.width)
-      .attr('height', this.options.width)
-      .attr('transform', 'translate(' + this.options.margin + ', ' + this.options.margin + ')');
+    var markersContainer = wheel.append('g').attr({
+      class: 'markers',
+      width: this.options.width,
+      height: this.options.width,
+      transform: 'translate(' + this.options.margin + ', ' + this.options.margin + ')'
+    });
 
     var markers = markersContainer.selectAll('.marker').data(data);
 
-    markers.enter().append('circle')
-      .attr('class', 'marker')
-      .attr('r', this.options.markerWidth / 2);
+    markers.enter()
+      .append('g').attr('class', 'marker')
+      .append('circle')
+      .attr({
+        'r': this.options.markerWidth / 2,
+        'stroke': 'white',
+        'stroke-width': '2px',
+        'stroke-opacity': '0.9',
+        'cursor': 'move'
+      });
 
-    markers.append('title').text(function (d) {
-      return d.name;
-    });
+    markers.append('text').text(function (d) { return d.name; }).attr({
+        x: (this.options.markerWidth / 2) + 8,
+        y: (this.options.markerWidth / 4) - 5,
+        fill: 'white',
+        'font-size': '13px',
+      });
 
     markers.exit().remove();
+
+    // Events
+    this.dispatch = d3.dispatch('update', 'updateEnd');
 
     var dragstart = function () {
       self.container.selectAll('.marker')
@@ -212,6 +247,7 @@
       var theta1 = (360 + startingHue - dragHue) % 360;
       var theta2 = (360 + dragHue - startingHue) % 360;
       self.setHarmony(this, theta1 < theta2 ? -1 * theta1 : theta2);
+      self.dispatch.update();
     };
 
     var dragend = function () {
@@ -228,19 +264,18 @@
 
     this.dispatch.on('update.markers', function () {
       self.container.selectAll('.marker').attr({
-        cx: function (d) {
-          var p = self.getSVGPositionFromHS(d.h, d.s);
-          return p.x;
-        },
-        cy: function (d) {
-          var p = self.getSVGPositionFromHS(d.h, d.s);
-          return p.y;
-        },
-        fill: function (d) {
-          return hexFromHS(d.h, d.s);
-        }
-      });
-
+          transform: function (d) {
+            var hue = scientificToArtisticSmooth(d.h);
+            var p = self.getSVGPositionFromHS(d.h, d.s);
+            return [
+              'translate(' + [p.x, p.y].join() + ')'
+            ].join(' ');
+          }
+        }).select('circle').attr({
+          fill: function (d) {
+            return hexFromHS(d.h, d.s);
+          }
+        });
       self.container.selectAll('.marker-trail').attr({
         'x2': function (d) {
           var p = self.getSVGPositionFromHS(d.h, d.s);
@@ -253,10 +288,16 @@
       });
     });
 
-    // init plugins
-    ColorWheel.plugins.forEach(function (plugin) {
-      plugin(self, data);
+    this.dispatch.on('updateEnd.addModeClass', function () {
+      self.container.attr('data-mode', self.currentMode);
     });
+
+    // init plugins
+    for (var pluginId in ColorWheel.plugins) {
+      if (typeof ColorWheel.plugins[pluginId] == 'function') {
+        ColorWheel.plugins[pluginId](self, data);
+      }
+    }
 
     // phew
     this.init();
@@ -266,10 +307,10 @@
   ColorWheel.modes = modes;
 
   // Provide a plugin interface
-  ColorWheel.plugins = [];
+  ColorWheel.plugins = {};
 
-  ColorWheel.extend = function (pluginFn) {
-    this.plugins.push(pluginFn);
+  ColorWheel.extend = function (pluginId, pluginFn) {
+    this.plugins[pluginId] = pluginFn;
   }
 
   ColorWheel.prototype.svgToCartesian = function (x, y) {
@@ -351,7 +392,15 @@
         this.container.selectAll('.marker').each(function (d, i) {
           var newHue = (rootHue + ((i % 3) * 120) + 720) % 360;
           d.h = artisticToScientificSmooth(newHue);
-          d.s = 1 - 0.5 * stepFn(3)(i);
+          d.s = 1 - 0.3 * stepFn(3)(i);
+          d.v = 1;
+        });
+        break;
+      case modes.TETRAD:
+        this.container.selectAll('.marker').each(function (d, i) {
+          var newHue = (rootHue + ((i % 4) * 90) + 720) % 360;
+          d.h = artisticToScientificSmooth(newHue);
+          d.s = 1 - 0.4 * stepFn(4)(i);
           d.v = 1;
         });
         break;
@@ -392,6 +441,7 @@
       case modes.COMPLEMENTARY:
       case modes.SHADES:
       case modes.TRIAD:
+      case modes.TETRAD:
         this.container.selectAll('.marker').each(function (d) {
           var startingHue = parseFloat(d3.select(this).attr('data-startingHue'));
           d.h = artisticToScientificSmooth((startingHue + theta + 720) % 360);
@@ -401,7 +451,6 @@
         });
         break;
     }
-    this.dispatch.update();
   };
 
   ColorWheel.prototype._getColorsAs = function (toFunk) {
@@ -437,10 +486,8 @@
     this.init();
   };
 
-  /** Plugins */
-
   // Add theme UI
-  ColorWheel.extend(function (colorWheel, data) {
+  ColorWheel.extend('theme', function (colorWheel, data) {
     var theme = colorWheel.container.append('div').attr('class', 'theme');
     var swatches = theme.selectAll('div').data(data);
 
@@ -458,6 +505,8 @@
       .on('input', function (d) {
         d.v = parseInt(this.value) / 100;
         colorWheel.dispatch.update();
+      })
+      .on('change', function () {
         colorWheel.dispatch.updateEnd();
       });
 
@@ -508,7 +557,7 @@
   });
 
   // Add mode toggle UI
-  ColorWheel.extend(function (colorWheel) {
+  ColorWheel.extend('modeToggle', function (colorWheel) {
     var modeToggle = colorWheel.container.append('select')
       .attr('class', 'mode-toggle')
       .on('change', function () {
@@ -525,7 +574,7 @@
   });
 
   // Background gradient
-  ColorWheel.extend(function (colorWheel) {
+  ColorWheel.extend('bgGradient', function (colorWheel) {
     var gradient = d3.select('#gradient');
     if (! gradient.size()) {
       gradient = colorWheel.container.append('div').attr('id', 'gradient');

@@ -8,6 +8,8 @@
 (function () {
 	'use strict';
 
+	ColorWheel.plugins.theme = false;
+
 	var msg = {
 		CONNECTING: 'Connecting...',
 		SUCCESS: 'Successfully connected to local bridge!',
@@ -120,7 +122,7 @@
 						};
 					});
 
-					self.wheel = new ColorWheel(data, '#colorwheel');
+					self.wheel = new ColorWheel(data, '#colorwheel', {margin: 80, width: 400});
 
 					// Hook up listeners to wheel update event to handle changes.
 					self.wheel.dispatch.on('updateEnd.hueWheelMain', function () {
