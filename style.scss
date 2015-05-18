@@ -1,44 +1,100 @@
-body {
-	text-align: center;
-	font-family: sans-serif;
+/** Base */
+
+html {
+	min-height: 100%;
 }
 
-#alert {
+body {
+	position: relative;
+	padding: 20px;
+	font-family: Inconsolata, monospace;
+	background: url(img/stripes.png);
+	color: white;
+}
+
+h1 {
+
+}
+
+
+/** Components */
+
+.alert {
 	display: none;
 	z-index: 10;
 	position: fixed;
 	top: 0;
-	width: 100%;
-	padding: 20px 0;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 5px 20px;
 	background: cornflowerblue;
 	color: white;
-
-	&.success {
-		background: limegreen;
-	}
-
-	&.error {
-		background: crimson;
-	}
-
-	&.clickable {
-		cursor: pointer;
-	}
 }
 
-// Default gradient
-#gradient {
+.alert--success {
+	background: limegreen;
+}
+
+.alert--error {
+	background: crimson;
+}
+
+.alert--clickable {
+	cursor: pointer;
+}
+
+.gradient {
 	background-image: linear-gradient(
 		to right,
-		rgb(255, 202, 0) 10%,
+		rgb(255, 202, 0  ) 10%,
 		rgb(255, 229, 128),
-		rgb(0, 255, 223),
-		rgb(255, 0, 244),
+		rgb(  0, 255, 223),
+		rgb(255,   0, 244),
 		rgb(255, 128, 249) 90%
 	);
 }
 
-// Wheel
 .wheel {
-	margin-left: 20px;
+	width: 600px;
+	height: 400px;
+	margin: 0;
+}
+
+.wheel__marker text {
+	font-size: 22px;
+	text-shadow: 1px 2px 10px #000;
+}
+
+.mode-toggle {
+	position: static;
+	width: 300px;
+	height: auto;
+	margin-left: 45px;
+
+	&:hover {
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.scaffold {
+	display: flex;
+}
+
+.scaffold__left {
+	width: 400px;
+	background: rgba(black, 0.2);
+	margin-right: 20px;
+}
+
+.scaffold__right {
+	flex: 1;
+	background: rgba(black, 0.2);
+}
+
+paper-slider {
+	width: 100%;
 }

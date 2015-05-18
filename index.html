@@ -3,22 +3,40 @@
 <head>
 	<meta charset="utf-8">
 	<title>Hue Colorwheel</title>
+	<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
-	<link rel="stylesheet" href="bower_components/kuler-colorwheel-with-d3/wheel.css">
+	<link rel="stylesheet" href="bower_components/kuler-d3/wheel.css">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
 	<link rel="stylesheet" href="style.css">
+	<link rel="import" href="bower_components/paper-slider/paper-slider.html">
+	<link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
 </head>
 <body>
-	<div id="alert"></div>
-	<div id="colorwheel"></div>
-	<div id="gradient"></div>
+	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
+		<defs>
+			<filter id="blur">
+				<feGaussianBlur in="SourceGraphic" stdDeviation="150"></feGaussianBlur>
+			</filter>
+		</defs>
+	</svg>
 
-	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script src="bower_components/spin.js/spin.js"></script>
+	<div id="alert" class="alert"></div>
+	<div id="gradient" class="gradient"></div>
+
+	<h1>Hue Wheel v1.0</h1>
+
+	<div class="scaffold">
+		<div class="scaffold__left"></div>
+		<div class="scaffold__right"></div>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="bower_components/d3/d3.min.js"></script>
 	<script src="bower_components/tinycolor/tinycolor.js"></script>
 	<script src="bower_components/jshue/src/jshue.js"></script>
 	<script src="bower_components/hue-hacking/src/colors.js"></script>
-	<script src="bower_components/kuler-colorwheel-with-d3/colorwheel.js"></script>
+	<script src="bower_components/kuler-d3/colorwheel.js"></script>
+	<script src="bower_components/kuler-d3/colorwheel.gradient.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>
