@@ -20,13 +20,12 @@
     "tinycolor": "~1.1.2",
     "kuler-d3": "benknight/kuler-d3",
     "hue-hacking": "benknight/hue-hacking",
-    "spin.js": "~2.0.2",
-    "requirejs": "~2.1.17",
+    "requirejs": "~2.1.18",
     "polymer": "Polymer/polymer#^0.5",
     "paper-toast": "Polymer/paper-toast#^0.5",
-    "core-toolbar": "Polymer/core-toolbar#~0.5.5",
-    "core-scaffold": "Polymer/core-scaffold#~0.5.5",
     "paper-slider": "Polymer/paper-slider#~0.5.5",
-    "paper-toggle-button": "Polymer/paper-toggle-button#~0.5.5"
+    "paper-toggle-button": "Polymer/paper-toggle-button#~0.5.5",
+    "Sortable": "~1.2.0",
+    "zepto.js": "~1.1.6"
   }
 }
