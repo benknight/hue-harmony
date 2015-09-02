@@ -36,20 +36,14 @@ paper-radio-group {
 }
 
 paper-radio-button,
-paper-radio-group {
-	display: block;
-}
+paper-radio-group { display: block; }
 
-iron-pages {
-	margin: 0 1rem 1rem;
-}
+iron-pages { margin: 0 1rem 1rem; }
 
 paper-toast {
 	font-family: sans-serif;
 
-	a {
-		color: gold;
-	}
+	a { color: gold; }
 }
 
 paper-dialog {
@@ -81,9 +75,7 @@ paper-dialog {
 	height: 55vh;
 }
 
-.wheel__marker text {
-	text-shadow: 1px 2px 10px #000;
-}
+.wheel__marker text { text-shadow: 1px 2px 10px #000; }
 
 // -- Switches ---
 
@@ -92,9 +84,7 @@ paper-dialog {
 	flex-wrap: wrap;
 	margin-top: 1.5rem;
 
-	hr {
-		width: 100%;
-	}
+	hr { width: 100%; }
 }
 
 .switches {
@@ -107,9 +97,7 @@ paper-dialog {
 	padding-top: 3px;
 	margin-bottom: 1.5rem;
 
-	b {
-		margin-left: 15px;
-	}
+	b { margin-left: 15px; }
 }
 
 .switch__toggle {
@@ -118,9 +106,7 @@ paper-dialog {
 	margin: 23px 7px 0 0;
 }
 
-.switch__slider {
-	width: 85%;
-}
+.switch__slider { width: 85%; }
 
 .theme__swatch {
 	cursor: move;
@@ -136,9 +122,7 @@ paper-dialog {
 	border-radius: 50%;
 }
 
-.sortable-ghost .theme__color {
-	background-color: black !important;
-}
+.sortable-ghost .theme__color { background-color: black !important; }
 
 .switches.off {
 	opacity: 0.8;
