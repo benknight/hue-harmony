@@ -1,81 +1,70 @@
-/* line 3, style.scss */
-* { box-sizing: border-box; }
+/* line 1, style.scss */
+html { -webkit-font-smoothing: antialiased; font-size: 1.25em; font-family: Inconsolata, monospace; background: #333 url(img/stripes.png); color: white; min-height: 100%; }
 
-/* line 7, style.scss */
-html { -webkit-font-smoothing: antialiased; min-height: 100%; height: 100%; }
+/* line 10, style.scss */
+hr { border: none; border-top: 3px solid rgba(0, 0, 0, 0.1); margin: 1rem 0; }
 
-/* line 13, style.scss */
-body { position: relative; height: 100%; padding: 20px; font-family: Inconsolata, monospace; background: url(img/stripes.png); color: white; }
+/* line 16, style.scss */
+header { position: relative; padding: 1rem 1.5rem; background-color: black; }
+/* line 21, style.scss */
+header paper-icon-button { position: absolute; top: 0.5rem; right: 0.5rem; }
 
-/* line 25, style.scss */
-.alert { display: none; z-index: 10; position: fixed; top: 0; left: 50%; transform: translateX(-50%); padding: 5px 20px; background: cornflowerblue; color: white; }
+/* line 28, style.scss */
+paper-tabs { font-size: 0.8rem; background: rgba(0, 0, 0, 0.5); }
 
-/* line 37, style.scss */
-.alert--success { background: limegreen; }
+/* line 33, style.scss */
+paper-radio-group { background: white; padding: 0.5rem; }
 
-/* line 41, style.scss */
-.alert--error { background: crimson; }
+/* line 38, style.scss */
+paper-radio-button, paper-radio-group { display: block; }
 
-/* line 45, style.scss */
-.alert--clickable { cursor: pointer; }
+/* line 43, style.scss */
+iron-pages { margin: 0 1rem 1rem; }
 
-/* line 49, style.scss */
-.gradient { z-index: -1; opacity: 0.5; -webkit-filter: blur(5px); display: block; position: fixed; top: 0; left: 0; width: 50px; height: 50px; transform: scale(26) translateZ(0); transform-origin: top left; background-color: #999; }
+/* line 47, style.scss */
+paper-toast { font-family: sans-serif; }
+/* line 50, style.scss */
+paper-toast a { color: gold; }
 
-/* line 65, style.scss */
-.wheel { width: 400px; height: 400px; margin: 0; }
+/* line 55, style.scss */
+paper-dialog { max-width: 400px; }
 
-/* line 72, style.scss */
-.wheel__marker:first-child circle { stroke-opacity: 1; stroke-width: 5px; }
-/* line 77, style.scss */
+/* line 61, style.scss */
+.gradient { z-index: -1; opacity: 0.66; -webkit-filter: blur(75px); display: block; position: absolute; top: 0; right: 0; bottom: 30%; left: 0; will-change: transform; transform-origin: top left; background-color: #333; }
+
+/* line 79, style.scss */
+.wheel svg { width: 100%; height: 55vh; }
+
+/* line 84, style.scss */
 .wheel__marker text { text-shadow: 1px 2px 10px #000; }
 
-/* line 82, style.scss */
-.scaffold { display: flex; justify-content: center; min-height: 100%; padding: 80px 0; }
+/* line 90, style.scss */
+.controls { display: flex; flex-wrap: wrap; margin-top: 1.5rem; }
+/* line 95, style.scss */
+.controls hr { width: 100%; }
 
-/* line 89, style.scss */
-.scaffold__left { overflow: hidden; width: 400px; background: rgba(0, 0, 0, 0.2); margin-right: 20px; padding-bottom: 20px; }
+/* line 100, style.scss */
+.switches { flex: 1; }
 
-/* line 97, style.scss */
-.scaffold__right { width: 400px; padding: 20px; background: rgba(0, 0, 0, 0.2); }
-
-/* line 103, style.scss */
-.switches td { height: 40px; }
-/* line 106, style.scss */
-.switches td:nth-child(2) { width: 100%; }
-
-/* line 111, style.scss */
-.switch__toggle::shadow .toggle-ink { color: white; }
+/* line 104, style.scss */
+.switch { box-sizing: border-box; height: 45px; padding-top: 3px; margin-bottom: 1.5rem; }
+/* line 110, style.scss */
+.switch b { margin-left: 15px; }
 
 /* line 115, style.scss */
-.switch__toggle::shadow .toggle-button { cursor: pointer; }
+.switch__toggle { cursor: pointer; float: right; margin: 23px 7px 0 0; }
 
-/* line 119, style.scss */
-.switch__slider { width: 100%; }
-/* line 122, style.scss */
-.switch__slider::shadow #sliderKnob { cursor: pointer; }
+/* line 121, style.scss */
+.switch__slider { width: 85%; }
 
-/* line 127, style.scss */
-.swatches { float: left; }
+/* line 125, style.scss */
+.theme__swatch { cursor: move; cursor: -webkit-grabbing; width: 45px; height: 45px; margin: 0 0 1.5rem 0; }
 
-/* line 131, style.scss */
-.swatch { cursor: move; width: 10px; height: 10px; margin: 16px 15px 30px 0; border-radius: 1px; transition: background-color 0.1s linear; }
+/* line 133, style.scss */
+.theme__color { width: 100%; height: 100%; border-radius: 50%; }
 
-/* line 140, style.scss */
-.mode-toggler { display: flex; flex-wrap: wrap; padding: 20px 40px; }
-/* line 145, style.scss */
-.mode-toggler label { display: block; width: 50%; }
-/* line 150, style.scss */
-.mode-toggler input { margin-right: 5px; }
-
-/* line 155, style.scss */
-.theme { float: left; }
-
-/* line 159, style.scss */
-.theme__swatch { cursor: move; cursor: -webkit-grabbing; width: 30px; height: 40px; margin-left: -10px; padding: 15px 10px 0 10px; }
-
-/* line 168, style.scss */
-.theme__color { width: 10px; height: 10px; }
-
-/* line 173, style.scss */
+/* line 139, style.scss */
 .sortable-ghost .theme__color { background-color: black !important; }
+
+/* line 143, style.scss */
+.switches.off { opacity: 0.8; width: 100%; flex: none; }

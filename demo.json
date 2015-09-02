@@ -1,0 +1,966 @@
+{
+  "lights": {
+    "1": {
+      "state": {
+        "on": true,
+        "bri": 254,
+        "hue": 30876,
+        "sat": 253,
+        "effect": "none",
+        "xy": [
+          0.22199323776572802,
+          0.10684966423567299
+        ],
+        "ct": 206,
+        "alert": "none",
+        "colormode": "xy",
+        "reachable": true
+      },
+      "type": "Extended color light",
+      "name": "Shelves",
+      "modelid": "LCT001",
+      "uniqueid": "00:17:88:01:00:b2:04:15-0b",
+      "swversion": "66013452",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "2": {
+      "state": {
+        "on": true,
+        "bri": 254,
+        "hue": 46388,
+        "sat": 254,
+        "effect": "none",
+        "xy": [
+          0.33920396287071825,
+          0.1684206407609373
+        ],
+        "ct": 500,
+        "alert": "none",
+        "colormode": "xy",
+        "reachable": true
+      },
+      "type": "Extended color light",
+      "name": "Bed",
+      "modelid": "LCT001",
+      "uniqueid": "00:17:88:01:00:b5:6f:21-0b",
+      "swversion": "66013452",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "3": {
+      "state": {
+        "on": false,
+        "bri": 206,
+        "hue": 3128,
+        "sat": 240,
+        "effect": "none",
+        "xy": [
+          0.1670099484366735,
+          0.04001964210132142
+        ],
+        "ct": 500,
+        "alert": "none",
+        "colormode": "xy",
+        "reachable": true
+      },
+      "type": "Extended color light",
+      "name": "Desk",
+      "modelid": "LCT001",
+      "uniqueid": "00:17:88:01:00:b5:82:1c-0b",
+      "swversion": "66013452",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "4": {
+      "state": {
+        "on": true,
+        "bri": 254,
+        "hue": 14922,
+        "sat": 144,
+        "effect": "none",
+        "xy": [
+          0.5753547897813439,
+          0.29247103808687996
+        ],
+        "ct": 369,
+        "alert": "none",
+        "colormode": "xy",
+        "reachable": false
+      },
+      "type": "Extended color light",
+      "name": "Shower",
+      "modelid": "LCT001",
+      "uniqueid": "00:17:88:01:00:b5:82:1b-0b",
+      "swversion": "66010820",
+      "pointsymbol": {
+        "1": "0a00f1f01f1f1001f1ff100000000001f2000000",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "5": {
+      "state": {
+        "on": false,
+        "bri": 191,
+        "hue": 39145,
+        "sat": 253,
+        "effect": "none",
+        "xy": [
+          0.167,
+          0.04
+        ],
+        "ct": 153,
+        "alert": "none",
+        "colormode": "xy",
+        "reachable": true
+      },
+      "type": "Extended color light",
+      "name": "Ceiling",
+      "modelid": "LCT001",
+      "uniqueid": "00:17:88:01:00:bc:23:e6-0b",
+      "swversion": "66010820",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "6": {
+      "state": {
+        "on": true,
+        "bri": 203,
+        "hue": 63199,
+        "sat": 224,
+        "effect": "none",
+        "xy": [
+          0.6477730294566095,
+          0.33138982893281677
+        ],
+        "ct": 500,
+        "alert": "none",
+        "colormode": "xy",
+        "reachable": true
+      },
+      "type": "Extended color light",
+      "name": "Tree",
+      "modelid": "LCT001",
+      "uniqueid": "00:17:88:01:00:bc:60:8a-0b",
+      "swversion": "66013452",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    }
+  },
+  "groups": {
+    "1": {
+      "name": "Afred Hue Group",
+      "lights": [
+        "1",
+        "2"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": true,
+        "bri": 254,
+        "hue": 46388,
+        "sat": 254,
+        "effect": "none",
+        "xy": [
+          0.175,
+          0.0559
+        ],
+        "ct": 500,
+        "colormode": "xy"
+      }
+    },
+    "2": {
+      "name": "Afred Hue Group 1",
+      "lights": [
+        "3",
+        "5"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": false,
+        "bri": 191,
+        "hue": 39145,
+        "sat": 253,
+        "effect": "none",
+        "xy": [
+          0.2571,
+          0.2175
+        ],
+        "ct": 153,
+        "colormode": "xy"
+      }
+    },
+    "3": {
+      "name": "Afred Hue Group 2",
+      "lights": [
+        "2",
+        "3",
+        "4"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": true,
+        "bri": 254,
+        "hue": 14922,
+        "sat": 144,
+        "effect": "none",
+        "xy": [
+          0.4436,
+          0.4926
+        ],
+        "ct": 369,
+        "colormode": "xy"
+      }
+    },
+    "4": {
+      "name": "Afred Hue Group",
+      "lights": [
+        "3"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": true,
+        "bri": 206,
+        "hue": 3128,
+        "sat": 240,
+        "effect": "none",
+        "xy": [
+          0.6281,
+          0.3476
+        ],
+        "ct": 500,
+        "colormode": "xy"
+      }
+    },
+    "5": {
+      "name": "Afred Hue Group",
+      "lights": [
+        "2",
+        "3",
+        "4"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": true,
+        "bri": 254,
+        "hue": 14922,
+        "sat": 144,
+        "effect": "none",
+        "xy": [
+          0.4436,
+          0.4926
+        ],
+        "ct": 369,
+        "colormode": "xy"
+      }
+    },
+    "6": {
+      "name": "Afred Hue Group",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": true,
+        "bri": 206,
+        "hue": 3128,
+        "sat": 240,
+        "effect": "none",
+        "xy": [
+          0.6281,
+          0.3476
+        ],
+        "ct": 500,
+        "colormode": "xy"
+      }
+    },
+    "7": {
+      "name": "Afred Hue Group",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": true,
+        "bri": 206,
+        "hue": 3128,
+        "sat": 240,
+        "effect": "none",
+        "xy": [
+          0.6281,
+          0.3476
+        ],
+        "ct": 500,
+        "colormode": "xy"
+      }
+    },
+    "8": {
+      "name": "Afred Hue Group",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "6"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": false,
+        "bri": 203,
+        "hue": 63199,
+        "sat": 224,
+        "effect": "none",
+        "xy": [
+          0.5834,
+          0.297
+        ],
+        "ct": 500,
+        "colormode": "xy"
+      }
+    }
+  },
+  "config": {
+    "name": "Philips hue",
+    "zigbeechannel": 11,
+    "mac": "00:17:88:0a:3e:ce",
+    "dhcp": true,
+    "ipaddress": "192.168.1.132",
+    "netmask": "255.255.255.0",
+    "gateway": "192.168.1.1",
+    "proxyaddress": "none",
+    "proxyport": 0,
+    "UTC": "2015-06-13T09:00:18",
+    "localtime": "2015-06-13T02:00:18",
+    "timezone": "America/Los_Angeles",
+    "whitelist": {
+      "alabamahue": {
+        "last use date": "2015-06-13T09:00:18",
+        "create date": "2014-02-01T21:47:10",
+        "name": "CLIP_API"
+      },
+      "ffffffff9c4e3f39ffffffffce1d31b3": {
+        "last use date": "2014-12-27T04:20:08",
+        "create date": "2014-02-01T21:58:09",
+        "name": "motorola XT907"
+      },
+      "k0D7A1gJrIpRbgAN": {
+        "last use date": "2014-02-03T09:06:08",
+        "create date": "2014-02-02T07:40:49",
+        "name": "TMK"
+      },
+      "285a0e16350703c717ba6e7af4db0db": {
+        "last use date": "2014-03-08T20:14:17",
+        "create date": "2014-03-05T03:40:02",
+        "name": "Alfred 2"
+      },
+      "214954f53d3d1e671c2383c12da16d93": {
+        "last use date": "2014-06-08T07:41:45",
+        "create date": "2014-03-08T20:16:29",
+        "name": "Alfred 2"
+      },
+      "ffffffffe00e6f8efffffffff58561aa": {
+        "last use date": "2014-05-24T04:29:05",
+        "create date": "2014-03-17T02:57:38",
+        "name": "PhilipsHueAndroidApp#Motorola XT1053"
+      },
+      "496188A61A070C9354214F932A3C57F3": {
+        "last use date": "2014-05-01T03:55:54",
+        "create date": "2014-05-01T03:48:52",
+        "name": "HueDisco"
+      },
+      "aGIaHxjEmv6gadLU": {
+        "last use date": "2014-05-01T03:55:33",
+        "create date": "2014-05-01T03:48:57",
+        "name": "philips.lighting.hue#Transponder"
+      },
+      "6DUgmea5QoPhKw8L": {
+        "last use date": "2014-05-01T10:24:59",
+        "create date": "2014-05-01T03:49:04",
+        "name": "philips.lighting.hue#hippolyta"
+      },
+      "0f607264fc6318a92b9e13c65db7cd3c": {
+        "last use date": "2014-05-01T04:17:03",
+        "create date": "2014-05-01T04:00:35",
+        "name": "iPhone"
+      },
+      "V3pwJ4mX0oGKYbJr": {
+        "last use date": "2014-05-01T06:36:29",
+        "create date": "2014-05-01T04:00:54",
+        "name": "philips.lighting.hue#Jay's iPhone"
+      },
+      "cdkjpGZLy8oQuOk3": {
+        "last use date": "2014-05-01T04:05:32",
+        "create date": "2014-05-01T04:03:02",
+        "name": "Jay's iPhone"
+      },
+      "CC2A31E88C5915E8262E2C2389F95845": {
+        "last use date": "2014-05-01T04:07:08",
+        "create date": "2014-05-01T04:06:17",
+        "name": "HueDisco"
+      },
+      "ffffffff9edd26bbfffffffff58561aa": {
+        "last use date": "2015-05-12T16:48:36",
+        "create date": "2014-06-27T07:54:20",
+        "name": "Hue#Motorola XT1053"
+      },
+      "kYH8dQUV3r6DGtDt": {
+        "last use date": "2014-11-12T04:25:50",
+        "create date": "2014-10-12T03:42:20",
+        "name": "MyApplication#QuickStartApp"
+      },
+      "3a46ac4b4eb96af291895531fdecc37": {
+        "last use date": "2014-11-12T02:10:03",
+        "create date": "2014-10-16T05:04:14",
+        "name": "Alfred 2"
+      },
+      "2ab7596b151585cfdbee6732d669f57": {
+        "last use date": "2014-10-16T07:01:33",
+        "create date": "2014-10-16T07:00:50",
+        "name": "Alfred 2"
+      },
+      "290f439314fac0ef32c0928b3f07d467": {
+        "last use date": "2014-11-25T08:01:02",
+        "create date": "2014-11-14T18:06:40",
+        "name": "Alfred 2"
+      },
+      "9d67f7ac3704acb7ab3129e681dc9e3e": {
+        "last use date": "2014-11-15T19:08:13",
+        "create date": "2014-11-15T19:07:40",
+        "name": "Motorola XT890"
+      },
+      "DLBp1430mJaOQqL0": {
+        "last use date": "2014-11-16T04:09:49",
+        "create date": "2014-11-16T04:09:20",
+        "name": "HueLights#iPhone"
+      },
+      "NbvrkKrLgd3aDsb3": {
+        "last use date": "2014-11-26T08:28:28",
+        "create date": "2014-11-21T03:04:58",
+        "name": "Hue#hippolyta"
+      },
+      "phillipshue-rec2": {
+        "last use date": "2014-12-25T06:21:43",
+        "create date": "2014-12-25T04:15:12",
+        "name": "Philips hue JavaScript"
+      },
+      "000000001fe6baefffffffffce1d31b3": {
+        "last use date": "2015-06-09T08:16:12",
+        "create date": "2014-12-27T05:02:25",
+        "name": "Hue#Motorola XT907"
+      },
+      "3518bcc33819e72fb37a5bb237b32a7": {
+        "last use date": "2015-01-29T01:50:40",
+        "create date": "2015-01-27T17:15:32",
+        "name": "Alfred 2"
+      },
+      "f670f872600afff34f4217726cb43ef": {
+        "last use date": "2015-02-02T19:37:39",
+        "create date": "2015-01-30T17:21:20",
+        "name": "Alfred 2"
+      },
+      "36aae95c3fce8b6f18d9233422cc4ee7": {
+        "last use date": "2015-02-07T23:52:20",
+        "create date": "2015-01-31T21:11:41",
+        "name": "Alfred 2"
+      },
+      "19b496d81ac992bf26f3a08816df2cf": {
+        "last use date": "2015-02-04T06:52:32",
+        "create date": "2015-02-02T19:30:29",
+        "name": "Alfred 2"
+      },
+      "1f16bca9c47f09727f7aded102fd9bb": {
+        "last use date": "2015-02-07T23:37:20",
+        "create date": "2015-02-04T20:14:12",
+        "name": "Alfred 2"
+      },
+      "e64b1c3334b4c2f2358fabbe93f7a7": {
+        "last use date": "2015-02-07T23:37:20",
+        "create date": "2015-02-07T23:26:28",
+        "name": "Alfred 2"
+      },
+      "19bc9d7e3b6b94c7f793992373728eb": {
+        "last use date": "2015-02-13T08:37:05",
+        "create date": "2015-02-07T23:44:02",
+        "name": "Alfred 2"
+      },
+      "2080c5d215529bf71eb9ddee3b5c4e23": {
+        "last use date": "2015-03-11T02:05:50",
+        "create date": "2015-02-17T18:49:39",
+        "name": "Alfred 2"
+      },
+      "301627b23bf741571eee79ce2c010583": {
+        "last use date": "2015-03-17T17:35:29",
+        "create date": "2015-03-17T17:35:29",
+        "name": "Alfred 2"
+      },
+      "343450c122688d77325d31f5269f918b": {
+        "last use date": "2015-04-09T02:53:01",
+        "create date": "2015-03-19T07:37:12",
+        "name": "Alfred 2"
+      },
+      "213bc5e119116d973a2e211532085bab": {
+        "last use date": "2015-03-22T00:10:07",
+        "create date": "2015-03-22T00:10:07",
+        "name": "hue-colorwheel-app"
+      },
+      "a022f286a34cdf25bee4d8aa128cf": {
+        "last use date": "2015-03-22T00:13:32",
+        "create date": "2015-03-22T00:13:32",
+        "name": "hue-colorwheel-app"
+      },
+      "115be1281f0416df30416d82c4772cf": {
+        "last use date": "2015-03-22T00:38:56",
+        "create date": "2015-03-22T00:16:12",
+        "name": "hue-colorwheel-app"
+      },
+      "b2648f81133025f7d24aa81931ca6f": {
+        "last use date": "2015-04-28T05:37:06",
+        "create date": "2015-04-23T02:46:12",
+        "name": "Alfred 2"
+      },
+      "2cbe28782b98cbdf23ec4a282f2ff3ef": {
+        "last use date": "2015-04-28T05:37:06",
+        "create date": "2015-04-28T05:21:28",
+        "name": "Alfred 2"
+      },
+      "161c848eef4290711da89a21798e12b": {
+        "last use date": "2015-05-29T19:32:45",
+        "create date": "2015-04-28T05:24:48",
+        "name": "Alfred 2"
+      },
+      "fffffffffbb8e68afffffffff5856228": {
+        "last use date": "2015-06-09T08:31:12",
+        "create date": "2015-05-28T07:37:30",
+        "name": "Hue#Motorola XT1095"
+      },
+      "2efecab73e094d1f3ea350a7645c52f": {
+        "last use date": "2015-06-13T08:16:00",
+        "create date": "2015-06-01T22:36:17",
+        "name": "Alfred 2"
+      }
+    },
+    "swversion": "01018228",
+    "apiversion": "1.5.0",
+    "swupdate": {
+      "updatestate": 2,
+      "checkforupdate": false,
+      "devicetypes": {
+        "bridge": true,
+        "lights": [
+          "5"
+        ]
+      },
+      "url": "",
+      "text": "Bridge 1.7.0 release",
+      "notify": false
+    },
+    "linkbutton": false,
+    "portalservices": true,
+    "portalconnection": "connected",
+    "portalstate": {
+      "signedon": true,
+      "incoming": true,
+      "outgoing": true,
+      "communication": "disconnected"
+    }
+  },
+  "schedules": {},
+  "scenes": {
+    "19a493ad2f-off-0": {
+      "name": "Relax off 139624",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "active": true
+    },
+    "2141cb8bd2-on-0": {
+      "name": "Deep sea on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "54ae5d9970-on-0": {
+      "name": "Ski on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "6b6ca6a0d3-on-0": {
+      "name": "Beach on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "f5d73dbdd5-on-0": {
+      "name": "Concentrate on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "ac637e2f0b-on-0": {
+      "name": "Relax on 1396240",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "active": true
+    },
+    "087f88f522-on-0": {
+      "name": "Sunset on 139667",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "f2b600f908-on-0": {
+      "name": "Kathy on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "e915785b2b-on-0": {
+      "name": "Reading on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "0f2c67d801-on-0": {
+      "name": "Blue rain on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "2e1dbbb4ac-on-0": {
+      "name": "Pencils on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "825bfb4b31-on-0": {
+      "name": "Ben's Special on",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "active": true
+    },
+    "6c97c84fe6-on-0": {
+      "name": "Deep sea on 1402",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "8fd5df7c85-on-0": {
+      "name": "Sick Six on 1402",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "f5d73dbdd-on-0": {
+      "name": "Concentrate on 1",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "1df07f572-off-0": {
+      "name": "Relax off 141430",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "0df0d8410-on-0": {
+      "name": "Relax on 1414307",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "fa8476968-on-0": {
+      "name": "Reading on 14143",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "ac637e2f0-on-0": {
+      "name": "Relax on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "9b91fe11f-on-0": {
+      "name": "Deep sea on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "497b50d84-on-0": {
+      "name": "Sunset on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "1105989c0-on-0": {
+      "name": "Kathy on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "0a54b1e8f-on-0": {
+      "name": "Beach on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "62f8ac156-on-0": {
+      "name": "Ski on 0",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "e915785b2-on-0": {
+      "name": "Reading on 1419656604545",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "84fa88aa5-on-0": {
+      "name": "Energize on 1419656609628",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "02b12e930-off-0": {
+      "name": "Reading off 1430021053094",
+      "lights": [
+        "1",
+        "2",
+        "3"
+      ],
+      "active": true
+    },
+    "8dea636f7-off-0": {
+      "name": "All 100 off 1430021202450",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "3ab2549d1-on-0": {
+      "name": "All 100 on 1430021202451",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "6d103c356-on-0": {
+      "name": "Relax on 1430021299283",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "b70636218-on-0": {
+      "name": "Energize on 1430021373661",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "c6a57fb57-on-0": {
+      "name": "All Warm on 1430021467789",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "active": true
+    },
+    "72b6b1f30-on-0": {
+      "name": "All Warm on 1430021500607",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6"
+      ],
+      "active": true
+    }
+  },
+  "rules": {},
+  "sensors": {
+    "1": {
+      "state": {
+        "daylight": false,
+        "lastupdated": "none"
+      },
+      "config": {
+        "on": true,
+        "long": "none",
+        "lat": "none",
+        "sunriseoffset": 30,
+        "sunsetoffset": -30
+      },
+      "name": "Daylight",
+      "type": "Daylight",
+      "modelid": "PHDL00",
+      "manufacturername": "Philips",
+      "swversion": "1.0"
+    }
+  }
+}

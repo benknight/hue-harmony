@@ -12,8 +12,8 @@ define(function (require) {
 	var msg = {
 		CONNECTING: 'Connecting...',
 		SUCCESS: 'Successfully connected to local bridge!',
-		NO_BRIDGE: 'No bridge found on your local network.',
-		PRESS_BUTTON: 'Please authenticate by pressing the button on the Hue bridge. Click to retry.',
+		NO_BRIDGE: 'No Philips Hue bridge found on your local network.',
+		PRESS_BUTTON: 'Please authenticate by pressing the button on the Hue bridge. Tap to retry.',
 		CONNECTION_ERROR_GENERIC: 'Unable to connect to the Internet.',
 		CONNECTION_ERROR_BRIDGE: 'Unable to connect to local bridge.',
 		UNAUTHORIZED_USER: 'Unauthorized user.'
@@ -29,14 +29,14 @@ define(function (require) {
 		cache: {}, // for caching API data
 
 		colorWheelOptions: { // options for the ColorWheel instance
-			container: '.scaffold__left',
-			markerWidth: 35
+			container: '.wheel',
+			markerWidth: 38
 		},
 
 		$: { // references to DOM nodes
-			alert: $('#alert'),
-			loading: $('#loading'),
-			controls: $('#controls')
+			status: $('.status'),
+			controls: $('.controls'),
+			template: $('#app')
 		},
 
 		// Cache the full Hue Bridge state
@@ -53,7 +53,8 @@ define(function (require) {
 						}
 					} else {
 						self.cache.fullState = data;
-						this.observeChanges();
+						self.observeChanges();
+						self.$.status.attr({ duration: 3000, text: msg.SUCCESS }).get(0).show();
 						resolve();
 					}
 				},
@@ -64,6 +65,7 @@ define(function (require) {
 		},
 
 		observeChanges: function () {
+			var self = this;
 			$.each(self.cache.fullState.lights, function (lid, light) {
 				// TODO: Can't use O.o yet
 				// Use this: https://github.com/polymer/observe-js
@@ -81,11 +83,16 @@ define(function (require) {
 			});
 		},
 
+		// This is some complicated unelegant shit. An LID-to-marker map is created
+		// based on the DOM order & visibility of theme swatches, mashed with the LIDs
+		// based on their appearance in the "on" switches table or "off" table.
 		getLIDToMarkerMap: function () {
 			var lidToMarkerMap = [];
-			var lids = Object.keys(this.cache.fullState.lights);
-			$('.theme__swatch').each(function (index) {
-				lidToMarkerMap[lids[index]] = $(this).attr('data-marker-id');
+			var lids = this.$.controls.find('.switch').map(function () { return $(this).data('lid') });
+			var visibleSwatches = $('.theme__swatch:visible').toArray();
+			var hiddenSwatches = $('.theme__swatch:hidden').toArray();
+			$(visibleSwatches.concat(hiddenSwatches)).each(function (index) {
+				lidToMarkerMap[lids[index]] = window.parseInt($(this).attr('data-marker-id'));
 			});
 			return lidToMarkerMap;
 		},
@@ -107,6 +114,7 @@ define(function (require) {
 					self.APP_ID,
 					function (data) {
 						if (data[0].success) {
+							self.username = data[0].success.username;
 							window.localStorage.setItem('username', self.username);
 							resolve();
 						} else {
@@ -165,10 +173,12 @@ define(function (require) {
 			var wheelData = [];
 			for (var lid in this.cache.fullState.lights) {
 				var light = this.cache.fullState.lights[lid];
+				var lightHex = colors.CIE1931ToHex.apply(null, light.state.xy);
+				var lightHue = tinycolor(lightHex).toHsv().h;
 				wheelData.push(ColorWheel.createMarker(
-					colors.CIE1931ToHex.apply(null, this.cache.fullState.lights[lid].state.xy),
+					{ h: lightHue, s: (light.state.sat / 255), v: 100 },
 					null,
-					this.cache.fullState.lights[lid].state.on
+					light.state.on
 				));
 			}
 			this.wheel = new ColorWheel(this.colorWheelOptions);
@@ -177,68 +187,96 @@ define(function (require) {
 		},
 
 		// Renders the light switches and attached behavior
-		renderSwitches: function () {
+		renderControls: function () {
 			var self = this;
-			var $switches = $('<table>').addClass('switches');
-			$.each(this.cache.fullState.lights, function (lid, light) {
-				var $row = $('<tr>');
-				// Add name
-				$row.append( $('<td>').append( $('<b>').text(light.name) ));
+			var rows = { on: [], off: [] };
+			var controls = {
+				on: $('<div>').addClass('switches on'),
+				off: $('<div>').addClass('switches off')
+			};
 
-				// Add brightness slider
-				var $slider = $('<paper-slider>').attr({
-						'class': 'switch__slider',
-						'min': 0,
-						'max': 255,
-						'value': light.state.bri,
-						'disabled': ! light.state.on,
-					})
-					.on('change', function () {
-						light.state.bri = this.value;
-					});
-				$row.append( $('<td>').append($slider) );
+			$.each(this.cache.fullState.lights, function (lid, light) {
+				var $row = $('<div class="switch">').attr('data-lid', lid);
+				var slider = document.createElement('paper-slider');
+				var toggle = document.createElement('paper-toggle-button');
 
 				// Add on/off switch
-				$row.append( $('<td>').append( $('<paper-toggle-button>').attr({
-						'class': 'switch__toggle',
-						'checked': !! light.state.on,
-						'data-lid': lid
-					})
-					.on('change', function () {
-						var markerIndex = self.getLIDToMarkerMap()[lid];
-						var marker = d3.select(self.wheel.getMarkers()[0][markerIndex]);
-						marker.datum().show = this.checked;
-						$slider.attr('disabled', ! this.checked);
-						light.state.on = this.checked;
-						self.wheel.dispatch.updateMarkers();
-						self.wheel.setMode(ColorWheel.modes.CUSTOM);
-					})
-				));
-				$switches.append($row);
+				Polymer.dom(toggle).setAttribute('class', 'switch__toggle');
+				toggle.checked = !! light.state.on;
+				toggle.addEventListener('change', function () {
+					var markerIndex = self.getLIDToMarkerMap()[lid];
+					var marker = d3.select(self.wheel.getMarkers()[0][markerIndex]);
+					marker.datum().show = this.checked;
+					// Update slider
+					slider.disabled = ! this.checked;
+					// Update state
+					light.state.on = this.checked;
+					// Call events
+					self.wheel.dispatch.update();
+					self.wheel.setHarmony();
+					// Append
+					$(this).closest('div').appendTo(controls[light.state.on ? 'on': 'off']);
+				});
+
+				// Add brightness slider
+				Polymer.dom(slider).setAttribute('class', 'switch__slider');
+				slider.pin = true;
+				slider.min = 0;
+				slider.max = 255;
+				slider.value = light.state.bri;
+				slider.disabled = ! light.state.on;
+				slider.addEventListener('change', function () {
+					light.state.bri = this.value;
+				});
+
+				$row.append( $('<b>').text(light.name) );
+				$row.append( toggle );
+				$row.append( slider );
+				rows[light.state.on ? 'on' : 'off'].push($row);
 			});
-			this.$.controls.append($switches);
+			controls.on.append(rows.on).appendTo(this.$.controls);
+			$('<hr>').appendTo(this.$.controls);
+			controls.off.append(rows.off).appendTo(this.$.controls);
 		},
 
 		// Builds the UI once the Hue API has been loaded
 		render: function () {
-			this.$.alert.addClass('alert--success').text(msg.SUCCESS).delay(3000).fadeOut();
+			this.bindTemplate();
 			this.renderWheel();
-			this.renderSwitches();
+			this.renderControls();
 		},
 
 		// Displays an error to the user, expecting an Error instance
 		showError: function (e) {
 			console.error(e.stack);
-			this.$.alert.addClass('alert--error').text(e.message).show();
 			if (e.message == msg.PRESS_BUTTON) {
-				this.$.alert.addClass('alert--clickable').click(this.init.bind(this));
+				this.$.status.find('a').text('Tap to retry');
+				this.$.status.click(this.init.bind(this));
 			}
+			if (e.message == msg.NO_BRIDGE) {
+				this.$.status.find('a').text('Tap to restart in demo mode');
+				this.$.status.click(this.demo.bind(this));
+			}
+			this.$.status.attr({ text: e.message, duration: 1e10 }).get(0).show();
+		},
+
+		resetStatus: function () {
+			this.$.status.get(0).hide();
+			this.$.status.find('a').empty();
+		},
+
+		bindTemplate: function () {
+			var template = this.$.template.get(0);
+			template.selected = 0;
+			template.bridgeIP = this.bridgeIP;
+			template.username = this.username;
 		},
 
 		// Start the app!
 		init: function () {
 			var self = this;
-			self.$.alert.attr('class', 'alert').text(msg.CONNECTING).show();
+			self.resetStatus();
+			self.$.status.attr('text', msg.CONNECTING).get(0).show();
 			self.connectToLocalBridge()
 				.then(self.getAPIUser.bind(self))
 				.then(self.cacheFullState.bind(self))
@@ -249,7 +287,10 @@ define(function (require) {
 		// Start the app in demo mode, using mock data.
 		demo: function () {
 			var self = this;
-			$.get('/demo/data.json', function (data) {
+			self.resetStatus();
+			$.get('/demo.json', function (data) {
+				self.bridgeIP = 'DEMO';
+				self.username = 'DEMO';
 				self.cache.fullState = data;
 				self.render();
 			});

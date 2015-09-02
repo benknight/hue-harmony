@@ -3,7 +3,8 @@ define(
 	function (d3, ColorWheel, tinycolor, Sortable) {
 		// Add theme UI
 		ColorWheel.extend('theme', function (colorWheel) {
-			var theme = d3.select('.scaffold__right').append('div').attr('class', 'theme');
+			var theme = d3.select('.controls').append('div').attr('class', 'theme');
+			var sandbox = d3.select('.controls').append('div').style('display', 'none');
 
 			Sortable.create(theme.node(), {
 				animation: 150,
@@ -22,7 +23,11 @@ define(
 				swatches.exit().remove();
 			});
 
-			colorWheel.dispatch.on('updateMarkers.theme', function () {
+			colorWheel.dispatch.on('update.theme', function () {
+				d3.selectAll('.theme__swatch').remove().each(function (d) {
+					var parent = d.show ? theme : sandbox;
+					parent.node().appendChild(this);
+				});
 				d3.selectAll('.theme__color').each(function (d) {
 					var c = tinycolor({h: d.color.h, s: d.color.s, v: d.color.v});
 					this.style.backgroundColor = c.toHexString();

@@ -1,25 +1,26 @@
 define(['d3', 'colorwheel'], function (d3, ColorWheel) {
+
 	// Add mode toggle UI to the ColorWheel
-	ColorWheel.extend('modeToggle', function (colorWheel) {
-		var modeToggle = d3.select('.scaffold__left').append('div').attr('class', 'mode-toggler');
+	ColorWheel.extend('modeToggle', function (wheel) {
+		var container = document.createElement('paper-material');
+		Polymer.dom(container).setAttribute('elevation', 2);
+		var modeToggle = document.createElement('paper-radio-group');
 
 		for (var mode in ColorWheel.modes) {
-			var label = modeToggle.append('label');
-			label.append('input')
-					.attr({
-						'type': 'radio',
-						'name': 'modeToggle',
-						'value': ColorWheel.modes[mode]
-					})
-					.on('change', function () {
-						colorWheel.setMode(this.value);
-					});
-			label.append('span').text(ColorWheel.modes[mode]);
-		}
-		colorWheel.dispatch.on('setMode.modeToggle', function () {
-			modeToggle.selectAll('input').property('checked', function () {
-				return this.value == colorWheel.currentMode;
+			var modeToggleOption = document.createElement('paper-radio-button');
+			Polymer.dom(modeToggleOption).setAttribute('name', ColorWheel.modes[mode]);
+			Polymer.dom(modeToggleOption).textContent = ColorWheel.modes[mode];
+			modeToggleOption.addEventListener('change', function () {
+				wheel.setMode(this.getAttribute('name'));
 			});
+			Polymer.dom(modeToggle).appendChild(modeToggleOption);
+		}
+
+		container.appendChild(modeToggle);
+		document.querySelector('.page-1').appendChild(container);
+
+		wheel.dispatch.on('setMode.modeToggle', function () {
+			Polymer.dom(modeToggle).setAttribute('selected', wheel.currentMode);
 		});
 	});
 });
