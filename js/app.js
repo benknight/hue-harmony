@@ -43,6 +43,7 @@ define(function (require) {
 		cacheFullState: function () {
 			console.log('Caching API fullState...');
 			var self = this;
+			this.api = this.hue.bridge(this.bridgeIP).user(storedUser);
 			return new Promise(function (resolve, reject) {
 				self.api.getFullState(function (data) {
 					if (data.length && data[0].error) {
@@ -100,10 +101,8 @@ define(function (require) {
 		// See if there is already a saved username, if not create one
 		getAPIUser: function () {
 			console.log('Getting API user...');
-			var storedUser = window.localStorage.getItem('username') || undefined;
-			this.username = storedUser;
-			this.api = this.hue.bridge(this.bridgeIP).user(storedUser);
-			return storedUser || this.createAPIUser();
+			this.username = window.localStorage.getItem('username');
+			return this.username || this.createAPIUser();
 		},
 
 		// Creates a new API user, only succeeds if the Bridge's button has been pressed
@@ -135,7 +134,7 @@ define(function (require) {
 
 		// Hunt for the local Hue Bridge
 		connectToLocalBridge: function () {
-			console.log('Connecting to local brdige...');
+			console.log('Connecting to local bridge...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
 				self.hue.discover(
@@ -156,12 +155,11 @@ define(function (require) {
 
 		// Updates light states after wheel user interaction
 		wheelUpdateAction: function () {
-			var self = this;
 			for (var lid in this.cache.fullState.lights) {
 				var light = this.cache.fullState.lights[lid];
 				if (light.state.on) {
-					var markerIndex = self.getLIDToMarkerMap()[lid];
-					var d = d3.select(self.wheel.getMarkers()[0][markerIndex]).datum();
+					var markerIndex = this.getLIDToMarkerMap()[lid];
+					var d = d3.select(this.wheel.getMarkers()[0][markerIndex]).datum();
 					var hex = tinycolor({h: d.color.h, s: d.color.s, v: d.color.v}).toHexString();
 					light.state.xy = colors.hexToCIE1931(hex);
 				}
@@ -170,7 +168,6 @@ define(function (require) {
 
 		// Renders the ColorWheel when everything's ready
 		renderWheel: function () {
-			var self = this;
 			var wheelData = [];
 			for (var lid in this.cache.fullState.lights) {
 				var light = this.cache.fullState.lights[lid];
@@ -210,7 +207,7 @@ define(function (require) {
 					marker.datum().show = this.checked;
 					slider.disabled = ! this.checked;
 					light.state.on = this.checked;
-					self.wheel.dispatch.update();
+					self.wheel.dispatch.updateMarkers();
 					self.wheel.setHarmony();
 					$(this).closest('div').appendTo(controls[light.state.on ? 'on': 'off']);
 				});
@@ -271,21 +268,20 @@ define(function (require) {
 
 		// Start the app!
 		init: function () {
-			var self = this;
-			self.resetStatus();
-			self.$.status.attr('text', msg.CONNECTING).get(0).show();
-			self.connectToLocalBridge()
-				.then(self.getAPIUser.bind(self))
-				.then(self.cacheFullState.bind(self))
-				.then(self.render.bind(self))
-				.catch(self.showError.bind(self));
+			this.resetStatus();
+			this.$.status.attr('text', msg.CONNECTING).get(0).show();
+			this.connectToLocalBridge()
+				.then(this.getAPIUser.bind(this))
+				.then(this.cacheFullState.bind(this))
+				.then(this.render.bind(this))
+				.catch(this.showError.bind(this));
 		},
 
 		// Start the app in demo mode, using mock data.
 		demo: function () {
 			var self = this;
 			self.resetStatus();
-			$.get('/demo.json', function (data) {
+			$.get('demo.json', function (data) {
 				self.bridgeIP = 'DEMO';
 				self.username = 'DEMO';
 				self.cache.fullState = data;
