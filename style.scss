@@ -1,3 +1,5 @@
+$breakpoint: 50rem;
+
 html {
 	-webkit-font-smoothing: antialiased;
 	font-size: 1.25em;
@@ -8,9 +10,9 @@ html {
 }
 
 hr {
-  border: none;
-  border-top: 3px solid rgba(0, 0, 0, 0.1);
-  margin: 1rem 0;
+	border: none;
+	border-top: 3px solid rgba(0, 0, 0, 0.1);
+	margin: 1rem 0;
 }
 
 header {
@@ -28,17 +30,60 @@ header {
 paper-tabs {
 	font-size: 0.8rem;
 	background: rgba(black, 0.5);
+
+	@media screen and (min-width: $breakpoint) {
+		display: none !important;
+	}
+}
+
+paper-radio-button,
+paper-radio-group {
+	display: block;
 }
 
 paper-radio-group {
 	background: white;
 	padding: 0.5rem;
+
+	@media screen and (min-width: $breakpoint) {
+		display: flex;
+		flex-wrap: wrap;
+	}
 }
 
-paper-radio-button,
-paper-radio-group { display: block; }
+paper-radio-button {
+	box-sizing: border-box;
 
-iron-pages { margin: 0 1rem 1rem; }
+	@media screen and (min-width: $breakpoint) {
+		width: 50%;
+	}
+}
+
+iron-pages {
+	margin: 0 1rem 1rem;
+
+	@media screen and (min-width: $breakpoint) {
+		display: flex;
+		align-items: center;
+
+		> div {
+			box-sizing: border-box;
+			width: 50%;
+		}
+
+		.page-1 {
+			padding: 0 3rem;
+		}
+
+		.page-2 {
+			padding: 0 1.5rem;
+		}
+
+		> :not(.iron-selected) {
+			display: block !important;
+		}
+	}
+}
 
 paper-toast {
 	font-family: sans-serif;
@@ -46,9 +91,7 @@ paper-toast {
 	a { color: gold; }
 }
 
-paper-dialog {
-	max-width: 400px;
-}
+paper-dialog { max-width: 400px; }
 
 // --- Background Gradient ---
 
@@ -72,7 +115,8 @@ paper-dialog {
 
 .wheel svg {
 	width: 100%;
-	height: 55vh;
+	height: 53vh;
+	min-height: 380px;
 }
 
 .wheel__marker text { text-shadow: 1px 2px 10px #000; }
@@ -87,9 +131,7 @@ paper-dialog {
 	hr { width: 100%; }
 }
 
-.switches {
-	flex: 1;
-}
+.switches { flex: 1; }
 
 .switch {
 	box-sizing: border-box;
@@ -120,9 +162,12 @@ paper-dialog {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
+	box-shadow: 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
-.sortable-ghost .theme__color { background-color: black !important; }
+.sortable-ghost .theme__color {
+	background-color: transparent !important;
+}
 
 .switches.off {
 	opacity: 0.8;

@@ -2,10 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Hue Colorwheel</title>
+	<title>Huepie</title>
 	<script src="lib/webcomponentsjs/webcomponents.js"></script>
 	<link rel="stylesheet" href="//necolas.github.io/normalize.css/3.0.2/normalize.css">
-	<!-- <link rel="stylesheet" href="lib/kuler-d3/wheel.css"> -->
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
 	<link rel="stylesheet" href="style.css">
 	<link rel="import" href="lib/iron-pages/iron-pages.html">
@@ -20,42 +19,12 @@
 	<link rel="import" href="lib/paper-tabs/paper-tabs.html">
 	<link rel="import" href="lib/paper-toast/paper-toast.html">
 	<link rel="import" href="lib/paper-toggle-button/paper-toggle-button.html">
-	<style is="custom-style">
-		paper-toolbar {
-			--paper-toolbar-background: black;
-		}
-
-		paper-tabs {
-			--paper-tabs-selection-bar-color: #666;
-		}
-
-		paper-tab {
-			--paper-tab-ink: #333;
-		}
-
-		paper-toggle-button {
-			--paper-toggle-button-checked-bar-color: white;
-			--paper-toggle-button-checked-button-color: white;
-			--paper-toggle-button-checked-ink-color: white;
-			--paper-toggle-button-unchecked-bar-color: white;
-			--paper-toggle-button-unchecked-button-color: white;
-			--paper-toggle-button-unchecked-ink-color: white;
-		}
-
-		paper-slider {
-			--paper-slider-active-color: white;
-			--paper-slider-knob-color: white;
-			--paper-slider-pin-color: black;
-			--paper-progress-container-color: black;
-		}
-	</style>
+	<link rel="import" href="custom-style.html">
 </head>
 <body>
 	<template id="app" is="dom-bind">
 		<div class="gradient"></div>
-
 		<paper-toast class="status"><a></a></paper-toast>
-
 		<paper-dialog id="info" modal>
 			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an artist's color wheel. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
 			<p>
@@ -67,7 +36,6 @@
 				<paper-button dialog-confirm autofocus>Close</paper-button>
 			</div>
 		</paper-dialog>
-
 		<header>
 			huepie
 			<paper-icon-button
@@ -75,12 +43,10 @@
 				onClick="document.querySelector('#info').open()">
 			</paper-icon-button>
 		</header>
-
 		<paper-tabs selected="{{selected}}">
 			<paper-tab>Wheel</paper-tab>
 			<paper-tab>Switches</paper-tab>
 		</paper-tabs>
-
 		<iron-pages selected="{{selected}}">
 			<div class="page-1">
 				<div class="wheel"></div>
@@ -90,7 +56,6 @@
 			</div>
 		</iron-pages>
 	</template>
-
 	<script data-main="js/main" src="lib/requirejs/require.js"></script>
 </body>
 </html>

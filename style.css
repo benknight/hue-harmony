@@ -1,70 +1,89 @@
-/* line 1, style.scss */
+/* line 3, style.scss */
 html { -webkit-font-smoothing: antialiased; font-size: 1.25em; font-family: Inconsolata, monospace; background: #333 url(img/stripes.png); color: white; min-height: 100%; }
 
-/* line 10, style.scss */
+/* line 12, style.scss */
 hr { border: none; border-top: 3px solid rgba(0, 0, 0, 0.1); margin: 1rem 0; }
 
-/* line 16, style.scss */
+/* line 18, style.scss */
 header { position: relative; padding: 1rem 1.5rem; background-color: black; }
-/* line 21, style.scss */
+/* line 23, style.scss */
 header paper-icon-button { position: absolute; top: 0.5rem; right: 0.5rem; }
 
-/* line 28, style.scss */
+/* line 30, style.scss */
 paper-tabs { font-size: 0.8rem; background: rgba(0, 0, 0, 0.5); }
+@media screen and (min-width: 50rem) { /* line 30, style.scss */
+  paper-tabs { display: none !important; } }
 
-/* line 33, style.scss */
-paper-radio-group { background: white; padding: 0.5rem; }
-
-/* line 38, style.scss */
+/* line 39, style.scss */
 paper-radio-button, paper-radio-group { display: block; }
 
-/* line 41, style.scss */
-iron-pages { margin: 0 1rem 1rem; }
+/* line 44, style.scss */
+paper-radio-group { background: white; padding: 0.5rem; }
+@media screen and (min-width: 50rem) { /* line 44, style.scss */
+  paper-radio-group { display: flex; flex-wrap: wrap; } }
 
-/* line 43, style.scss */
+/* line 54, style.scss */
+paper-radio-button { box-sizing: border-box; }
+@media screen and (min-width: 50rem) { /* line 54, style.scss */
+  paper-radio-button { width: 50%; } }
+
+/* line 62, style.scss */
+iron-pages { margin: 0 1rem 1rem; }
+@media screen and (min-width: 50rem) { /* line 62, style.scss */
+  iron-pages { display: flex; align-items: center; }
+  /* line 69, style.scss */
+  iron-pages > div { box-sizing: border-box; width: 50%; }
+  /* line 74, style.scss */
+  iron-pages .page-1 { padding: 0 3rem; }
+  /* line 78, style.scss */
+  iron-pages .page-2 { padding: 0 1.5rem; }
+  /* line 82, style.scss */
+  iron-pages > :not(.iron-selected) { display: block !important; } }
+
+/* line 88, style.scss */
 paper-toast { font-family: sans-serif; }
-/* line 46, style.scss */
+/* line 91, style.scss */
 paper-toast a { color: gold; }
 
-/* line 49, style.scss */
+/* line 94, style.scss */
 paper-dialog { max-width: 400px; }
 
-/* line 55, style.scss */
+/* line 98, style.scss */
 .gradient { z-index: -1; opacity: 0.66; -webkit-filter: blur(75px); display: block; position: absolute; top: 0; right: 0; bottom: 30%; left: 0; will-change: transform; transform-origin: top left; background-color: #333; }
 
-/* line 73, style.scss */
-.wheel svg { width: 100%; height: 55vh; }
+/* line 116, style.scss */
+.wheel svg { width: 100%; height: 53vh; min-height: 380px; }
 
-/* line 78, style.scss */
+/* line 122, style.scss */
 .wheel__marker text { text-shadow: 1px 2px 10px #000; }
 
-/* line 82, style.scss */
+/* line 126, style.scss */
 .controls { display: flex; flex-wrap: wrap; margin-top: 1.5rem; }
-/* line 87, style.scss */
+/* line 131, style.scss */
 .controls hr { width: 100%; }
 
-/* line 90, style.scss */
+/* line 134, style.scss */
 .switches { flex: 1; }
 
-/* line 94, style.scss */
+/* line 136, style.scss */
 .switch { box-sizing: border-box; height: 45px; padding-top: 3px; margin-bottom: 1.5rem; }
-/* line 100, style.scss */
+/* line 142, style.scss */
 .switch b { margin-left: 15px; }
 
-/* line 103, style.scss */
+/* line 145, style.scss */
 .switch__toggle { cursor: pointer; float: right; margin: 23px 7px 0 0; }
 
-/* line 109, style.scss */
+/* line 151, style.scss */
 .switch__slider { width: 85%; }
 
-/* line 111, style.scss */
+/* line 153, style.scss */
 .theme__swatch { cursor: move; cursor: -webkit-grabbing; width: 45px; height: 45px; margin: 0 0 1.5rem 0; }
 
-/* line 119, style.scss */
-.theme__color { width: 100%; height: 100%; border-radius: 50%; }
+/* line 161, style.scss */
+.theme__color { width: 100%; height: 100%; border-radius: 50%; box-shadow: 1px 2px 0 rgba(0, 0, 0, 0.5); }
 
-/* line 125, style.scss */
-.sortable-ghost .theme__color { background-color: black !important; }
+/* line 168, style.scss */
+.sortable-ghost .theme__color { background-color: transparent !important; }
 
-/* line 127, style.scss */
+/* line 172, style.scss */
 .switches.off { opacity: 0.8; width: 100%; flex: none; }

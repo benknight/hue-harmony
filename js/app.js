@@ -101,6 +101,7 @@ define(function (require) {
 		getAPIUser: function () {
 			console.log('Getting API user...');
 			var storedUser = window.localStorage.getItem('username') || undefined;
+			this.username = storedUser;
 			this.api = this.hue.bridge(this.bridgeIP).user(storedUser);
 			return storedUser || this.createAPIUser();
 		},
@@ -207,14 +208,10 @@ define(function (require) {
 					var markerIndex = self.getLIDToMarkerMap()[lid];
 					var marker = d3.select(self.wheel.getMarkers()[0][markerIndex]);
 					marker.datum().show = this.checked;
-					// Update slider
 					slider.disabled = ! this.checked;
-					// Update state
 					light.state.on = this.checked;
-					// Call events
 					self.wheel.dispatch.update();
 					self.wheel.setHarmony();
-					// Append
 					$(this).closest('div').appendTo(controls[light.state.on ? 'on': 'off']);
 				});
 

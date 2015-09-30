@@ -2,6 +2,6 @@
 	baseUrl: '.',
 	mainConfigFile: 'main.js',
 	name: 'main',
-	out: '../script.js',
+	out: '../script.min.js',
 	preserveLicenseComments: false
 })
