@@ -1,0 +1,15 @@
+{
+  "name": "jshue",
+  "homepage": "https://github.com/blargoner/jshue",
+  "version": "0.2.0",
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.0",
+    "commit": "9e5fbc47106523a99c8c915a34ad16b47aad190b"
+  },
+  "_source": "git://github.com/blargoner/jshue.git",
+  "_target": "~0.2.0",
+  "_originalSource": "blargoner/jshue",
+  "_direct": true
+}
