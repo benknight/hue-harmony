@@ -142,26 +142,36 @@ paper-dialog { max-width: 400px; }
 
 .switch {
 	box-sizing: border-box;
-	height: 45px;
-	padding-top: 3px;
+	position: relative;
+	height: 50px;
 	margin-bottom: 1.5rem;
 
-	b { margin-left: 15px; }
+	b {
+		font-weight: normal;
+		margin-left: 15px;
+	}
 }
 
 .switch__toggle {
 	cursor: pointer;
-	float: right;
-	margin: 23px 7px 0 0;
+	position: absolute;
+	top: 23px;
+	right: -15px;
 }
 
-.switch__slider { width: 85%; }
+.switch__slider {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 85%;
+}
 
 .theme__swatch {
 	cursor: move;
 	cursor: -webkit-grabbing;
 	width: 45px;
 	height: 45px;
+	padding-bottom: 5px;
 	margin: 0 0 1.5rem 0;
 }
 
@@ -178,7 +188,7 @@ paper-dialog { max-width: 400px; }
 }
 
 .switches.off {
-	opacity: 0.8;
+	opacity: 0.5;
 	width: 100%;
 	flex: none;
 }
