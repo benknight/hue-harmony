@@ -14,7 +14,7 @@ define(function (require) {
 		CONNECTING: 'Connecting...',
 		SUCCESS: 'Successfully connected to local bridge!',
 		NO_BRIDGE: 'No Philips Hue bridge found on your local network.',
-		PRESS_BUTTON: 'Please authenticate by pressing the button on the Hue bridge. Tap to retry.',
+		PRESS_BUTTON: 'Please authenticate by pressing the button on the Hue bridge.',
 		CONNECTION_ERROR_GENERIC: 'Unable to connect to the Internet.',
 		CONNECTION_ERROR_BRIDGE: 'Unable to connect to local bridge.',
 		UNAUTHORIZED_USER: 'Unauthorized user.'
