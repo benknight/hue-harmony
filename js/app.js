@@ -20,7 +20,8 @@ define(function (require) {
 	};
 
 	var app = {
-		APP_ID: 'hue-colorwheel-app', // for registering with the API
+		APP_ID: 'huepie', // for registering with the API
+		APP_USERNAME: 'huepie-user',
 		hue: jsHue(), // jsHue instance
 		api: null, // jsHueUser instance
 		wheel: null, // ColorWheel instance
@@ -43,12 +44,11 @@ define(function (require) {
 		cacheFullState: function () {
 			console.log('Caching API fullState...');
 			var self = this;
-			this.api = this.hue.bridge(this.bridgeIP).user(storedUser);
 			return new Promise(function (resolve, reject) {
 				self.api.getFullState(function (data) {
 					if (data.length && data[0].error) {
 						if (data[0].error.type == 1) {
-							self.createAPIUser().then(resolve, reject);
+							self.createAPIUser().then(self.cacheFullState.bind(self), reject).then(resolve, reject);
 						} else {
 							reject(Error('"' + data[0].error.description + '" (error type ' + data[0].error.type + ')'));
 						}
@@ -101,8 +101,7 @@ define(function (require) {
 		// See if there is already a saved username, if not create one
 		getAPIUser: function () {
 			console.log('Getting API user...');
-			this.username = window.localStorage.getItem('username');
-			return this.username || this.createAPIUser();
+			this.api = this.hue.bridge(this.bridgeIP).user(this.APP_USERNAME);
 		},
 
 		// Creates a new API user, only succeeds if the Bridge's button has been pressed
@@ -114,8 +113,6 @@ define(function (require) {
 					self.APP_ID,
 					function (data) {
 						if (data[0].success) {
-							self.username = data[0].success.username;
-							window.localStorage.setItem('username', self.username);
 							resolve();
 						} else {
 							if (data[0].error.type === 101) {
