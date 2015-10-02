@@ -16,6 +16,5 @@
   },
   "_source": "git://github.com/bgrins/TinyColor.git",
   "_target": "~1.1.2",
-  "_originalSource": "tinycolor",
-  "_direct": true
+  "_originalSource": "tinycolor"
 }

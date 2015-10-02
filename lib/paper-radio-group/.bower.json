@@ -41,6 +41,5 @@
   },
   "_source": "git://github.com/PolymerElements/paper-radio-group.git",
   "_target": "~1.0.4",
-  "_originalSource": "PolymerElements/paper-radio-group",
-  "_direct": true
+  "_originalSource": "PolymerElements/paper-radio-group"
 }
