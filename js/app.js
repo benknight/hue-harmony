@@ -269,7 +269,6 @@ define(function (require) {
 			var template = this.$.template.get(0);
 			template.selected = 0;
 			template.bridgeIP = this.bridgeIP;
-			template.username = this.username;
 		},
 
 		// Start the app!
