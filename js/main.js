@@ -6,11 +6,15 @@ requirejs.config({
 		'tinycolor': '../lib/tinycolor/tinycolor',
 		'hue-hacking': '../lib/hue-hacking/src/colors',
 		'jshue': '../lib/jshue/src/jshue',
-		'sortable': '../lib/Sortable/Sortable'
+		'sortable': '../lib/Sortable/Sortable',
+		'observe': '../lib/observe-js/src/observe'
 	},
 	shim: {
 		'jshue': {
 			exports: 'jsHue'
+		},
+		'observe': {
+			exports: 'ObjectObserver'
 		}
 	}
 });
