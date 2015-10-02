@@ -9,6 +9,10 @@ html {
 	min-height: 100%;
 }
 
+body {
+	position: relative;
+}
+
 hr {
 	border: none;
 	border-top: 3px solid rgba(0, 0, 0, 0.1);
