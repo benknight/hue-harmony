@@ -4,10 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>Huepie</title>
-	<script src="lib/webcomponentsjs/webcomponents.js"></script>
-	<link rel="stylesheet" href="//necolas.github.io/normalize.css/3.0.2/normalize.css">
-	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
-	<link rel="stylesheet" href="style.css">
+	<script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="lib/iron-pages/iron-pages.html">
 	<link rel="import" href="lib/iron-icons/iron-icons.html">
 	<link rel="import" href="lib/paper-button/paper-button.html">
@@ -21,6 +18,9 @@
 	<link rel="import" href="lib/paper-toast/paper-toast.html">
 	<link rel="import" href="lib/paper-toggle-button/paper-toggle-button.html">
 	<link rel="import" href="custom-style.html">
+	<link rel="stylesheet" href="//necolas.github.io/normalize.css/3.0.2/normalize.css">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<template id="app" is="dom-bind">
@@ -54,6 +54,17 @@
 			</div>
 		</iron-pages>
 	</template>
-	<script data-main="js/main" src="lib/requirejs/require.js"></script>
+	<script src="lib/object.observe/dist/object-observe-lite.min.js"></script>
+	<script>
+		window.addEventListener('WebComponentsReady', function(e) {
+			var script = document.createElement('script');
+			script.setAttribute('data-main', 'js/main');
+			script.setAttribute('src', 'lib/requirejs/require.js');
+			document.body.appendChild(script);
+
+			// imports are loaded and elements have been registered
+			console.log('Components are ready');
+		});
+	</script>
 </body>
 </html>
