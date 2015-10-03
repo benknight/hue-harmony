@@ -1,4 +1,4 @@
-$breakpoint: 70rem;
+$breakpoint: 70em;
 
 html {
 	-webkit-font-smoothing: antialiased;
@@ -110,12 +110,14 @@ paper-dialog {
 	z-index: -1;
 	opacity: 0.66;
 	-webkit-filter: blur(75px);
+	filter: blur(75px);
 	display: none;
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 30%;
 	left: 0;
+	-webkit-transform: translateZ(0);
 	will-change: transform;
 	transform-origin: top left;
 	background-color: #333;
