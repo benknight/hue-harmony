@@ -1,7 +1,6 @@
 $breakpoint: 70em;
 
 html {
-	-webkit-font-smoothing: antialiased;
 	font-size: 1.25em;
 	font-family: Inconsolata, monospace;
 	background: #333 url(img/stripes.png);
@@ -64,8 +63,6 @@ paper-radio-button {
 }
 
 iron-pages {
-	margin: 0 1rem 1rem;
-
 	@media screen and (min-width: $breakpoint) {
 		display: flex;
 		align-items: center;
@@ -83,6 +80,7 @@ iron-pages {
 			padding: 0 1.5rem;
 		}
 
+		// "Bust" component by forcing all pages to display
 		> :not(.iron-selected) {
 			display: block !important;
 		}
@@ -97,33 +95,37 @@ paper-toast {
 }
 
 paper-dialog {
-	position: fixed;
-	max-width: 400px;
-	left: 50%;
-	margin: 0;
-	transform: translateX(-50%);
+	@media screen and (min-width: $breakpoint) {
+		position: fixed;
+		max-width: 400px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 }
 
 // --- Background Gradient ---
 
 .gradient {
 	z-index: -1;
-	opacity: 0.66;
-	-webkit-filter: blur(75px);
-	filter: blur(75px);
-	display: none;
-	position: absolute;
+	opacity: 0.5;
+	position: fixed;
 	top: 0;
 	right: 0;
-	bottom: 30%;
+	bottom: 0;
 	left: 0;
-	-webkit-transform: translateZ(0);
-	will-change: transform;
-	transform-origin: top left;
 	background-color: #333;
 
 	@media screen and (min-width: $breakpoint) {
-		display: block;
+		opacity: 0.8;
+		height: 66vh;
+		-webkit-filter: blur(150px);
+		filter: blur(150px);
+		-webkit-transform: translateZ(0);
+		will-change: transform;
+	}
+
+	@media screen and (max-width: $breakpoint) {
+		background-image: radial-gradient(circle, rgba(white, 0.6), transparent) !important;
 	}
 }
 
@@ -131,7 +133,6 @@ paper-dialog {
 
 .wheel svg {
 	width: 100%;
-	height: 410px;
 }
 
 .wheel__marker text { text-shadow: 1px 2px 10px #000; }
@@ -172,6 +173,10 @@ paper-dialog {
 	left: 0;
 	bottom: 0;
 	width: 85%;
+}
+
+.theme {
+	margin-left: 0.25rem;
 }
 
 .theme__swatch {
