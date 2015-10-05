@@ -7,6 +7,7 @@ define(function (require) {
 	var jsHue = require('jshue');
 	var colors = require('hue-hacking');
 	var ColorWheel = require('colorwheel');
+	var observejs = require('observe-js');
 
 	// Collection of strings the app may need to show the user
 	var msg = {
@@ -35,7 +36,7 @@ define(function (require) {
 		},
 
 		$: { // references to DOM nodes
-			status: $('.status'),
+			status:   $('.status'),
 			controls: $('.controls'),
 			template: $('#app')
 		},
@@ -67,28 +68,29 @@ define(function (require) {
 
 		observeChanges: function () {
 			var self = this;
+			if (! Object.observe) {
+				window.setInterval(Platform.performMicrotaskCheckpoint, 100);
+			}
 			$.each(self.cache.fullState.lights, function (lid, light) {
 				// See: https://github.com/polymer/observe-js
-				// var observer = new ObjectObserver(light.state);
-				// observer.open(function (added, removed, changed, getOldValueFn) {
-				// 	if (Object.keys(changed).length > 0) {
-				// 		self.api.setLightState(lid, changed);
-				// 	}
-				// });
-				//
-				// --- This is how we would do it with native O.o: ---
-				//
-				Object.observe(light.state, function (changes) {
-					changes.forEach(function (change) {
-						if (change.type == 'update') {
-							if (JSON.stringify(light.state[change.name]) !== JSON.stringify(change.oldValue)) {
-								var update = {};
-								update[change.name] = light.state[change.name];
-								self.api.setLightState(lid, update);
-							}
-						}
-					});
+				var observer = new ObjectObserver(light.state);
+				observer.open(function (added, removed, changed, getOldValueFn) {
+					if (Object.keys(changed).length > 0) {
+						self.api.setLightState(lid, changed);
+					}
 				});
+				// --- This is how we would do it with native O.o: ---
+				// Object.observe(light.state, function (changes) {
+				// 	changes.forEach(function (change) {
+				// 		if (change.type == 'update') {
+				// 			if (JSON.stringify(light.state[change.name]) !== JSON.stringify(change.oldValue)) {
+				// 				var update = {};
+				// 				update[change.name] = light.state[change.name];
+				// 				self.api.setLightState(lid, update);
+				// 			}
+				// 		}
+				// 	});
+				// });
 			});
 		},
 
@@ -179,7 +181,7 @@ define(function (require) {
 				var lightHex = colors.CIE1931ToHex.apply(null, light.state.xy);
 				var lightHue = tinycolor(lightHex).toHsv().h;
 				wheelData.push(ColorWheel.createMarker(
-					{ h: lightHue, s: (light.state.sat / 255), v: 100 },
+					{ h: lightHue, s: 1, v: 100 },
 					null,
 					light.state.on
 				));
@@ -234,7 +236,6 @@ define(function (require) {
 				rows[light.state.on ? 'on' : 'off'].push($row);
 			});
 			controls.on.append(rows.on).appendTo(this.$.controls);
-			$('<hr>').appendTo(this.$.controls);
 			controls.off.append(rows.off).appendTo(this.$.controls);
 		},
 
@@ -256,7 +257,7 @@ define(function (require) {
 				this.$.status.find('a').text('Tap to restart in demo mode');
 				this.$.status.click(this.demo.bind(this));
 			}
-			this.$.status.attr({ text: e.message, duration: 1e10 }).get(0).show();
+			this.$.status.attr({ text: e.message }).get(0).show();
 		},
 
 		resetStatus: function () {
@@ -273,7 +274,7 @@ define(function (require) {
 		// Start the app!
 		init: function () {
 			this.resetStatus();
-			this.$.status.attr('text', msg.CONNECTING).get(0).show();
+			this.$.status.attr({ text: msg.CONNECTING, duration: 1e10 }).get(0).show();
 			this.connectToLocalBridge()
 				.then(this.getAPIUser.bind(this))
 				.then(this.cacheFullState.bind(this))

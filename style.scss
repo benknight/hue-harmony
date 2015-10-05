@@ -1,4 +1,4 @@
-$breakpoint: 70em;
+$breakpoint: 60em;
 
 html {
 	font-size: 1.25em;
@@ -22,6 +22,12 @@ header {
 	position: relative;
 	padding: 1rem 1.5rem;
 	background-color: black;
+
+	img {
+		height: 1.2em;
+		float: left;
+		margin: -1px 0.5rem 0 0;
+	}
 
 	paper-icon-button {
 		position: absolute;
@@ -63,21 +69,27 @@ paper-radio-button {
 }
 
 iron-pages {
+	max-width: 65rem;
+	margin: 0 auto;
+
 	@media screen and (min-width: $breakpoint) {
 		display: flex;
 		align-items: center;
+		margin-top: 1rem;
 
 		> div {
 			box-sizing: border-box;
-			width: 50%;
 		}
 
 		.page-1 {
-			padding: 0 3rem;
+			width: 40%;
+			max-width: 24rem;
+			margin-left: 4%;
 		}
 
 		.page-2 {
-			padding: 0 1.5rem;
+			margin: 2rem 4% 0;
+			flex: 1;
 		}
 
 		// "Bust" component by forcing all pages to display
@@ -90,6 +102,8 @@ iron-pages {
 paper-toast {
 	font-family: sans-serif;
 	z-index: 1;
+	bottom: 1rem;
+	left: 1rem;
 
 	a { color: gold; }
 }
@@ -97,6 +111,7 @@ paper-toast {
 paper-dialog {
 	@media screen and (min-width: $breakpoint) {
 		position: fixed;
+		margin: 0;
 		max-width: 400px;
 		left: 50%;
 		transform: translateX(-50%);
@@ -137,12 +152,17 @@ paper-dialog {
 
 .wheel__marker text { text-shadow: 1px 2px 10px #000; }
 
+.wheel__marker.root circle { stroke-width: 5px; }
+
 // -- Switches ---
 
 .controls {
 	display: flex;
 	flex-wrap: wrap;
-	margin-top: 1.5rem;
+
+	@media screen and (max-width: $breakpoint) {
+		margin-top: 2rem;
+	}
 
 	hr { width: 100%; }
 }
@@ -165,18 +185,19 @@ paper-dialog {
 	cursor: pointer;
 	position: absolute;
 	top: 23px;
-	right: -15px;
+	right: 0;
 }
 
 .switch__slider {
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	width: 85%;
+	width: 80%;
+	width: calc(100% - 70px);
 }
 
 .theme {
-	margin-left: 0.25rem;
+	margin: 0 0.2rem 0 0.8rem;
 }
 
 .theme__swatch {
@@ -192,7 +213,7 @@ paper-dialog {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	box-shadow: 1px 2px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 0 9px rgba(black, 0.1);
 }
 
 .sortable-ghost .theme__color {

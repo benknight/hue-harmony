@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Huepie</title>
+	<meta name="description" content="Set your Philips Hue lights using color theory. Science!">
+	<title>huepie</title>
 	<script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="lib/iron-pages/iron-pages.html">
 	<link rel="import" href="lib/iron-icons/iron-icons.html">
@@ -21,13 +22,14 @@
 	<link rel="stylesheet" href="//necolas.github.io/normalize.css/3.0.2/normalize.css">
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
 	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="icon.png">
 </head>
 <body>
 	<template id="app" is="dom-bind">
 		<div class="gradient"></div>
 		<paper-toast class="status"><a></a></paper-toast>
 		<paper-dialog id="info" modal>
-			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an artist's color wheel. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made with spite and malice by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
+			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made with spite and malice by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
 			<p>
 				<b>Status</b><br>
 				Bridge IP: <span>{{bridgeIP}}<br>
@@ -37,9 +39,8 @@
 			</div>
 		</paper-dialog>
 		<header>
-			huepie
-			<paper-icon-button icon="info" onClick="document.querySelector('#info').open()">
-			</paper-icon-button>
+			<img src="icon.png"> huepie
+			<paper-icon-button icon="info" onClick="document.querySelector('#info').open()"></paper-icon-button>
 		</header>
 		<paper-tabs selected="{{selected}}">
 			<paper-tab>Wheel</paper-tab>
@@ -54,7 +55,6 @@
 			</div>
 		</iron-pages>
 	</template>
-	<script src="lib/object.observe/dist/object-observe-lite.min.js"></script>
 	<script>
 		window.addEventListener('WebComponentsReady', function(e) {
 			var script = document.createElement('script');
