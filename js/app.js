@@ -216,7 +216,7 @@ define(function (require) {
 					light.state.on = this.checked;
 					self.wheel.dispatch.updateMarkers();
 					self.wheel.setHarmony();
-					$(this).closest('div').appendTo(controls[light.state.on ? 'on': 'off']);
+					$(this).closest('div').prependTo(controls[light.state.on ? 'on': 'off']);
 				});
 
 				// Add brightness slider
