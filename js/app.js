@@ -36,7 +36,7 @@ define(function (require) {
 		},
 
 		$: { // references to DOM nodes
-			status: $('.status'),
+			status:   $('.status'),
 			controls: $('.controls'),
 			template: $('#app')
 		},
@@ -181,7 +181,7 @@ define(function (require) {
 				var lightHex = colors.CIE1931ToHex.apply(null, light.state.xy);
 				var lightHue = tinycolor(lightHex).toHsv().h;
 				wheelData.push(ColorWheel.createMarker(
-					{ h: lightHue, s: (light.state.sat / 255), v: 100 },
+					{ h: lightHue, s: 1, v: 100 },
 					null,
 					light.state.on
 				));
@@ -236,7 +236,6 @@ define(function (require) {
 				rows[light.state.on ? 'on' : 'off'].push($row);
 			});
 			controls.on.append(rows.on).appendTo(this.$.controls);
-			$('<hr>').appendTo(this.$.controls);
 			controls.off.append(rows.off).appendTo(this.$.controls);
 		},
 
@@ -258,7 +257,7 @@ define(function (require) {
 				this.$.status.find('a').text('Tap to restart in demo mode');
 				this.$.status.click(this.demo.bind(this));
 			}
-			this.$.status.attr({ text: e.message, duration: 1e10 }).get(0).show();
+			this.$.status.attr({ text: e.message }).get(0).show();
 		},
 
 		resetStatus: function () {
@@ -275,7 +274,7 @@ define(function (require) {
 		// Start the app!
 		init: function () {
 			this.resetStatus();
-			this.$.status.attr('text', msg.CONNECTING).get(0).show();
+			this.$.status.attr({ text: msg.CONNECTING, duration: 1e10 }).get(0).show();
 			this.connectToLocalBridge()
 				.then(this.getAPIUser.bind(this))
 				.then(this.cacheFullState.bind(this))
