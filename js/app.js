@@ -7,6 +7,7 @@ define(function (require) {
 	var jsHue = require('jshue');
 	var colors = require('hue-hacking');
 	var ColorWheel = require('colorwheel');
+	var observejs = require('observe-js');
 
 	// Collection of strings the app may need to show the user
 	var msg = {
@@ -67,28 +68,29 @@ define(function (require) {
 
 		observeChanges: function () {
 			var self = this;
+			if (! Object.observe) {
+				window.setInterval(Platform.performMicrotaskCheckpoint, 100);
+			}
 			$.each(self.cache.fullState.lights, function (lid, light) {
 				// See: https://github.com/polymer/observe-js
-				// var observer = new ObjectObserver(light.state);
-				// observer.open(function (added, removed, changed, getOldValueFn) {
-				// 	if (Object.keys(changed).length > 0) {
-				// 		self.api.setLightState(lid, changed);
-				// 	}
-				// });
-				//
-				// --- This is how we would do it with native O.o: ---
-				//
-				Object.observe(light.state, function (changes) {
-					changes.forEach(function (change) {
-						if (change.type == 'update') {
-							if (JSON.stringify(light.state[change.name]) !== JSON.stringify(change.oldValue)) {
-								var update = {};
-								update[change.name] = light.state[change.name];
-								self.api.setLightState(lid, update);
-							}
-						}
-					});
+				var observer = new ObjectObserver(light.state);
+				observer.open(function (added, removed, changed, getOldValueFn) {
+					if (Object.keys(changed).length > 0) {
+						self.api.setLightState(lid, changed);
+					}
 				});
+				// --- This is how we would do it with native O.o: ---
+				// Object.observe(light.state, function (changes) {
+				// 	changes.forEach(function (change) {
+				// 		if (change.type == 'update') {
+				// 			if (JSON.stringify(light.state[change.name]) !== JSON.stringify(change.oldValue)) {
+				// 				var update = {};
+				// 				update[change.name] = light.state[change.name];
+				// 				self.api.setLightState(lid, update);
+				// 			}
+				// 		}
+				// 	});
+				// });
 			});
 		},
 

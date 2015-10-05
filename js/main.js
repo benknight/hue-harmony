@@ -6,7 +6,8 @@ requirejs.config({
 		'tinycolor': '../lib/tinycolor/tinycolor',
 		'hue-hacking': '../lib/hue-hacking/src/colors',
 		'jshue': '../lib/jshue/src/jshue',
-		'sortable': '../lib/Sortable/Sortable'
+		'sortable': '../lib/Sortable/Sortable',
+		'observe-js': '../lib/observe-js/src/observe'
 	},
 	shim: {
 		'jshue': {
@@ -15,7 +16,7 @@ requirejs.config({
 	}
 });
 
-requirejs(['app', 'gradient', 'toggle', 'theme'], function (app) {
+requirejs(['app', 'gradient', 'toggle', 'theme', 'observe-js'], function (app) {
 	app.init();
 	window.app = app; // for debugging
 });
