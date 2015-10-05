@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Huepie</title>
+	<meta name="description" content="Set your Philips Hue lights using color theory. Science!">
+	<title>huepie</title>
 	<script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="lib/iron-pages/iron-pages.html">
 	<link rel="import" href="lib/iron-icons/iron-icons.html">
@@ -21,6 +22,7 @@
 	<link rel="stylesheet" href="//necolas.github.io/normalize.css/3.0.2/normalize.css">
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
 	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="icon.png">
 </head>
 <body>
 	<template id="app" is="dom-bind">
@@ -37,7 +39,7 @@
 			</div>
 		</paper-dialog>
 		<header>
-			huepie
+			<img src="icon.png"> huepie
 			<paper-icon-button icon="info" onClick="document.querySelector('#info').open()">
 			</paper-icon-button>
 		</header>
