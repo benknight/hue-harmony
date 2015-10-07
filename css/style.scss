@@ -218,6 +218,11 @@ paper-dialog {
 	width: calc(100% - 70px);
 }
 
+// This is a hack until paper-slider has an option to do this.
+.switch__slider /deep/ #sliderBar {
+	pointer-events: none;
+}
+
 .theme {
 	margin: 0 0.2rem 0 0.8rem;
 }
