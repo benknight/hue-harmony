@@ -162,6 +162,7 @@ paper-dialog {
 	}
 
 	@media screen and (max-width: $breakpoint) {
+		background-color: transparent !important;
 		background-image: radial-gradient(circle, rgba(white, 0.6), transparent) !important;
 	}
 }
