@@ -65,10 +65,13 @@ paper-radio-group {
 paper-radio-group {
 	background: white;
 	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 
 	@media screen and (min-width: $breakpoint) {
-		display: flex;
 		flex-wrap: wrap;
+		flex-direction: row;
 	}
 }
 
