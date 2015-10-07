@@ -1,43 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="Set your Philips Hue lights using color theory. Science!">
-	<title>huepie</title>
-	<script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
-	<link rel="import" href="lib/iron-pages/iron-pages.html">
-	<link rel="import" href="lib/iron-icons/iron-icons.html">
-	<link rel="import" href="lib/paper-button/paper-button.html">
-	<link rel="import" href="lib/paper-dialog/paper-dialog.html">
-	<link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
-	<link rel="import" href="lib/paper-material/paper-material.html">
-	<link rel="import" href="lib/paper-radio-button/paper-radio-button.html">
-	<link rel="import" href="lib/paper-radio-group/paper-radio-group.html">
-	<link rel="import" href="lib/paper-slider/paper-slider.html">
-	<link rel="import" href="lib/paper-tabs/paper-tabs.html">
-	<link rel="import" href="lib/paper-toast/paper-toast.html">
-	<link rel="import" href="lib/paper-toggle-button/paper-toggle-button.html">
-	<link rel="import" href="custom-style.html">
-	<link rel="stylesheet" href="//necolas.github.io/normalize.css/3.0.2/normalize.css">
-	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
-	<link rel="stylesheet" href="style.css">
-	<link rel="icon" href="icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Set your Philips Hue lights using color theory. Science!">
+<meta name="theme-color" content="#000000">
+<title>huepie</title>
+<script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
+<!-- imports -->
+<link rel="import" href="lib/iron-pages/iron-pages.html">
+<link rel="import" href="lib/iron-icons/iron-icons.html">
+<link rel="import" href="lib/paper-button/paper-button.html">
+<link rel="import" href="lib/paper-dialog/paper-dialog.html">
+<link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="lib/paper-material/paper-material.html">
+<link rel="import" href="lib/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="lib/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="lib/paper-slider/paper-slider.html">
+<link rel="import" href="lib/paper-tabs/paper-tabs.html">
+<link rel="import" href="lib/paper-toast/paper-toast.html">
+<link rel="import" href="lib/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="custom-style.html">
+<!-- assets -->
+<link rel="icon" sizes="192x192" href="icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
+<link rel="stylesheet" href="lib/normalize-css/normalize.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<template id="app" is="dom-bind">
-		<div class="gradient"></div>
-		<paper-toast class="status"><a></a></paper-toast>
-		<paper-dialog id="info" modal>
-			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made with spite and malice by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
-			<p>
-				<b>Status</b><br>
-				Bridge IP: <span>{{bridgeIP}}<br>
-			</p>
-			<div class="buttons">
-				<paper-button dialog-confirm autofocus>Close</paper-button>
-			</div>
-		</paper-dialog>
+<template id="app" is="dom-bind">
+	<div class="gradient"></div>
+	<paper-toast class="status"><a></a></paper-toast>
+	<paper-dialog id="info" modal>
+		<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made with spite and malice by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
+		<p>
+			<b>Status</b><br>
+			Bridge IP: <span>{{bridgeIP}}<br>
+		</p>
+		<div class="buttons">
+			<paper-button dialog-confirm autofocus>Close</paper-button>
+		</div>
+	</paper-dialog>
+	<div class="header-container">
 		<header>
 			<img src="icon.png"> huepie
 			<paper-icon-button icon="info" onClick="document.querySelector('#info').open()"></paper-icon-button>
@@ -46,25 +51,26 @@
 			<paper-tab>Wheel</paper-tab>
 			<paper-tab>Switches</paper-tab>
 		</paper-tabs>
-		<iron-pages selected="{{selected}}">
-			<div class="page-1">
-				<div class="wheel"></div>
-			</div>
-			<div class="page-2">
-				<div class="controls"></div>
-			</div>
-		</iron-pages>
-	</template>
-	<script>
-		window.addEventListener('WebComponentsReady', function(e) {
-			var script = document.createElement('script');
-			script.setAttribute('data-main', 'js/main');
-			script.setAttribute('src', 'lib/requirejs/require.js');
-			document.body.appendChild(script);
+	</div>
+	<iron-pages selected="{{selected}}">
+		<div class="page-1">
+			<div class="wheel"></div>
+		</div>
+		<div class="page-2">
+			<div class="controls"></div>
+		</div>
+	</iron-pages>
+</template>
+<script>
+	window.addEventListener('WebComponentsReady', function(e) {
+		var script = document.createElement('script');
+		script.setAttribute('data-main', 'js/main');
+		script.setAttribute('src', 'lib/requirejs/require.js');
+		document.body.appendChild(script);
 
-			// imports are loaded and elements have been registered
-			console.log('Components are ready');
-		});
-	</script>
+		// imports are loaded and elements have been registered
+		console.log('Components are ready');
+	});
+</script>
 </body>
 </html>

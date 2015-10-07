@@ -10,13 +10,18 @@ requirejs.config({
 		'observe-js': '../lib/observe-js/src/observe'
 	},
 	shim: {
-		'jshue': {
-			exports: 'jsHue'
-		}
+		'jshue': { exports: 'jsHue' }
 	}
 });
 
-requirejs(['app', 'gradient', 'toggle', 'theme', 'observe-js'], function (app) {
-	app.init();
-	window.app = app; // for debugging
-});
+requirejs([
+		'app',
+		'gradient',
+		'toggle',
+		'theme',
+		'observe-js'
+	], function (app) {
+		app.init();
+		window.app = app; // for debugging
+	}
+);

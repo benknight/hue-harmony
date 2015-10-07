@@ -216,7 +216,7 @@ define(function (require) {
 					light.state.on = this.checked;
 					self.wheel.dispatch.updateMarkers();
 					self.wheel.setHarmony();
-					$(this).closest('div').prependTo(controls[light.state.on ? 'on': 'off']);
+					$(this).closest('div')[light.state.on ? 'appendTo': 'prependTo'](controls[light.state.on ? 'on': 'off']);
 				});
 
 				// Add brightness slider
@@ -248,7 +248,7 @@ define(function (require) {
 
 		// Displays an error to the user, expecting an Error instance
 		showError: function (e) {
-			console.error(e.stack);
+			console.warn(e.stack);
 			if (e.message == msg.PRESS_BUTTON) {
 				this.$.status.find('a').text('Tap to retry');
 				this.$.status.click(this.init.bind(this));
