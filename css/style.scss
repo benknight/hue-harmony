@@ -3,13 +3,18 @@ $breakpoint: 60em;
 html {
 	font-size: 1.25em;
 	font-family: Inconsolata, monospace;
-	background: #333 url(img/stripes.png);
+	background: #333 url(../img/stripes.png);
 	color: white;
 	min-height: 100%;
 }
 
 body {
 	position: relative;
+	padding: 5.5rem 0 0 0;
+
+	@media screen and (min-width: $breakpoint) {
+		padding: 3rem 0 2rem 0;
+	}
 }
 
 hr {
@@ -38,11 +43,18 @@ header {
 
 paper-tabs {
 	font-size: 0.8rem;
-	background: rgba(black, 0.5);
+	background: hsl(0, 0%, 15%);
 
 	@media screen and (min-width: $breakpoint) {
 		display: none !important;
 	}
+}
+
+.header-container {
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
 paper-radio-button,
@@ -75,7 +87,6 @@ iron-pages {
 	@media screen and (min-width: $breakpoint) {
 		display: flex;
 		align-items: center;
-		margin-top: 1rem;
 
 		> div {
 			box-sizing: border-box;
@@ -104,8 +115,16 @@ paper-toast {
 	z-index: 1;
 	bottom: 1rem;
 	left: 1rem;
+	right: 1rem;
+	max-width: 400px;
 
 	a { color: gold; }
+
+	@media screen and (max-width: 320px) {
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
 }
 
 paper-dialog {
@@ -205,8 +224,8 @@ paper-dialog {
 	cursor: -webkit-grabbing;
 	width: 45px;
 	height: 45px;
-	padding-bottom: 5px;
-	margin: 0 0 1.5rem 0;
+	border-bottom: 5px solid transparent;
+	padding-bottom: 1.5rem;
 }
 
 .theme__color {
