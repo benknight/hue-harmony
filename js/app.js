@@ -215,6 +215,7 @@ define(function (require) {
 					slider.disabled = ! this.checked;
 					light.state.on = this.checked;
 					self.wheel.dispatch.updateMarkers();
+					self.wheel.dispatch.updateEnd();
 					self.wheel.setHarmony();
 					$(this).closest('div')[light.state.on ? 'appendTo': 'prependTo'](controls[light.state.on ? 'on': 'off']);
 				});
