@@ -180,6 +180,7 @@ define(function (require) {
 					d.color.v = 1;
 				});
 				this.wheel.dispatch.markersUpdated();
+				this.wheel.dispatch.updateEnd();
 			}
 		},
 
