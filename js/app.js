@@ -173,6 +173,16 @@ define(function (require) {
 			}
 		},
 
+		modeToggleAction: function () {
+			if (this.wheel.currentMode == ColorWheel.modes.MONOCHROMATIC) {
+				this.wheel.getMarkers().data().forEach(function (d) {
+					d.color.s = 1;
+					d.color.v = 1;
+				});
+				this.wheel.dispatch.markersUpdated();
+			}
+		},
+
 		// Renders the ColorWheel when everything's ready
 		renderWheel: function () {
 			var wheelData = [];
@@ -188,7 +198,8 @@ define(function (require) {
 			}
 			this.wheel = new ColorWheel(this.colorWheelOptions);
 			this.wheel.bindData(wheelData);
-			this.wheel.dispatch.on('updateEnd.pizza', this.wheelUpdateAction.bind(this));
+			this.wheel.dispatch.on('modeChanged.huepie', this.modeToggleAction.bind(this));
+			this.wheel.dispatch.on('updateEnd.huepie', this.wheelUpdateAction.bind(this));
 		},
 
 		// Renders the light switches and attached behavior
@@ -214,10 +225,12 @@ define(function (require) {
 					marker.datum().show = this.checked;
 					slider.disabled = ! this.checked;
 					light.state.on = this.checked;
-					self.wheel.dispatch.updateMarkers();
-					self.wheel.dispatch.updateEnd();
+					self.wheel.dispatch.markersUpdated();
 					self.wheel.setHarmony();
-					$(this).closest('div')[light.state.on ? 'appendTo': 'prependTo'](controls[light.state.on ? 'on': 'off']);
+					self.wheel.dispatch.updateEnd();
+					$(this).closest('div')
+						[light.state.on ? 'appendTo' : 'prependTo']
+						(controls[light.state.on ? 'on': 'off']);
 				});
 
 				// Add brightness slider
@@ -232,8 +245,8 @@ define(function (require) {
 				});
 
 				$row.append( $('<b>').text(light.name) );
-				$row.append( toggle );
-				$row.append( slider );
+				$row.append(toggle);
+				$row.append(slider);
 				rows[light.state.on ? 'on' : 'off'].push($row);
 			});
 			controls.on.append(rows.on).appendTo(this.$.controls);

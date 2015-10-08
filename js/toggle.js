@@ -6,6 +6,9 @@ define(['d3', 'colorwheel'], function (d3, ColorWheel) {
 		Polymer.dom(container).setAttribute('elevation', 2);
 		var modeToggle = document.createElement('paper-radio-group');
 
+		// Don't use Monochrome
+		delete ColorWheel.modes.SHADES;
+
 		for (var mode in ColorWheel.modes) {
 			var modeToggleOption = document.createElement('paper-radio-button');
 			Polymer.dom(modeToggleOption).setAttribute('name', ColorWheel.modes[mode]);
@@ -19,7 +22,7 @@ define(['d3', 'colorwheel'], function (d3, ColorWheel) {
 		container.appendChild(modeToggle);
 		document.querySelector('.page-1').appendChild(container);
 
-		wheel.dispatch.on('setMode.modeToggle', function () {
+		wheel.dispatch.on('modeChanged.modeToggle', function () {
 			Polymer.dom(modeToggle).setAttribute('selected', wheel.currentMode);
 		});
 	});
