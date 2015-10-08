@@ -32,7 +32,7 @@ define(function (require) {
 
 		colorWheelOptions: { // options for the ColorWheel instance
 			container: '.wheel',
-			markerWidth: 38
+			markerWidth: 45
 		},
 
 		$: { // references to DOM nodes
