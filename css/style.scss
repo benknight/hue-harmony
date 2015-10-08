@@ -225,16 +225,32 @@ paper-dialog {
 }
 
 .theme {
-	margin: 0 0.2rem 0 0.8rem;
+	margin: 0 0.2rem 0 0;
 }
 
 .theme__swatch {
+	position: relative;
 	cursor: move;
 	cursor: -webkit-grabbing;
 	width: 45px;
 	height: 45px;
 	border-bottom: 5px solid transparent;
-	padding-bottom: 1.5rem;
+	padding: 0 0 1.5rem 1.8rem;
+
+	$border-style: 2px dotted rgba(white, 0.5);
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: 20px;
+		left: 10px;
+		display: block;
+		width: 2px;
+		height: 2px;
+		border: $border-style;
+		outline: $border-style;
+		outline-offset: 2px;
+	}
 }
 
 .theme__color {
@@ -244,9 +260,15 @@ paper-dialog {
 	box-shadow: 0 0 0 9px rgba(black, 0.1);
 }
 
-.sortable-ghost .theme__color {
-	background-color: transparent !important;
-	box-shadow: none;
+.sortable-ghost {
+	&:before {
+		display: none;
+	}
+
+	.theme__color {
+		background-color: transparent !important;
+		box-shadow: none;
+	}
 }
 
 .switches.off {
