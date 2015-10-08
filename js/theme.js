@@ -23,7 +23,7 @@ define(
 				swatches.exit().remove();
 			});
 
-			colorWheel.dispatch.on('markersUpdated.theme', function () {
+			colorWheel.dispatch.on('updateEnd.theme', function () {
 				d3.selectAll('.theme__swatch').remove().each(function (d) {
 					var parent = d.show ? theme : sandbox;
 					parent.node().appendChild(this);
