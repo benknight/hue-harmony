@@ -27,11 +27,11 @@
     "tinycolor": "~1.1.2",
     "d3": "~3.5.5"
   },
-  "_release": "ba8c44cbeb",
+  "_release": "641aa7d04d",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "ba8c44cbeb2caf272b2d82de50d5655ec37d4183"
+    "commit": "641aa7d04d3bd2f2e0eeb5527e20ce1baf30c4af"
   },
   "_source": "git://github.com/benknight/kuler-d3.git",
   "_target": "*",

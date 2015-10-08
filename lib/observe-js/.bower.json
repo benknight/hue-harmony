@@ -27,6 +27,5 @@
   },
   "_source": "git://github.com/Polymer/observe-js.git",
   "_target": "~0.5.6",
-  "_originalSource": "Polymer/observe-js",
-  "_direct": true
+  "_originalSource": "Polymer/observe-js"
 }
