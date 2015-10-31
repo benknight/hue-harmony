@@ -8,11 +8,15 @@
 <title>huepie</title>
 <script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
 <!-- imports -->
-<link rel="import" href="lib/iron-pages/iron-pages.html">
+<link rel="import" href="lib/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="lib/iron-icons/iron-icons.html">
+<link rel="import" href="lib/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="lib/iron-pages/iron-pages.html">
 <link rel="import" href="lib/paper-button/paper-button.html">
+<link rel="import" href="lib/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="lib/paper-dialog/paper-dialog.html">
 <link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="lib/paper-input/paper-input.html">
 <link rel="import" href="lib/paper-material/paper-material.html">
 <link rel="import" href="lib/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="lib/paper-radio-group/paper-radio-group.html">
@@ -20,6 +24,8 @@
 <link rel="import" href="lib/paper-tabs/paper-tabs.html">
 <link rel="import" href="lib/paper-toast/paper-toast.html">
 <link rel="import" href="lib/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="lib/platinum-sw/platinum-sw-register.html">
+<link rel="import" href="lib/platinum-sw/platinum-sw-cache.html">
 <link rel="import" href="custom-style.html">
 <!-- assets -->
 <link rel="icon" sizes="192x192" href="icon.png">
@@ -30,16 +36,46 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<!-- <platinum-sw-register auto-register> -->
+	<!-- <platinum-sw-fetch handler="networkOnly" origin="http://192\.168\..+\..+"> -->
+	<!-- <platinum-sw-cache></platinum-sw-cache> -->
+<!-- </platinum-sw-register> -->
 <template id="app" is="dom-bind">
+	<iron-localstorage
+		name="settings"
+		value={{settings}}
+		on-iron-localstorage-load-empty="initSettings"></iron-localstorage>
 	<div class="gradient"></div>
 	<paper-toast class="status"><a></a></paper-toast>
 	<paper-dialog id="info" modal>
-		<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made with spite and malice by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
-		<p>
-			<b>Status</b><br>
-			Bridge IP: <span>{{bridgeIP}}</span><br>
-			App Version: <span>v0.1.0</span>
+		<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
+		<hr>
+		<h4>Lights</h4>
+		<p class="layout horizontal wrap">
+			<template is="dom-repeat" items="{{settings.lights}}">
+				<div style="width: 50%; margin-bottom: 0.5rem;">
+					<paper-checkbox checked={{item.active}}>{{item.name}}</paper-checkbox>
+				</div>
+			</template>
+			<small><em>Changing this will cause a refresh.</em></small>
 		</p>
+		<hr>
+		<p>
+			<paper-checkbox checked="{{settings.rotate}}"><b>Rotate colors</b></paper-checkbox>
+			<template is="dom-if" if="{{settings.rotate}}">
+				<paper-input
+					type="number"
+					label="Rotation interval (seconds)"
+					always-float-label
+					value="{{settings.interval}}"></paper-input>
+			</template>
+		</p>
+		<hr>
+		<div>
+			<b>Status</b><br>
+			Bridge IP: <span>[[bridgeIP]]</span><br>
+			App Version: <span>[[version]]</span>
+		</div>
 		<div class="buttons">
 			<paper-button dialog-confirm autofocus>Close</paper-button>
 		</div>
@@ -47,7 +83,7 @@
 	<div class="header-container">
 		<header>
 			<img src="icon.png"> huepie
-			<paper-icon-button icon="info" onClick="document.querySelector('#info').open()"></paper-icon-button>
+			<paper-icon-button icon="settings" onClick="document.querySelector('#info').open()"></paper-icon-button>
 		</header>
 		<paper-tabs selected="{{selected}}">
 			<paper-tab>Wheel</paper-tab>
@@ -64,14 +100,38 @@
 	</iron-pages>
 </template>
 <script>
+	// Initialize with these settings
+	document.querySelector('#app').initSettings = function () {
+		this.settings = {
+			rotate: false,
+			interval: 30,
+			lights: null
+		};
+	};
+
 	window.addEventListener('WebComponentsReady', function(e) {
+		console.log('Components are ready');
+		// Append main script
 		var script = document.createElement('script');
 		script.setAttribute('data-main', 'js/main');
 		script.setAttribute('src', 'lib/requirejs/require.js');
 		document.body.appendChild(script);
+	});
 
-		// imports are loaded and elements have been registered
-		console.log('Components are ready');
+	// Refresh the page after 20 minutes of inactivity
+	var blurTimestamp = Date.now();
+	var staleThresholdMinutes = 60;
+
+	window.addEventListener('blur', function () {
+		blurTimestamp = Date.now();
+	});
+
+	window.addEventListener('focus', function () {
+		var deltaMinutes = (Date.now() - blurTimestamp) / (1000 * 60);
+		console.log('Window focused. Elapsed time (minutes):', deltaMinutes.toFixed(2));
+		if (deltaMinutes >= staleThresholdMinutes) {
+			window.location.reload();
+		}
 	});
 </script>
 <script>
