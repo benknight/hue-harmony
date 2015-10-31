@@ -7,7 +7,8 @@ requirejs.config({
 		'hue-hacking': '../lib/hue-hacking/src/colors',
 		'jshue': '../lib/jshue/src/jshue',
 		'sortable': '../lib/Sortable/Sortable',
-		'observe-js': '../lib/observe-js/src/observe'
+		'observe-js': '../lib/observe-js/src/observe',
+		'lodash': '../lib/lodash/lodash'
 	},
 	shim: {
 		'jshue': { exports: 'jsHue' }
@@ -19,7 +20,8 @@ requirejs([
 		'gradient',
 		'toggle',
 		'theme',
-		'observe-js'
+		'observe-js',
+		'lodash'
 	], function (app) {
 		app.init();
 		window.app = app; // for debugging

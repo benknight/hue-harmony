@@ -18,9 +18,7 @@ body {
 }
 
 hr {
-	border: none;
-	border-top: 3px solid rgba(0, 0, 0, 0.1);
-	margin: 1rem 0;
+	opacity: 0.25;
 }
 
 header {
@@ -138,6 +136,11 @@ paper-dialog {
 		left: 50%;
 		transform: translateX(-50%);
 	}
+}
+
+paper-dialog,
+paper-toast {
+	font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
 }
 
 // --- Background Gradient ---

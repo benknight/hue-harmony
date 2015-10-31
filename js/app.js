@@ -2,6 +2,7 @@ define(function (require) {
 	'use strict';
 
 	var $ = require('jquery');
+	var _ = require('lodash');
 	var d3 = require('d3');
 	var tinycolor = require('tinycolor');
 	var jsHue = require('jshue');
@@ -29,16 +30,18 @@ define(function (require) {
 		bridgeIP: null, // the bridge IP
 		username: null, // the hue API username
 		cache: {}, // for caching API data
+		lights: {},
+		template: document.querySelector('#app'), // template used for data binding
+		initSettings: '', // serialized copy of settings on init
 
 		colorWheelOptions: { // options for the ColorWheel instance
 			container: '.wheel',
 			markerWidth: 45
 		},
 
-		$: { // references to DOM nodes
+		$: { // jQuery references to DOM nodes
 			status:   $('.status'),
-			controls: $('.controls'),
-			template: $('#app')
+			controls: $('.controls')
 		},
 
 		// Cache the full Hue Bridge state
@@ -55,13 +58,26 @@ define(function (require) {
 						}
 					} else {
 						self.cache.fullState = data;
+						if (! self.template.settings.lights) {
+							self.lights = data.lights;
+						} else {
+							self.lights = {};
+							for (var lid in data.lights) {
+								var light = data.lights[lid];
+								var setting = _.find(self.template.settings.lights, { name: light.name });
+								if (! setting || setting.active) {
+									self.lights[lid] = light;
+								}
+							}
+						}
 						self.observeChanges();
 						self.$.status.attr({ duration: 3000, text: msg.SUCCESS }).get(0).show();
 						resolve();
 					}
 				},
 				function (error) {
-					reject(Error(error));
+					window.localStorage.removeItem('bridge_ip');
+					reject(Error(msg.CONNECTION_ERROR_BRIDGE));
 				});
 			});
 		},
@@ -71,7 +87,7 @@ define(function (require) {
 			if (! Object.observe) {
 				window.setInterval(Platform.performMicrotaskCheckpoint, 100);
 			}
-			$.each(self.cache.fullState.lights, function (lid, light) {
+			$.each(self.lights, function (lid, light) {
 				// See: https://github.com/polymer/observe-js
 				var observer = new ObjectObserver(light.state);
 				observer.open(function (added, removed, changed, getOldValueFn) {
@@ -144,12 +160,19 @@ define(function (require) {
 			console.log('Connecting to local bridge...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
+				var bridgeIP;
+				if (bridgeIP = window.localStorage.getItem('bridge_ip')) {
+					self.bridgeIP = bridgeIP;
+					resolve();
+					return;
+				}
 				self.hue.discover(
 					function (bridges) {
 						if (bridges.length === 0) {
 							reject(Error(msg.NO_BRIDGE));
 						} else {
 							self.bridgeIP = bridges[0].internalipaddress;
+							window.localStorage.setItem('bridge_ip', self.bridgeIP);
 							resolve();
 						}
 					},
@@ -162,8 +185,8 @@ define(function (require) {
 
 		// Updates light states after wheel user interaction
 		wheelUpdateAction: function () {
-			for (var lid in this.cache.fullState.lights) {
-				var light = this.cache.fullState.lights[lid];
+			for (var lid in this.lights) {
+				var light = this.lights[lid];
 				if (light.state.on) {
 					var markerIndex = this.getLIDToMarkerMap()[lid];
 					var d = d3.select(this.wheel.getMarkers()[0][markerIndex]).datum();
@@ -187,8 +210,8 @@ define(function (require) {
 		// Renders the ColorWheel when everything's ready
 		renderWheel: function () {
 			var wheelData = [];
-			for (var lid in this.cache.fullState.lights) {
-				var light = this.cache.fullState.lights[lid];
+			for (var lid in this.lights) {
+				var light = this.lights[lid];
 				var lightHex = colors.CIE1931ToHex.apply(null, light.state.xy);
 				var lightHue = tinycolor(lightHex).toHsv().h;
 				wheelData.push(ColorWheel.createMarker(
@@ -212,7 +235,7 @@ define(function (require) {
 				off: $('<div>').addClass('switches off')
 			};
 
-			$.each(this.cache.fullState.lights, function (lid, light) {
+			$.each(this.lights, function (lid, light) {
 				var $row = $('<div class="switch">').attr('data-lid', lid);
 				var slider = document.createElement('paper-slider');
 				var toggle = document.createElement('paper-toggle-button');
@@ -281,9 +304,48 @@ define(function (require) {
 		},
 
 		bindTemplate: function () {
-			var template = this.$.template.get(0);
-			template.selected = 0;
-			template.bridgeIP = this.bridgeIP;
+			var self = this;
+			this.template.selected = 0;
+			this.template.bridgeIP = this.bridgeIP;
+			this.template.version = '0.1.0';
+			// Settings
+			this.template.set('settings.rotate', false);
+			this.template.set('settings.lights', _.map(this.cache.fullState.lights,
+				function (light, lid) {
+					var setting = _.find(self.template.settings.lights, { name: light.name });
+					return { name: light.name, active: setting ? setting.active : true };
+				}
+			));
+			this.initSettings = JSON.stringify(this.template.settings);
+			document.querySelector('paper-dialog')
+				.addEventListener('iron-overlay-closed', this.readSettings.bind(this));
+		},
+
+		// Any time we suspect settings have changed, read them and take appropriate action.
+		readSettings: function () {
+			// If light settings have changed, refresh the page.
+			if (this.initSettings.indexOf(JSON.stringify(this.template.settings.lights)) === -1) {
+				window.location.reload();
+			}
+			// If light rotate is enabled, set the timer.
+			if (this.template.settings.rotate) {
+				this.interval = window.setInterval(
+					this.randomizeColors.bind(this),
+					this.template.settings.interval * 1000
+				);
+			} else {
+				window.clearInterval(this.interval);
+			}
+		},
+
+		randomizeColors: function () {
+			var onLights = _.filter(this.lights, function (light) { return light.state.on });
+			var shuffled = _.shuffle(_.map(onLights, function (light) {
+				return light.state.xy;
+			}));
+			_.forEach(onLights, function (light) {
+				light.state.xy = shuffled.pop();
+			});
 		},
 
 		// Start the app!
@@ -303,7 +365,6 @@ define(function (require) {
 			self.resetStatus();
 			$.get('demo.json', function (data) {
 				self.bridgeIP = 'DEMO';
-				self.username = 'DEMO';
 				self.cache.fullState = data;
 				self.render();
 			});

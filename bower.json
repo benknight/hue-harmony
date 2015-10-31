@@ -1,6 +1,6 @@
 {
   "name": "Huepie",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     "Benjamin Knight <ben@benknight.me>"
   ],
@@ -36,6 +36,12 @@
     "Sortable": "~1.2.0",
     "tinycolor": "~1.1.2",
     "observe-js": "Polymer/observe-js#~0.5.6",
-    "normalize-css": "normalize.css#~3.0.3"
+    "normalize-css": "normalize.css#~3.0.3",
+    "paper-input": "PolymerElements/paper-input#~1.0.15",
+    "paper-checkbox": "PolymerElements/paper-checkbox#~1.0.12",
+    "platinum-sw": "PolymerElements/platinum-sw#~1.2.3",
+    "iron-localstorage": "PolymerElements/iron-localstorage#~1.0.4",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.4",
+    "lodash": "~3.10.1"
   }
 }
