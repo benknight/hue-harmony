@@ -1,24 +1,24 @@
 define(function (require) {
 	'use strict';
 
-	var $ = require('jquery');
-	var _ = require('lodash');
-	var d3 = require('d3');
-	var tinycolor = require('tinycolor');
-	var jsHue = require('jshue');
-	var colors = require('hue-hacking');
+	var $          = require('jquery');
+	var _          = require('lodash');
+	var d3         = require('d3');
+	var tinycolor  = require('tinycolor');
+	var jsHue      = require('jshue');
+	var colors     = require('hue-hacking');
 	var ColorWheel = require('colorwheel');
-	var observejs = require('observe-js');
+	var observejs  = require('observe-js');
 
 	// Collection of strings the app may need to show the user
 	var msg = {
-		CONNECTING: 'Connecting...',
-		SUCCESS: 'Successfully connected to local bridge!',
-		NO_BRIDGE: 'No Philips Hue bridge found on your local network.',
-		PRESS_BUTTON: 'Please authenticate by pressing the button on the Hue bridge.',
+		CONNECTING              : 'Connecting...',
+		SUCCESS                 : 'Successfully connected to local bridge!',
+		NO_BRIDGE               : 'No Philips Hue bridge found on your local network.',
+		PRESS_BUTTON            : 'Please authenticate by pressing the button on the Hue bridge.',
 		CONNECTION_ERROR_GENERIC: 'Unable to connect to the Internet.',
-		CONNECTION_ERROR_BRIDGE: 'Unable to connect to local bridge.',
-		UNAUTHORIZED_USER: 'Unauthorized user.'
+		CONNECTION_ERROR_BRIDGE : 'Unable to connect to local bridge.',
+		UNAUTHORIZED_USER       : 'Unauthorized user.'
 	};
 
 	var app = {
@@ -35,13 +35,13 @@ define(function (require) {
 		initSettings: '', // serialized copy of settings on init
 
 		colorWheelOptions: { // options for the ColorWheel instance
-			container: '.wheel',
+			container: '#wheel',
 			markerWidth: 45
 		},
 
 		$: { // jQuery references to DOM nodes
-			status:   $('.status'),
-			controls: $('.controls')
+			status:   $('#status'),
+			controls: $('#controls')
 		},
 
 		// Cache the full Hue Bridge state
@@ -115,9 +115,9 @@ define(function (require) {
 		// based on their appearance in the "on" switches table or "off" table.
 		getLIDToMarkerMap: function () {
 			var lidToMarkerMap = [];
-			var lids = this.$.controls.find('.switch').map(function () { return $(this).data('lid') });
-			var visibleSwatches = $('.theme__swatch:visible').toArray();
-			var hiddenSwatches = $('.theme__swatch:hidden').toArray();
+			var lids = this.$.controls.find('.Switch').map(function () { return $(this).data('lid') });
+			var visibleSwatches = $('.Theme-swatch:visible').toArray();
+			var hiddenSwatches = $('.Theme-swatch:hidden').toArray();
 			$(visibleSwatches.concat(hiddenSwatches)).each(function (index) {
 				lidToMarkerMap[lids[index]] = window.parseInt($(this).attr('data-marker-id'));
 			});
@@ -231,17 +231,17 @@ define(function (require) {
 			var self = this;
 			var rows = { on: [], off: [] };
 			var controls = {
-				on: $('<div>').addClass('switches on'),
-				off: $('<div>').addClass('switches off')
+				on: $('<div>').addClass('Switches Switches--on'),
+				off: $('<div>').addClass('Switches Switches--off')
 			};
 
 			$.each(this.lights, function (lid, light) {
-				var $row = $('<div class="switch">').attr('data-lid', lid);
+				var $row = $('<div class="Switch">').attr('data-lid', lid);
 				var slider = document.createElement('paper-slider');
 				var toggle = document.createElement('paper-toggle-button');
 
 				// Add on/off switch
-				Polymer.dom(toggle).setAttribute('class', 'switch__toggle');
+				Polymer.dom(toggle).setAttribute('class', 'Switch-toggle');
 				toggle.checked = !! light.state.on;
 				toggle.addEventListener('change', function () {
 					var markerIndex = self.getLIDToMarkerMap()[lid];
@@ -258,7 +258,7 @@ define(function (require) {
 				});
 
 				// Add brightness slider
-				Polymer.dom(slider).setAttribute('class', 'switch__slider');
+				Polymer.dom(slider).setAttribute('class', 'Switch-slider');
 				slider.pin = true;
 				slider.min = 0;
 				slider.max = 255;

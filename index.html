@@ -47,42 +47,43 @@
 		name="settings"
 		value={{settings}}
 		on-iron-localstorage-load-empty="initSettings"></iron-localstorage>
-	<div class="gradient"></div>
-	<paper-toast class="status"><a></a></paper-toast>
+	<div class="Gradient"></div>
+	<paper-toast id="status"><a></a></paper-toast>
 	<paper-dialog id="info" modal>
-		<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
-		<hr>
-		<h4>Lights</h4>
-		<p class="layout horizontal wrap">
-			<template is="dom-repeat" items="{{settings.lights}}">
-				<div style="width: 50%; margin-bottom: 0.5rem;">
-					<paper-checkbox checked={{item.active}}>{{item.name}}</paper-checkbox>
-				</div>
-			</template>
-			<small><em>Changing this will cause a refresh.</em></small>
-		</p>
-		<hr>
-		<p>
-			<paper-checkbox checked="{{settings.rotate}}"><b>Rotate colors</b></paper-checkbox>
-			<template is="dom-if" if="{{settings.rotate}}">
-				<paper-input
-					type="number"
-					label="Rotation interval (seconds)"
-					always-float-label
-					value="{{settings.interval}}"></paper-input>
-			</template>
-		</p>
-		<hr>
-		<div>
-			<b>Status</b><br>
-			Bridge IP: <span>[[bridgeIP]]</span><br>
-			App Version: <span>[[version]]</span>
+		<div class="Settings">
+			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
+			<hr>
+			<h4>Lights</h4>
+			<p class="layout horizontal wrap">
+				<template is="dom-repeat" items="{{settings.lights}}">
+					<div style="width: 50%; margin-bottom: 0.5rem;">
+						<paper-checkbox checked={{item.active}}>{{item.name}}</paper-checkbox>
+					</div>
+				</template>
+				<small><em>Changing this will cause a refresh.</em></small>
+			</p>
+			<hr>
+			<p>
+				<paper-checkbox checked="{{settings.rotate}}"><b>Rotate colors</b></paper-checkbox>
+				<template is="dom-if" if="{{settings.rotate}}">
+					<paper-input
+						type="number"
+						label="Rotation interval (seconds)"
+						always-float-label
+						value="{{settings.interval}}"></paper-input>
+				</template>
+			</p>
+			<hr>
+			<div>
+				<b>Status</b><br>
+				Bridge IP: <span>[[bridgeIP]]</span>
+			</div>
 		</div>
 		<div class="buttons">
 			<paper-button dialog-confirm autofocus>Close</paper-button>
 		</div>
 	</paper-dialog>
-	<div class="header-container">
+	<div class="HeaderContainer">
 		<header>
 			<img src="icon.png"> huepie
 			<paper-icon-button icon="settings" onClick="document.querySelector('#info').open()"></paper-icon-button>
@@ -93,11 +94,11 @@
 		</paper-tabs>
 	</div>
 	<iron-pages selected="{{selected}}">
-		<div class="page-1">
-			<div class="wheel"></div>
+		<div id="page-1">
+			<div id="wheel" class="Wheel"></div>
 		</div>
-		<div class="page-2">
-			<div class="controls"></div>
+		<div id="page-2">
+			<div id="controls" class="Controls"></div>
 		</div>
 	</iron-pages>
 </template>
@@ -137,12 +138,12 @@
 	});
 </script>
 <script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-32552202-1', 'auto');
-	ga('send', 'pageview');
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-32552202-1', 'auto');
+ga('send', 'pageview');
 </script>
 </body>
 </html>

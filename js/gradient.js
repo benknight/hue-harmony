@@ -3,11 +3,11 @@ define(['d3', 'colorwheel'], function (d3, ColorWheel) {
 	// Only use d3 for SVG stuff.
 	// Background gradient
 	ColorWheel.extend('bgGradient', function (colorWheel) {
-		var gradient = d3.select('.gradient');
+		var gradient = d3.select('.Gradient');
 		if (! gradient.size()) {
 			gradient = colorWheel.container.append('div').attr({
 				'id': 'gradient',
-				'class': 'gradient'
+				'class': 'Gradient'
 			});
 		}
 		colorWheel.dispatch.on('updateEnd.gradient', function () {
