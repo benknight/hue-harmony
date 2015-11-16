@@ -2,12 +2,14 @@
 <!---
 
 This README is automatically generated from the comments in these files:
-paper-tab.html  paper-tabs-icons.html  paper-tabs.html
+paper-tab.html  paper-tabs.html
 
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
 -->
+
+[![Build Status](https://travis-ci.org/PolymerElements/paper-tabs.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-tabs)
 
 _[Demo and API Docs](https://elements.polymer-project.org/elements/paper-tabs)_
 
@@ -100,5 +102,6 @@ Custom property | Description | Default
 `--paper-tab-ink` | Ink color | `--paper-yellow-a100`
 `--paper-tab` | Mixin applied to the tab | `{}`
 `--paper-tab-content` | Mixin applied to the tab content | `{}`
+`--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
 
 
