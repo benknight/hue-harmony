@@ -132,6 +132,10 @@ paper-dialog {
 		top: 0;
 		bottom: 0;
 		overflow: auto;
+
+		> * {
+			flex-shrink: 0;
+		}
 	}
 }
 
@@ -157,7 +161,7 @@ paper-toast {
 	p:first-child {
 		margin-top: 0;
 	}
-	
+
 	hr {
 		margin: 1rem -9999px;
 	}

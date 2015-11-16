@@ -31,7 +31,8 @@ paper-toast { font-family: sans-serif; z-index: 1; bottom: 1rem; left: 1rem; rig
 paper-toast a { color: gold; }
 @media screen and (max-width: 320px) { paper-toast { left: 0; bottom: 0; right: 0; } }
 
-@media screen and (max-width: 60em) { paper-dialog { display: flex; flex-direction: column; justify-content: space-between; margin: 0; top: 0; bottom: 0; overflow: auto; } }
+@media screen and (max-width: 60em) { paper-dialog { display: flex; flex-direction: column; justify-content: space-between; margin: 0; top: 0; bottom: 0; overflow: auto; }
+  paper-dialog > * { flex-shrink: 0; } }
 
 paper-dialog, paper-toast { font-family: -apple-system, '.SFNSText-Regular', sans-serif !important; }
 
