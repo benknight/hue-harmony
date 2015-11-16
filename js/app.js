@@ -307,7 +307,6 @@ define(function (require) {
 			var self = this;
 			this.template.selected = 0;
 			this.template.bridgeIP = this.bridgeIP;
-			this.template.version = '0.3.0';
 			// Settings
 			this.template.set('settings.rotate', false);
 			this.template.set('settings.lights', _.map(this.cache.fullState.lights,

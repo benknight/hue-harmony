@@ -6,7 +6,10 @@
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Set your Philips Hue lights using color theory. Science!">
 <title>huepie</title>
-<script>window.location.protocol == 'https:' && (window.location.protocol = 'http:')</script>
+<script>
+// Force http:
+window.location.protocol == 'https:' && (window.location.protocol = 'http:')
+</script>
 <script src="lib/webcomponentsjs/webcomponents-lite.js"></script>
 <!-- imports -->
 <link rel="import" href="lib/iron-flex-layout/classes/iron-flex-layout.html">
@@ -38,10 +41,12 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!-- <platinum-sw-register auto-register>
+<!--
+<platinum-sw-register auto-register>
 	<platinum-sw-fetch handler="networkOnly" origin="http://192\.168\..+\..+" path="/(.*)"></platinum-sw-fetch>
 	<platinum-sw-cache></platinum-sw-cache>
-</platinum-sw-register> -->
+</platinum-sw-register>
+-->
 <template id="app" is="dom-bind">
 	<iron-localstorage
 		name="settings"
