@@ -33,12 +33,10 @@ define(function (require) {
 		lights: {},
 		template: document.querySelector('#app'), // template used for data binding
 		initSettings: '', // serialized copy of settings on init
-
 		colorWheelOptions: { // options for the ColorWheel instance
 			container: '#wheel',
 			markerWidth: 45
 		},
-
 		$: { // jQuery references to DOM nodes
 			status:   $('#status'),
 			controls: $('#controls')
@@ -58,19 +56,6 @@ define(function (require) {
 						}
 					} else {
 						self.cache.fullState = data;
-						if (! self.template.settings.lights) {
-							self.lights = data.lights;
-						} else {
-							self.lights = {};
-							for (var lid in data.lights) {
-								var light = data.lights[lid];
-								var setting = _.find(self.template.settings.lights, { name: light.name });
-								if (! setting || setting.active) {
-									self.lights[lid] = light;
-								}
-							}
-						}
-						self.observeChanges();
 						self.$.status.attr({ duration: 3000, text: msg.SUCCESS }).get(0).show();
 						resolve();
 					}
@@ -183,6 +168,64 @@ define(function (require) {
 			});
 		},
 
+		resetStatus: function () {
+			this.$.status.get(0).hide();
+			this.$.status.find('a').empty();
+		},
+
+		setInitialState: function () {
+			this.template.set('selected', 0);
+			this.template.set('bridgeIP', this.bridgeIP);
+			if (! this.template.settings.lights) {
+			  this.lights = this.cache.fullState.lights;
+				this.template.set('settings.lights', _.map(this.cache.fullState.lights,
+					function (light, lid) {
+						return { name: light.name, active: true };
+					}
+				));
+			} else {
+			  this.lights = {};
+			  for (var lid in this.cache.fullState.lights) {
+			    var light = this.cache.fullState.lights[lid];
+			    var setting = _.find(this.template.settings.lights, { name: light.name });
+			    if (! setting || setting.active) {
+			      this.lights[lid] = light;
+			    }
+			  }
+			}
+			// Settings
+			this.template.set('settings.rotate', false);
+			// Cache settings so we can detect changes later
+			this.initSettings = JSON.stringify(this.template.settings);
+		},
+
+		// Any time we suspect settings have changed, read them and take appropriate action.
+		updateSettings: function () {
+			// If light settings have changed, refresh the page.
+			if (this.initSettings.indexOf(JSON.stringify(this.template.settings.lights)) === -1) {
+				window.location.reload();
+			}
+			// If light rotate is enabled, set the timer.
+			if (this.template.settings.rotate) {
+				this.interval = window.setInterval(
+					this.randomizeColors.bind(this),
+					this.template.settings.interval * 1000
+				);
+			} else {
+				window.clearInterval(this.interval);
+			}
+		},
+
+		randomizeColors: function () {
+			var onLights = _.filter(this.lights, function (light) { return light.state.on });
+			var shuffled = _.shuffle(_.map(onLights, function (light) {
+				return light.state.xy;
+			}));
+			_.forEach(onLights, function (light) {
+				light.state.xy = shuffled.pop();
+			});
+		},
+
 		// Updates light states after wheel user interaction
 		wheelUpdateAction: function () {
 			for (var lid in this.lights) {
@@ -205,6 +248,16 @@ define(function (require) {
 				this.wheel.dispatch.markersUpdated();
 				this.wheel.dispatch.updateEnd();
 			}
+		},
+
+		// Builds the UI once the Hue API has been loaded
+		render: function () {
+			this.setInitialState();
+			this.renderWheel();
+			this.renderControls();
+			// Events
+			document.querySelector('paper-dialog')
+				.addEventListener('iron-overlay-closed', this.updateSettings.bind(this));
 		},
 
 		// Renders the ColorWheel when everything's ready
@@ -277,15 +330,8 @@ define(function (require) {
 			controls.off.append(rows.off).appendTo(this.$.controls);
 		},
 
-		// Builds the UI once the Hue API has been loaded
-		render: function () {
-			this.bindTemplate();
-			this.renderWheel();
-			this.renderControls();
-		},
-
 		// Displays an error to the user, expecting an Error instance
-		showError: function (e) {
+		renderError: function (e) {
 			console.warn(e.stack);
 			if (e.message == msg.PRESS_BUTTON) {
 				this.$.status.find('a').text('Tap to retry');
@@ -298,55 +344,6 @@ define(function (require) {
 			this.$.status.attr({ text: e.message }).get(0).show();
 		},
 
-		resetStatus: function () {
-			this.$.status.get(0).hide();
-			this.$.status.find('a').empty();
-		},
-
-		bindTemplate: function () {
-			var self = this;
-			this.template.selected = 0;
-			this.template.bridgeIP = this.bridgeIP;
-			// Settings
-			this.template.set('settings.rotate', false);
-			this.template.set('settings.lights', _.map(this.cache.fullState.lights,
-				function (light, lid) {
-					var setting = _.find(self.template.settings.lights, { name: light.name });
-					return { name: light.name, active: setting ? setting.active : true };
-				}
-			));
-			this.initSettings = JSON.stringify(this.template.settings);
-			document.querySelector('paper-dialog')
-				.addEventListener('iron-overlay-closed', this.readSettings.bind(this));
-		},
-
-		// Any time we suspect settings have changed, read them and take appropriate action.
-		readSettings: function () {
-			// If light settings have changed, refresh the page.
-			if (this.initSettings.indexOf(JSON.stringify(this.template.settings.lights)) === -1) {
-				window.location.reload();
-			}
-			// If light rotate is enabled, set the timer.
-			if (this.template.settings.rotate) {
-				this.interval = window.setInterval(
-					this.randomizeColors.bind(this),
-					this.template.settings.interval * 1000
-				);
-			} else {
-				window.clearInterval(this.interval);
-			}
-		},
-
-		randomizeColors: function () {
-			var onLights = _.filter(this.lights, function (light) { return light.state.on });
-			var shuffled = _.shuffle(_.map(onLights, function (light) {
-				return light.state.xy;
-			}));
-			_.forEach(onLights, function (light) {
-				light.state.xy = shuffled.pop();
-			});
-		},
-
 		// Start the app!
 		init: function () {
 			this.resetStatus();
@@ -355,7 +352,8 @@ define(function (require) {
 				.then(this.getAPIUser.bind(this))
 				.then(this.cacheFullState.bind(this))
 				.then(this.render.bind(this))
-				.catch(this.showError.bind(this));
+				.then(this.observeChanges.bind(this))
+				.catch(this.renderError.bind(this));
 		},
 
 		// Start the app in demo mode, using mock data.
