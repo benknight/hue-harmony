@@ -266,6 +266,9 @@ define(function (require) {
 			var wheelData = [];
 			for (var lid in this.lights) {
 				var light = this.lights[lid];
+				if (! light.state.xy) { // Only deal with lights that have color data.
+					continue;
+				}
 				var lightHex = colors.CIE1931ToHex.apply(null, light.state.xy);
 				var lightHue = tinycolor(lightHex).toHsv().h;
 				wheelData.push(ColorWheel.createMarker(
