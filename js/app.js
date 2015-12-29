@@ -17,7 +17,7 @@ define(function (require) {
 		NO_BRIDGE               : 'No Philips Hue bridge found on your local network.',
 		PRESS_BUTTON            : 'Please authenticate by pressing the button on the Hue bridge.',
 		CONNECTION_ERROR_GENERIC: 'Unable to connect to the Internet.',
-		CONNECTION_ERROR_BRIDGE : 'Unable to connect to local bridge.',
+		CONNECTION_ERROR_BRIDGE : 'Unable to connect to local bridge. Try a refresh.',
 		UNAUTHORIZED_USER       : 'Unauthorized user.'
 	};
 
@@ -62,6 +62,7 @@ define(function (require) {
 				},
 				function (error) {
 					window.localStorage.removeItem('bridge_ip');
+					window.localStorage.removeItem('settings');
 					reject(Error(msg.CONNECTION_ERROR_BRIDGE));
 				});
 			});
