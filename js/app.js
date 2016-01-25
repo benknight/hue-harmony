@@ -113,7 +113,11 @@ define(function (require) {
 		// See if there is already a saved username, if not create one
 		getAPIUser: function () {
 			console.log('Getting API user...');
-			this.api = this.hue.bridge(this.bridgeIP).user(this.APP_USERNAME);
+			this.api = this.hue.bridge(this.bridgeIP).user(this.username || undefined);
+			if (! this.username) {
+				return this.createAPIUser().then(this.getAPIUser.bind(this));
+			}
+			return;
 		},
 
 		// Creates a new API user, only succeeds if the Bridge's button has been pressed
@@ -125,6 +129,8 @@ define(function (require) {
 					self.APP_ID,
 					function (data) {
 						if (data[0].success) {
+							self.username = data[0].success.username;
+							window.localStorage.setItem('username', self.username);
 							resolve();
 						} else {
 							if (data[0].error.type === 101) {
@@ -146,9 +152,11 @@ define(function (require) {
 			console.log('Connecting to local bridge...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
-				var bridgeIP;
-				if (bridgeIP = window.localStorage.getItem('bridge_ip')) {
+				var bridgeIP = window.localStorage.getItem('bridge_ip');
+				var username = window.localStorage.getItem('username');
+				if (bridgeIP && username) {
 					self.bridgeIP = bridgeIP;
+					self.username = username;
 					resolve();
 					return;
 				}
