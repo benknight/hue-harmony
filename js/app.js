@@ -335,11 +335,11 @@ define(function (require) {
 		renderError: function (e) {
 			console.warn(e.stack);
 			if (e.message == msg.PRESS_BUTTON) {
-				this.$.status.find('a').text('Tap to retry');
+				this.$.status.find('a').text('Retry');
 				this.$.status.click(this.init.bind(this));
 			}
 			if (e.message == msg.NO_BRIDGE) {
-				this.$.status.find('a').text('Tap to restart in demo mode');
+				this.$.status.find('a').text('Restart in demo mode');
 				this.$.status.click(this.demo.bind(this));
 			}
 			this.$.status.attr({ text: e.message }).get(0).show();
