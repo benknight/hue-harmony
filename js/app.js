@@ -180,6 +180,7 @@ define(function (require) {
 		},
 
 		resetStatus: function () {
+			this.$.status.unbind('click');
 			this.$.status.get(0).hide();
 			this.$.status.find('a').empty();
 		},
