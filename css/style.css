@@ -20,11 +20,11 @@ paper-radio-group { background: white; padding: 0.5rem; display: flex; flex-dire
 paper-radio-button { box-sizing: border-box; }
 @media screen and (min-width: 60em) { paper-radio-button { width: 50%; } }
 
-iron-pages { max-width: 65rem; margin: 0 auto; }
+iron-pages { max-width: 65rem; margin: 1.5rem auto 0; }
 @media screen and (min-width: 60em) { iron-pages { display: flex; align-items: center; }
   iron-pages > div { box-sizing: border-box; }
-  iron-pages #page-1 { width: 40%; max-width: 24rem; margin-left: 4%; }
-  iron-pages #page-2 { margin: 2rem 4% 0; flex: 1; }
+  iron-pages #page-1 { width: 40%; max-width: 20rem; margin-left: 4%; }
+  iron-pages #page-2 { margin: 2rem 7% 0; flex: 1; }
   iron-pages > :not(.iron-selected) { display: block !important; } }
 
 paper-toast { font-family: sans-serif; z-index: 1; bottom: 1rem; left: 1rem; right: 1rem; max-width: 400px; }

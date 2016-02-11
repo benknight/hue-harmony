@@ -78,7 +78,7 @@ paper-radio-button {
 
 iron-pages {
 	max-width: 65rem;
-	margin: 0 auto;
+	margin: 1.5rem auto 0;
 
 	@media screen and (min-width: $breakpoint) {
 		display: flex;
@@ -90,12 +90,12 @@ iron-pages {
 
 		#page-1 {
 			width: 40%;
-			max-width: 24rem;
+			max-width: 20rem;
 			margin-left: 4%;
 		}
 
 		#page-2 {
-			margin: 2rem 4% 0;
+			margin: 2rem 7% 0;
 			flex: 1;
 		}
 
