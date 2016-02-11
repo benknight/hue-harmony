@@ -56,7 +56,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	<paper-toast id="status"><a></a></paper-toast>
 	<paper-dialog id="info" modal>
 		<div class="Settings">
-			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io" target="_blank">Benjamin Knight</a>.</p>
+			<p>Use Huepie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/huepie">source code on Github.</a></p>
 			<hr>
 			<div>
 				<paper-input
@@ -82,7 +82,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	</paper-dialog>
 	<div class="HeaderContainer">
 		<header>
-			<img src="icon.png"> huepie
+			<img src="icon.png"> <span>HuePie</span>
 			<paper-icon-button icon="settings" onClick="document.querySelector('#info').open()"></paper-icon-button>
 		</header>
 		<paper-tabs selected="{{selected}}">

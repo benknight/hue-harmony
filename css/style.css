@@ -7,6 +7,7 @@ hr { opacity: 0.25; }
 
 header { position: relative; padding: 1rem 1.5rem; background-color: black; }
 header img { height: 1.2em; float: left; margin: -1px 0.5rem 0 0; }
+header span { background: rgba(255, 255, 255, 0.2); }
 header paper-icon-button { position: absolute; top: 0.5rem; right: 0.5rem; }
 
 paper-tabs { font-size: 0.8rem; background: #262626; }
