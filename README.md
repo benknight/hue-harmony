@@ -10,4 +10,4 @@ HuePie will try to automatically detect the bridge on your local network.  If it
 
 ## Demo Mode
 
-If Huepie finds no local bridge, it will allow you to start up in demo mode.
+If HuePie finds no local bridge, it will allow you to start up in demo mode.
