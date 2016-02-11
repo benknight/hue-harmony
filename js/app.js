@@ -42,6 +42,12 @@ define(function (require) {
 			controls: $('#controls')
 		},
 
+		checkSettingsVersion: function () {
+			if (this.template.get('settings.version') !== window.HUEPIE_SETTINGS_VERSION) {
+				this.template.set('settings', null);
+			}
+		},
+
 		// Cache the full Hue Bridge state
 		cacheFullState: function () {
 			console.log('Caching API fullState...');
@@ -61,8 +67,7 @@ define(function (require) {
 					}
 				},
 				function (error) {
-					window.localStorage.removeItem('bridge_ip');
-					window.localStorage.removeItem('settings');
+					this.template.set('settings', null);
 					reject(Error(msg.CONNECTION_ERROR_BRIDGE));
 				});
 			});
@@ -113,11 +118,11 @@ define(function (require) {
 		// See if there is already a saved username, if not create one
 		getAPIUser: function () {
 			console.log('Getting API user...');
+			this.username = this.template.get('settings.username');
 			this.api = this.hue.bridge(this.bridgeIP).user(this.username || undefined);
 			if (! this.username) {
 				return this.createAPIUser().then(this.getAPIUser.bind(this));
 			}
-			return;
 		},
 
 		// Creates a new API user, only succeeds if the Bridge's button has been pressed
@@ -130,7 +135,7 @@ define(function (require) {
 					function (data) {
 						if (data[0].success) {
 							self.username = data[0].success.username;
-							window.localStorage.setItem('username', self.username);
+							self.template.set('settings.username', self.username);
 							resolve();
 						} else {
 							if (data[0].error.type === 101) {
@@ -152,11 +157,8 @@ define(function (require) {
 			console.log('Connecting to local bridge...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
-				var bridgeIP = window.localStorage.getItem('bridge_ip');
-				var username = window.localStorage.getItem('username');
-				if (bridgeIP && username) {
-					self.bridgeIP = bridgeIP;
-					self.username = username;
+				self.bridgeIP = self.template.get('settings.bridge_ip');
+				if (self.bridgeIP) {
 					resolve();
 					return;
 				}
@@ -166,7 +168,7 @@ define(function (require) {
 							reject(Error(msg.NO_BRIDGE));
 						} else {
 							self.bridgeIP = bridges[0].internalipaddress;
-							window.localStorage.setItem('bridge_ip', self.bridgeIP);
+							self.template.set('settings.bridge_ip', self.bridgeIP);
 							resolve();
 						}
 					},
@@ -184,7 +186,6 @@ define(function (require) {
 
 		setInitialState: function () {
 			this.template.set('selected', 0);
-			this.template.set('bridgeIP', this.bridgeIP);
 			if (! this.template.settings.lights) {
 			  this.lights = this.cache.fullState.lights;
 				this.template.set('settings.lights', _.map(this.cache.fullState.lights,
@@ -202,26 +203,17 @@ define(function (require) {
 			    }
 			  }
 			}
-			// Settings
-			this.template.set('settings.rotate', false);
-			// Cache settings so we can detect changes later
-			this.initSettings = JSON.stringify(this.template.settings);
+		},
+
+		cacheSettings: function () {
+			this.cachedSettings = JSON.stringify(this.template.settings);
 		},
 
 		// Any time we suspect settings have changed, read them and take appropriate action.
 		updateSettings: function () {
-			// If light settings have changed, refresh the page.
-			if (this.initSettings.indexOf(JSON.stringify(this.template.settings.lights)) === -1) {
+			// If settings have changed, refresh the page.
+			if (this.cachedSettings !== JSON.stringify(this.template.settings)) {
 				window.location.reload();
-			}
-			// If light rotate is enabled, set the timer.
-			if (this.template.settings.rotate) {
-				this.interval = window.setInterval(
-					this.randomizeColors.bind(this),
-					this.template.settings.interval * 1000
-				);
-			} else {
-				window.clearInterval(this.interval);
 			}
 		},
 
@@ -264,9 +256,6 @@ define(function (require) {
 			this.setInitialState();
 			this.renderWheel();
 			this.renderControls();
-			// Events
-			document.querySelector('paper-dialog')
-				.addEventListener('iron-overlay-closed', this.updateSettings.bind(this));
 		},
 
 		// Renders the ColorWheel when everything's ready
@@ -360,6 +349,12 @@ define(function (require) {
 		init: function () {
 			this.resetStatus();
 			this.$.status.attr({ text: msg.CONNECTING, duration: 1e10 }).get(0).show();
+			// Dialog listeners
+			var dialog = document.querySelector('paper-dialog');
+			dialog.addEventListener('iron-overlay-closed', this.updateSettings.bind(this))
+			dialog.addEventListener('iron-overlay-opened', this.cacheSettings.bind(this));
+			// Do do that voodoo that you do
+			this.checkSettingsVersion();
 			this.connectToLocalBridge()
 				.then(this.getAPIUser.bind(this))
 				.then(this.cacheFullState.bind(this))
@@ -373,7 +368,6 @@ define(function (require) {
 			var self = this;
 			self.resetStatus();
 			$.get('demo.json', function (data) {
-				self.bridgeIP = 'DEMO';
 				self.cache.fullState = data;
 				self.render();
 			});
