@@ -41,6 +41,7 @@
     "platinum-sw": "PolymerElements/platinum-sw#~1.2.3",
     "iron-localstorage": "PolymerElements/iron-localstorage#~1.0.4",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.4",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "neon-animation": "PolymerElements/neon-animation#~1.1.0"
   }
 }
