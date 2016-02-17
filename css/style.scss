@@ -3,8 +3,9 @@ $breakpoint: 60em;
 // --- Global ---
 
 html {
-	font-size: 1.25em;
-	font-family: Inconsolata, monospace;
+	-webkit-font-smoothing: antialiased;
+	font-size: 1.2em;
+	font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
 	background: #333 url(../img/stripes.png);
 	color: white;
 	min-height: 100%;
@@ -26,16 +27,22 @@ hr {
 header {
 	position: relative;
 	padding: 1rem 1.5rem;
-	background-color: black;
+	background-color: rgba(black, 0.33);
+
+	span {
+		background:
+			linear-gradient(to bottom, transparent 40%, black 100%),
+			linear-gradient(to right, red, yellow, cyan);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-weight: bold;
+		letter-spacing: -0.5px;
+	}
 
 	img {
 		height: 1.2em;
 		float: left;
 		margin: -1px 0.5rem 0 0;
-	}
-
-	span {
-		background: rgba(white, 0.2);
 	}
 
 	paper-icon-button {
@@ -47,7 +54,8 @@ header {
 
 paper-tabs {
 	font-size: 0.8rem;
-	background: hsl(0, 0%, 15%);
+	background: rgba(black, 0.5);
+	color: white;
 
 	@media screen and (min-width: $breakpoint) {
 		display: none !important;
@@ -94,7 +102,7 @@ iron-pages {
 
 		#page-1 {
 			width: 40%;
-			max-width: 20rem;
+			max-width: 24rem;
 			margin-left: 4%;
 		}
 
@@ -128,12 +136,13 @@ paper-toast {
 }
 
 paper-dialog {
+	paper-button {
+		font-weight: bold;
+	}
+
 	@media screen and (max-width: $breakpoint) {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
 		margin: 0;
-		top: 0;
+		top: 60px;
 		bottom: 0;
 		overflow: auto;
 
@@ -181,7 +190,7 @@ paper-toast {
 	z-index: -1;
 	opacity: 0.5;
 	position: fixed;
-	top: 0;
+	top: 10vh;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -213,8 +222,19 @@ paper-toast {
 		text-shadow: 1px 2px 10px #000;
 	}
 
-	.colorwheel-marker.root circle {
+	.colorwheel-marker {
+		circle {
+			stroke-width: 4px;
+		}
+
+		// &.root circle {
+		// 	stroke-width: 5px;
+		// }
+	}
+
+	.colorwheel-marker-trail {
 		stroke-width: 5px;
+		stroke-dasharray: 0;
 	}
 }
 
@@ -297,8 +317,7 @@ paper-toast {
 .Theme-color {
 	width: 100%;
 	height: 100%;
-	border-radius: 50%;
-	box-shadow: 0 0 0 9px rgba(black, 0.1);
+	border-radius: 25%;
 }
 
 .Switches--off {

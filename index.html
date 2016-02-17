@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#000000">
-<meta name="description" content="Set your Philips Hue lights using color theory. Science!">
-<title>HuePie</title>
+<meta name="description" content="Set your Philips Hue lights using color theory. Yay science!">
+<title>Color Wheel for Philips Hue</title>
 <script>
 // Force http:
 window.location.protocol == 'https:' && (window.location.protocol = 'http:')
@@ -33,8 +33,8 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 <link rel="import" href="lib/platinum-sw/platinum-sw-fetch.html"> -->
 <link rel="import" href="custom-style.html">
 <!-- assets -->
-<link rel="icon" sizes="192x192" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png"/>
+<link rel="icon" sizes="192x192" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png"/>
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
 <link rel="stylesheet" href="lib/normalize-css/normalize.css">
@@ -56,7 +56,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	<paper-toast id="status"><a></a></paper-toast>
 	<paper-dialog id="info" modal>
 		<div class="Settings">
-			<p>Use HuePie to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/huepie">source code on Github.</a></p>
+			<p>Use Color Wheel for Hue to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/huepie">source code on Github.</a></p>
 			<hr>
 			<div>
 				<paper-input
@@ -82,8 +82,12 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	</paper-dialog>
 	<div class="HeaderContainer">
 		<header>
-			<img src="icon.png"> <span>HuePie</span>
-			<paper-icon-button icon="settings" onClick="document.querySelector('#info').open()"></paper-icon-button>
+			<img src="icon.png"> <span>Color Wheel for Hue</span>
+			<paper-icon-button
+				title="Settings"
+				icon="settings"
+				onClick="document.querySelector('#info').open()"
+			/>
 		</header>
 		<paper-tabs selected="{{selected}}">
 			<paper-tab>Wheel</paper-tab>
