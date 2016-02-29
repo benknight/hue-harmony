@@ -34,13 +34,15 @@ header {
 	}
 
 	span {
+		display: inline-block;
 		background:
-			linear-gradient(to bottom, transparent 40%, black 100%),
+			linear-gradient(to bottom, transparent 40%, rgba(black, 0.8) 100%),
 			linear-gradient(to right, red, yellow, cyan);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     font-weight: bold;
 		letter-spacing: -0.5px;
+		line-height: 1;
 	}
 
 	img {
@@ -150,7 +152,7 @@ paper-dialog {
 
 	@media screen and (max-width: $breakpoint) {
 		margin: 0;
-		top: 60px;
+		top: 0;
 		bottom: 0;
 		overflow: auto;
 	}

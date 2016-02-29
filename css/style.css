@@ -7,7 +7,7 @@ hr { opacity: 0.25; }
 
 header { position: relative; padding: 1rem 1.5rem; background-color: black; }
 @media screen and (min-width: 60em) { header { background-color: rgba(0, 0, 0, 0.33); } }
-header span { background: linear-gradient(to bottom, transparent 40%, black 100%), linear-gradient(to right, red, yellow, cyan); -webkit-text-fill-color: transparent; -webkit-background-clip: text; font-weight: bold; letter-spacing: -0.5px; }
+header span { display: inline-block; background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(to right, red, yellow, cyan); -webkit-text-fill-color: transparent; -webkit-background-clip: text; font-weight: bold; letter-spacing: -0.5px; line-height: 1; }
 header img { height: 1.2em; float: left; margin: -1px 0.5rem 0 0; }
 header paper-icon-button { position: absolute; top: 0.5rem; right: 0.5rem; }
 
@@ -35,7 +35,7 @@ paper-toast a { color: gold; }
 @media screen and (max-width: 320px) { paper-toast { left: 0; bottom: 0; right: 0; } }
 
 paper-dialog paper-button { font-weight: bold; }
-@media screen and (max-width: 60em) { paper-dialog { margin: 0; top: 60px; bottom: 0; overflow: auto; } }
+@media screen and (max-width: 60em) { paper-dialog { margin: 0; top: 0; bottom: 0; overflow: auto; } }
 
 paper-dialog, paper-toast { font-family: -apple-system, '.SFNSText-Regular', sans-serif !important; }
 
