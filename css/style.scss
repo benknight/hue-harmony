@@ -27,7 +27,11 @@ hr {
 header {
 	position: relative;
 	padding: 1rem 1.5rem;
-	background-color: rgba(black, 0.33);
+	background-color: black;
+
+	@media screen and (min-width: $breakpoint) {
+		background-color: rgba(black, 0.33);
+	}
 
 	span {
 		background:
@@ -54,8 +58,12 @@ header {
 
 paper-tabs {
 	font-size: 0.8rem;
-	background: rgba(black, 0.5);
+	background: black;
 	color: white;
+
+	@media screen and (min-width: $breakpoint) {
+		background-color: rgba(black, 0.5);
+	}
 
 	@media screen and (min-width: $breakpoint) {
 		display: none !important;
@@ -145,10 +153,6 @@ paper-dialog {
 		top: 60px;
 		bottom: 0;
 		overflow: auto;
-
-		> * {
-			flex-shrink: 0;
-		}
 	}
 }
 
@@ -268,8 +272,12 @@ paper-toast {
 .Switch-toggle {
 	cursor: pointer;
 	position: absolute;
-	top: 23px;
+	top: 18px;
 	right: 0;
+
+	@media screen and (max-width: $breakpoint) {
+		right: 0.5rem;
+	}
 }
 
 .Switch-slider {

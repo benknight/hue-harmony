@@ -5,12 +5,14 @@ body { position: relative; padding: 5.5rem 0 0 0; }
 
 hr { opacity: 0.25; }
 
-header { position: relative; padding: 1rem 1.5rem; background-color: rgba(0, 0, 0, 0.33); }
+header { position: relative; padding: 1rem 1.5rem; background-color: black; }
+@media screen and (min-width: 60em) { header { background-color: rgba(0, 0, 0, 0.33); } }
 header span { background: linear-gradient(to bottom, transparent 40%, black 100%), linear-gradient(to right, red, yellow, cyan); -webkit-text-fill-color: transparent; -webkit-background-clip: text; font-weight: bold; letter-spacing: -0.5px; }
 header img { height: 1.2em; float: left; margin: -1px 0.5rem 0 0; }
 header paper-icon-button { position: absolute; top: 0.5rem; right: 0.5rem; }
 
-paper-tabs { font-size: 0.8rem; background: rgba(0, 0, 0, 0.5); color: white; }
+paper-tabs { font-size: 0.8rem; background: black; color: white; }
+@media screen and (min-width: 60em) { paper-tabs { background-color: rgba(0, 0, 0, 0.5); } }
 @media screen and (min-width: 60em) { paper-tabs { display: none !important; } }
 
 paper-radio-button, paper-radio-group { display: block; }
@@ -33,8 +35,7 @@ paper-toast a { color: gold; }
 @media screen and (max-width: 320px) { paper-toast { left: 0; bottom: 0; right: 0; } }
 
 paper-dialog paper-button { font-weight: bold; }
-@media screen and (max-width: 60em) { paper-dialog { margin: 0; top: 60px; bottom: 0; overflow: auto; }
-  paper-dialog > * { flex-shrink: 0; } }
+@media screen and (max-width: 60em) { paper-dialog { margin: 0; top: 60px; bottom: 0; overflow: auto; } }
 
 paper-dialog, paper-toast { font-family: -apple-system, '.SFNSText-Regular', sans-serif !important; }
 
@@ -63,7 +64,8 @@ paper-dialog, paper-toast { font-family: -apple-system, '.SFNSText-Regular', san
 .Switch { box-sizing: border-box; position: relative; height: 50px; margin-bottom: 1.5rem; }
 .Switch b { font-weight: normal; margin-left: 15px; }
 
-.Switch-toggle { cursor: pointer; position: absolute; top: 23px; right: 0; }
+.Switch-toggle { cursor: pointer; position: absolute; top: 18px; right: 0; }
+@media screen and (max-width: 60em) { .Switch-toggle { right: 0.5rem; } }
 
 .Switch-slider { position: absolute; left: 0; bottom: 0; width: 80%; width: calc(100% - 70px); }
 

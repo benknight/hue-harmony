@@ -11,7 +11,6 @@
 window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 </script>
 <script src="lib/webcomponentsjs/webcomponents-lite.min.js"></script>
-<!-- imports -->
 <link rel="import" href="lib/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="lib/iron-icons/iron-icons.html">
 <link rel="import" href="lib/iron-localstorage/iron-localstorage.html">
@@ -28,11 +27,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 <link rel="import" href="lib/paper-tabs/paper-tabs.html">
 <link rel="import" href="lib/paper-toast/paper-toast.html">
 <link rel="import" href="lib/paper-toggle-button/paper-toggle-button.html">
-<!-- <link rel="import" href="lib/platinum-sw/platinum-sw-register.html">
-<link rel="import" href="lib/platinum-sw/platinum-sw-cache.html">
-<link rel="import" href="lib/platinum-sw/platinum-sw-fetch.html"> -->
 <link rel="import" href="custom-style.html">
-<!-- assets -->
 <link rel="icon" sizes="192x192" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png"/>
 <link rel="manifest" href="manifest.json">
@@ -41,12 +36,6 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!--
-<platinum-sw-register auto-register>
-	<platinum-sw-fetch handler="networkOnly" origin="http://192\.168\..+\..+" path="/(.*)"></platinum-sw-fetch>
-	<platinum-sw-cache></platinum-sw-cache>
-</platinum-sw-register>
--->
 <template id="app" is="dom-bind">
 	<iron-localstorage
 		name="settings"
@@ -54,7 +43,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 		on-iron-localstorage-load-empty="initSettings"></iron-localstorage>
 	<div class="Gradient"></div>
 	<paper-toast id="status"><a></a></paper-toast>
-	<paper-dialog id="info" modal>
+	<paper-dialog modal id="info">
 		<div class="Settings">
 			<p>Use Color Wheel for Hue to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/huepie">source code on Github.</a></p>
 			<hr>
@@ -69,7 +58,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 				<h4>Lights</h4>
 				<p class="layout horizontal wrap">
 					<template is="dom-repeat" items="{{settings.lights}}">
-						<div style="width: 50%; margin-bottom: 0.5rem;">
+						<div style="width: 50%; margin-bottom: 1rem;">
 							<paper-checkbox checked={{item.active}}>{{item.name}}</paper-checkbox>
 						</div>
 					</template>
@@ -116,7 +105,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 		};
 	};
 
-	window.addEventListener('WebComponentsReady', function(e) {
+	window.addEventListener('WebComponentsReady', function (e) {
 		console.log('Components are ready');
 		// Append main script
 		var script = document.createElement('script');
@@ -125,7 +114,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 		document.body.appendChild(script);
 	});
 
-	// Refresh the page after 20 minutes of inactivity
+	// Refresh the page after certain minutes of inactivity
 	var blurTimestamp = Date.now();
 	var staleThresholdMinutes = 60;
 

@@ -19,7 +19,7 @@ define(['d3', 'colorwheel'], function (d3, ColorWheel) {
 			Polymer.dom(modeToggle).appendChild(modeToggleOption);
 		}
 
-		container.appendChild(modeToggle);
+		Polymer.dom(container).appendChild(modeToggle);
 		document.querySelector('#page-1').appendChild(container);
 
 		wheel.dispatch.on('modeChanged.modeToggle', function () {
