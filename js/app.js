@@ -43,7 +43,7 @@ define(function (require) {
 		},
 
 		checkSettingsVersion: function () {
-			if (this.template.get('settings.version') !== window.HUEPIE_SETTINGS_VERSION) {
+			if (this.template.get('settings.version') !== window.APP_SETTINGS_VERSION) {
 				this.template.set('settings', null);
 			}
 		},
