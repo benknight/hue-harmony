@@ -45,7 +45,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	<paper-toast id="status"><a></a></paper-toast>
 	<paper-dialog modal id="info">
 		<div class="Settings">
-			<p>Use Color Wheel for Hue to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/huepie">source code on Github.</a></p>
+			<p>Use Color Wheel for Hue to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/color-wheel-for-philips-hue">source code on Github.</a></p>
 			<hr>
 			<div>
 				<paper-input
@@ -93,7 +93,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	</iron-pages>
 </template>
 <script>
-	window.HUEPIE_SETTINGS_VERSION = 1;
+	window.APP_SETTINGS_VERSION = 1;
 
 	// Initialize with these settings
 	document.querySelector('#app').initSettings = function () {
@@ -101,7 +101,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 			lights: null,
 			bridge_ip: null,
 			username: null,
-			version: window.HUEPIE_SETTINGS_VERSION,
+			version: window.APP_SETTINGS_VERSION,
 		};
 	};
 

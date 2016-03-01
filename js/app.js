@@ -22,8 +22,8 @@ define(function (require) {
 	};
 
 	var app = {
-		APP_ID: 'huepie', // for registering with the API
-		APP_USERNAME: 'huepie-user',
+		APP_ID: 'colorwheel', // for registering with the API
+		APP_USERNAME: 'colorwheel-user',
 		hue: jsHue(), // jsHue instance
 		api: null, // jsHueUser instance
 		wheel: null, // ColorWheel instance
