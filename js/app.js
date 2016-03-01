@@ -277,8 +277,8 @@ define(function (require) {
 			}
 			this.wheel = new ColorWheel(this.colorWheelOptions);
 			this.wheel.bindData(wheelData);
-			this.wheel.dispatch.on('modeChanged.huepie', this.modeToggleAction.bind(this));
-			this.wheel.dispatch.on('updateEnd.huepie', this.wheelUpdateAction.bind(this));
+			this.wheel.dispatch.on('modeChanged.colorwheel', this.modeToggleAction.bind(this));
+			this.wheel.dispatch.on('updateEnd.colorwheel', this.wheelUpdateAction.bind(this));
 		},
 
 		// Renders the light switches and attached behavior
