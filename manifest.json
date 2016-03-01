@@ -1,5 +1,6 @@
 {
   "name": "Color Wheel for Philips Hue",
+  "short_name": "Color Wheel",
   "icons": [
     {
       "src": "favicon.png",
