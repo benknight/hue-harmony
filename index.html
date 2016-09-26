@@ -51,7 +51,10 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 				<paper-input
 					type="text"
 					label="Bridge IP"
+					readonly={{settings.auto_discover}}
 					value="{{settings.bridge_ip}}"></paper-input>
+				<paper-checkbox checked={{settings.auto_discover}}>Automatically discover bridge</paper-checkbox>
+				<div><small>Uncheck this to manually set the bridge IP address.</small></div>
 			</div>
 			<template is="dom-if" if="{{settings.lights}}">
 				<hr>
@@ -93,7 +96,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 	</iron-pages>
 </template>
 <script>
-	window.APP_SETTINGS_VERSION = 1;
+	window.APP_SETTINGS_VERSION = 2;
 
 	// Initialize with these settings
 	document.querySelector('#app').initSettings = function () {
@@ -102,6 +105,7 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 			bridge_ip: null,
 			username: null,
 			version: window.APP_SETTINGS_VERSION,
+			auto_discover: true,
 		};
 	};
 

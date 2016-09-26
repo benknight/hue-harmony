@@ -44,7 +44,7 @@ define(function (require) {
 
 		checkSettingsVersion: function () {
 			if (this.template.get('settings.version') !== window.APP_SETTINGS_VERSION) {
-				this.template.set('settings', null);
+				this.template.initSettings();
 			}
 		},
 
@@ -159,11 +159,12 @@ define(function (require) {
 			console.log('Connecting to local bridge...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
-				// self.bridgeIP = self.template.get('settings.bridge_ip');
-				// if (self.bridgeIP) {
-				// 	resolve();
-				// 	return;
-				// }
+				self.bridgeIP = self.template.get('settings.bridge_ip');
+				self.autoDiscover = self.template.get('settings.auto_discover');
+				if (self.bridgeIP && !self.autoDiscover) {
+					resolve();
+					return;
+				}
 				self.hue.discover(
 					function (bridges) {
 						if (bridges.length === 0) {
