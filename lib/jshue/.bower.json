@@ -1,14 +1,14 @@
 {
   "name": "jshue",
   "homepage": "https://github.com/blargoner/jshue",
-  "version": "0.2.0",
-  "_release": "0.2.0",
+  "version": "0.3.0",
+  "_release": "0.3.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.0",
-    "commit": "9e5fbc47106523a99c8c915a34ad16b47aad190b"
+    "tag": "v0.3.0",
+    "commit": "fd76302e9c8856a76c611b5832358f0ab8872467"
   },
   "_source": "git://github.com/blargoner/jshue.git",
-  "_target": "~0.2.0",
+  "_target": "~0.3.0",
   "_originalSource": "blargoner/jshue"
 }

@@ -56,7 +56,7 @@ define(function (require) {
 				self.api.getFullState(function (data) {
 					if (data.length && data[0].error) {
 						if (data[0].error.type == 1) {
-							self.createAPIUser().then(self.cacheFullState.bind(self), reject).then(resolve, reject);
+							self.getAPIUser(true).then(self.cacheFullState.bind(self), reject).then(resolve, reject);
 						} else {
 							reject(Error('"' + data[0].error.description + '" (error type ' + data[0].error.type + ')'));
 						}
@@ -116,13 +116,15 @@ define(function (require) {
 		},
 
 		// See if there is already a saved username, if not create one
-		getAPIUser: function () {
+		getAPIUser: function (createNew) {
 			console.log('Getting API user...');
 			this.username = this.template.get('settings.username');
-			this.api = this.hue.bridge(this.bridgeIP).user(this.username || undefined);
-			if (! this.username) {
-				return this.createAPIUser().then(this.getAPIUser.bind(this));
+			this.bridge = this.hue.bridge(this.bridgeIP);
+			if (!createNew && this.username) {
+				this.api = this.bridge.user(this.username);
+				return;
 			}
+			return this.createAPIUser().then(this.getAPIUser.bind(this));
 		},
 
 		// Creates a new API user, only succeeds if the Bridge's button has been pressed
@@ -130,7 +132,7 @@ define(function (require) {
 			console.log('Creating a new API user...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
-				self.api.create(
+				self.bridge.createUser(
 					self.APP_ID,
 					function (data) {
 						if (data[0].success) {
@@ -157,11 +159,11 @@ define(function (require) {
 			console.log('Connecting to local bridge...');
 			var self = this;
 			return new Promise(function (resolve, reject) {
-				self.bridgeIP = self.template.get('settings.bridge_ip');
-				if (self.bridgeIP) {
-					resolve();
-					return;
-				}
+				// self.bridgeIP = self.template.get('settings.bridge_ip');
+				// if (self.bridgeIP) {
+				// 	resolve();
+				// 	return;
+				// }
 				self.hue.discover(
 					function (bridges) {
 						if (bridges.length === 0) {

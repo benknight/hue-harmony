@@ -17,7 +17,7 @@
     "d3": "~3.5.3",
     "hue-hacking": "benknight/hue-hacking",
     "iron-pages": "PolymerElements/iron-pages#~1.0.2",
-    "jshue": "blargoner/jshue#~0.2.0",
+    "jshue": "blargoner/jshue#~0.3.0",
     "kuler-d3": "benknight/kuler-d3",
     "paper-button": "PolymerElements/paper-button#~1.0.3",
     "paper-dialog": "PolymerElements/paper-dialog#~1.0.1",
