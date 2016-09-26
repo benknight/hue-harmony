@@ -146,6 +146,10 @@ paper-toast {
 }
 
 paper-dialog {
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+
 	paper-button {
 		font-weight: bold;
 	}
@@ -175,7 +179,7 @@ paper-toast {
 // --- Settings ---
 
 .Settings {
-	overflow: hidden;
+	flex: 1;
 
 	p:first-child {
 		margin-top: 0;
@@ -188,6 +192,10 @@ paper-toast {
 	@media screen and (min-width: $breakpoint) {
 		max-width: 400px;
 	}
+}
+
+.Settings + .buttons {
+	flex-shrink: 0;
 }
 
 // --- Background Gradient ---

@@ -58,7 +58,8 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 			</div>
 			<template is="dom-if" if="{{settings.lights}}">
 				<hr>
-				<h4>Lights</h4>
+				<h4 style="margin-bottom: 0">Active Lights</h4>
+				<div><small>Only the checked lights will be controlled by this app.  Use this to ignore certain lights.</small></div>
 				<p class="layout horizontal wrap">
 					<template is="dom-repeat" items="{{settings.lights}}">
 						<div style="width: 50%; margin-bottom: 1rem;">
