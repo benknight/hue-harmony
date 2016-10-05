@@ -4,11 +4,13 @@ $breakpoint: 60em;
 
 html {
 	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+	height: 100%;
+	min-height: 100%;
 	font-size: 1.2em;
 	font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
 	background: #333 url(../img/stripes.png);
 	color: white;
-	min-height: 100%;
 }
 
 body {
@@ -104,7 +106,6 @@ iron-pages {
 
 	@media screen and (min-width: $breakpoint) {
 		display: flex;
-		align-items: center;
 
 		> div {
 			box-sizing: border-box;

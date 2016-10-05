@@ -1,10 +1,12 @@
 html {
   -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100%;
+  min-height: 100%;
   font-size: 1.2em;
   font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
   background: #333 url(../img/stripes.png);
-  color: white;
-  min-height: 100%; }
+  color: white; }
 
 body {
   position: relative;
@@ -77,8 +79,7 @@ iron-pages {
   margin: 1.5rem auto 0; }
   @media screen and (min-width: 60em) {
     iron-pages {
-      display: flex;
-      align-items: center; }
+      display: flex; }
       iron-pages > div {
         box-sizing: border-box; }
       iron-pages #page-1 {
