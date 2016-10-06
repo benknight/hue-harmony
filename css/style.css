@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box; }
+
 html {
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
@@ -10,7 +13,9 @@ html {
 
 body {
   position: relative;
-  padding: 5.5rem 0 0 0; }
+  padding: 5.5rem 0 0 0;
+  height: 100%;
+  overflow: auto; }
   @media screen and (min-width: 60em) {
     body {
       padding: 3rem 0 2rem 0; } }
@@ -225,15 +230,14 @@ paper-toast {
   position: relative;
   cursor: move;
   cursor: -webkit-grabbing;
-  width: 45px;
-  height: 45px;
-  border-bottom: 5px solid transparent;
-  padding: 0 0 1.5rem 1.8rem; }
+  width: 50px;
+  height: 50px;
+  margin: 0 0 1.5rem 1.8rem; }
   .Theme-swatch:before {
     content: "";
     position: absolute;
-    top: 20px;
-    left: 14px;
+    top: 22px;
+    left: -20px;
     display: block;
     width: 2px;
     height: 2px;
@@ -244,7 +248,7 @@ paper-toast {
 .Theme-color {
   width: 100%;
   height: 100%;
-  border-radius: 25%; }
+  border-radius: 50%; }
 
 .Switches--off {
   opacity: 0.5;
