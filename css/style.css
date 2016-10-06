@@ -1,22 +1,25 @@
 html {
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-  height: 100%;
   min-height: 100%;
   font-size: 1.2em;
   font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
   background: #333 url(../img/stripes.png);
   color: white; }
+  @media (min-width: 60em) {
+    html {
+      overflow: hidden;
+      height: 100%; } }
 
 body {
   box-sizing: border-box;
   position: relative;
   padding: 5.5rem 0 0 0;
-  height: 100%;
   overflow: auto; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     body {
-      padding: 3rem 0 2rem 0; } }
+      padding: 3rem 0 2rem 0;
+      height: 100%;
+      overflow: auto; } }
 
 hr {
   opacity: 0.25; }
@@ -27,14 +30,14 @@ paper-radio-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     paper-radio-group {
       flex-wrap: wrap;
       flex-direction: row; } }
 
 paper-radio-button {
   box-sizing: border-box; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     paper-radio-button {
       width: 50%; } }
 
@@ -48,7 +51,7 @@ paper-radio-button {
   position: relative;
   padding: 1rem 1.5rem;
   background-color: black; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     .Header {
       background-color: rgba(0, 0, 0, 0.33); } }
   .Header span {
@@ -73,17 +76,17 @@ paper-radio-button {
   font-size: 0.8rem;
   background: black;
   color: white; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     .Tabs {
       background-color: rgba(0, 0, 0, 0.5); } }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     .Tabs {
       display: none !important; } }
 
 .Pages {
   max-width: 65rem;
   margin: 1.5rem auto 0; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     .Pages {
       display: flex; }
       .Pages > div {
@@ -106,7 +109,7 @@ paper-radio-button {
   max-width: 400px; }
   .Status a {
     color: gold; }
-  @media screen and (max-width: 320px) {
+  @media (max-width: 320px) {
     .Status {
       left: 0;
       bottom: 0;
@@ -118,7 +121,7 @@ paper-radio-button {
   flex-direction: column; }
   .Modal paper-button {
     font-weight: bold; }
-  @media screen and (max-width: 60em) {
+  @media (max-width: 60em) {
     .Modal {
       margin: 0;
       top: 0;
@@ -131,7 +134,7 @@ paper-radio-button {
     margin-top: 0; }
   .Settings hr {
     margin: 1rem -9999px; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     .Settings {
       max-width: 400px; } }
 
@@ -147,7 +150,7 @@ paper-radio-button {
   bottom: 0;
   left: 0;
   background-color: #333; }
-  @media screen and (min-width: 60em) {
+  @media (min-width: 60em) {
     .Gradient {
       opacity: 0.8;
       height: 66vh;
@@ -155,7 +158,7 @@ paper-radio-button {
       filter: blur(150px);
       -webkit-transform: translateZ(0);
       will-change: transform; } }
-  @media screen and (max-width: 60em) {
+  @media (max-width: 60em) {
     .Gradient {
       background-color: transparent !important;
       background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent) !important; } }
@@ -176,7 +179,7 @@ paper-radio-button {
 .Controls {
   display: flex;
   flex-wrap: wrap; }
-  @media screen and (max-width: 60em) {
+  @media (max-width: 60em) {
     .Controls {
       margin-top: 2rem; } }
   .Controls hr {
@@ -199,7 +202,7 @@ paper-radio-button {
   position: absolute;
   top: 18px;
   right: 0; }
-  @media screen and (max-width: 60em) {
+  @media (max-width: 60em) {
     .Switch-toggle {
       right: 0.5rem; } }
 
@@ -222,12 +225,12 @@ paper-radio-button {
   cursor: -webkit-grabbing;
   width: 50px;
   height: 50px;
-  margin: 0 0 1.5rem 1.8rem; }
+  padding: 0 0 1.5rem 1.8rem; }
   .Theme-swatch:before {
     content: "";
     position: absolute;
     top: 22px;
-    left: -20px;
+    left: 18px;
     display: block;
     width: 2px;
     height: 2px;
