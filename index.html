@@ -6,10 +6,7 @@
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Set your Philips Hue lights using color theory. Yay science!">
 <title>HueWheel &ndash; Set your Philips Hue lights with a color wheel!</title>
-<script>
-// Force http:
-window.location.protocol == 'https:' && (window.location.protocol = 'http:')
-</script>
+<script>/* Force http: */ window.location.protocol == 'https:' && (window.location.protocol = 'http:')</script>
 <script src="lib/webcomponentsjs/webcomponents-lite.min.js"></script>
 <link rel="import" href="lib/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="lib/iron-icons/iron-icons.html">
@@ -42,8 +39,8 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 		value={{settings}}
 		on-iron-localstorage-load-empty="initSettings"></iron-localstorage>
 	<div class="Gradient"></div>
-	<paper-toast id="status"><a></a></paper-toast>
-	<paper-dialog modal id="info">
+	<paper-toast class="Status" id="status"><a></a></paper-toast>
+	<paper-dialog with-backdrop class="Modal" id="info">
 		<div class="Settings">
 			<p>Use HueWheel to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/huewheel">source code on Github.</a></p>
 			<hr>
@@ -74,20 +71,21 @@ window.location.protocol == 'https:' && (window.location.protocol = 'http:')
 		</div>
 	</paper-dialog>
 	<div class="HeaderContainer">
-		<header>
+		<header class="Header">
 			<img src="icon.png"> <span>HueWheel</span>
 			<paper-icon-button
+				class="SettingsButton"
 				title="Settings"
 				icon="settings"
 				onClick="document.querySelector('#info').open()"
 			/>
 		</header>
-		<paper-tabs selected="{{selected}}">
+		<paper-tabs class="Tabs" selected="{{selected}}">
 			<paper-tab>Wheel</paper-tab>
 			<paper-tab>Switches</paper-tab>
 		</paper-tabs>
 	</div>
-	<iron-pages selected="{{selected}}">
+	<iron-pages class="Pages" selected="{{selected}}">
 		<div id="page-1">
 			<div id="wheel" class="Wheel"></div>
 		</div>

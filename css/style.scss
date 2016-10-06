@@ -2,10 +2,6 @@ $breakpoint: 60em;
 
 // --- Global ---
 
-* {
-	box-sizing: border-box;
-}
-
 html {
 	-webkit-font-smoothing: antialiased;
 	overflow: hidden;
@@ -18,6 +14,7 @@ html {
 }
 
 body {
+	box-sizing: border-box;
 	position: relative;
 	padding: 5.5rem 0 0 0;
 	height: 100%;
@@ -32,7 +29,35 @@ hr {
 	opacity: 0.25;
 }
 
-header {
+paper-radio-group {
+	background: white;
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	@media screen and (min-width: $breakpoint) {
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+}
+
+paper-radio-button {
+	box-sizing: border-box;
+
+	@media screen and (min-width: $breakpoint) {
+		width: 50%;
+	}
+}
+
+.HeaderContainer {
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+.Header {
 	position: relative;
 	padding: 1rem 1.5rem;
 	background-color: black;
@@ -58,15 +83,16 @@ header {
 		float: left;
 		margin: -1px 0.5rem 0 0;
 	}
-
-	paper-icon-button {
-		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
-	}
 }
 
-paper-tabs {
+.SettingsButton {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+}
+
+
+.Tabs {
 	font-size: 0.8rem;
 	background: black;
 	color: white;
@@ -80,33 +106,7 @@ paper-tabs {
 	}
 }
 
-paper-radio-button,
-paper-radio-group {
-	display: block;
-}
-
-paper-radio-group {
-	background: white;
-	padding: 0.5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-
-	@media screen and (min-width: $breakpoint) {
-		flex-wrap: wrap;
-		flex-direction: row;
-	}
-}
-
-paper-radio-button {
-	box-sizing: border-box;
-
-	@media screen and (min-width: $breakpoint) {
-		width: 50%;
-	}
-}
-
-iron-pages {
+.Pages {
 	max-width: 65rem;
 	margin: 1.5rem auto 0;
 
@@ -135,8 +135,7 @@ iron-pages {
 	}
 }
 
-paper-toast {
-	font-family: sans-serif;
+.Status {
 	z-index: 1;
 	bottom: 1rem;
 	left: 1rem;
@@ -152,7 +151,7 @@ paper-toast {
 	}
 }
 
-paper-dialog {
+.Modal {
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
@@ -168,22 +167,6 @@ paper-dialog {
 		overflow: auto;
 	}
 }
-
-paper-dialog,
-paper-toast {
-	font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
-}
-
-// --- Header ---
-
-.HeaderContainer {
-	z-index: 1;
-	position: fixed;
-	top: 0;
-	width: 100%;
-}
-
-// --- Settings ---
 
 .Settings {
 	flex: 1;
@@ -204,8 +187,6 @@ paper-toast {
 .Settings + .buttons {
 	flex-shrink: 0;
 }
-
-// --- Background Gradient ---
 
 .Gradient {
 	z-index: -1;
@@ -231,8 +212,6 @@ paper-toast {
 		background-image: radial-gradient(circle, rgba(white, 0.6), transparent) !important;
 	}
 }
-
-// -- Wheel ---
 
 .Wheel {
 	svg {
@@ -349,8 +328,6 @@ paper-toast {
 	width: 100%;
 	flex: none;
 }
-
-// --- Misc ---
 
 .sortable-ghost {
 	&:before {

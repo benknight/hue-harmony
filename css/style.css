@@ -1,6 +1,3 @@
-* {
-  box-sizing: border-box; }
-
 html {
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
@@ -12,6 +9,7 @@ html {
   color: white; }
 
 body {
+  box-sizing: border-box;
   position: relative;
   padding: 5.5rem 0 0 0;
   height: 100%;
@@ -22,45 +20,6 @@ body {
 
 hr {
   opacity: 0.25; }
-
-header {
-  position: relative;
-  padding: 1rem 1.5rem;
-  background-color: black; }
-  @media screen and (min-width: 60em) {
-    header {
-      background-color: rgba(0, 0, 0, 0.33); } }
-  header span {
-    display: inline-block;
-    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(to right, red, yellow, cyan);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    line-height: 1; }
-  header img {
-    height: 1.2em;
-    float: left;
-    margin: -1px 0.5rem 0 0; }
-  header paper-icon-button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem; }
-
-paper-tabs {
-  font-size: 0.8rem;
-  background: black;
-  color: white; }
-  @media screen and (min-width: 60em) {
-    paper-tabs {
-      background-color: rgba(0, 0, 0, 0.5); } }
-  @media screen and (min-width: 60em) {
-    paper-tabs {
-      display: none !important; } }
-
-paper-radio-button,
-paper-radio-group {
-  display: block; }
 
 paper-radio-group {
   background: white;
@@ -79,61 +38,92 @@ paper-radio-button {
     paper-radio-button {
       width: 50%; } }
 
-iron-pages {
-  max-width: 65rem;
-  margin: 1.5rem auto 0; }
-  @media screen and (min-width: 60em) {
-    iron-pages {
-      display: flex; }
-      iron-pages > div {
-        box-sizing: border-box; }
-      iron-pages #page-1 {
-        width: 40%;
-        max-width: 24rem;
-        margin-left: 4%; }
-      iron-pages #page-2 {
-        margin: 2rem 7% 0;
-        flex: 1; }
-      iron-pages > :not(.iron-selected) {
-        display: block !important; } }
-
-paper-toast {
-  font-family: sans-serif;
-  z-index: 1;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  max-width: 400px; }
-  paper-toast a {
-    color: gold; }
-  @media screen and (max-width: 320px) {
-    paper-toast {
-      left: 0;
-      bottom: 0;
-      right: 0; } }
-
-paper-dialog {
-  overflow: auto;
-  display: flex;
-  flex-direction: column; }
-  paper-dialog paper-button {
-    font-weight: bold; }
-  @media screen and (max-width: 60em) {
-    paper-dialog {
-      margin: 0;
-      top: 0;
-      bottom: 0;
-      overflow: auto; } }
-
-paper-dialog,
-paper-toast {
-  font-family: -apple-system, '.SFNSText-Regular', sans-serif !important; }
-
 .HeaderContainer {
   z-index: 1;
   position: fixed;
   top: 0;
   width: 100%; }
+
+.Header {
+  position: relative;
+  padding: 1rem 1.5rem;
+  background-color: black; }
+  @media screen and (min-width: 60em) {
+    .Header {
+      background-color: rgba(0, 0, 0, 0.33); } }
+  .Header span {
+    display: inline-block;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(to right, red, yellow, cyan);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1; }
+  .Header img {
+    height: 1.2em;
+    float: left;
+    margin: -1px 0.5rem 0 0; }
+
+.SettingsButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem; }
+
+.Tabs {
+  font-size: 0.8rem;
+  background: black;
+  color: white; }
+  @media screen and (min-width: 60em) {
+    .Tabs {
+      background-color: rgba(0, 0, 0, 0.5); } }
+  @media screen and (min-width: 60em) {
+    .Tabs {
+      display: none !important; } }
+
+.Pages {
+  max-width: 65rem;
+  margin: 1.5rem auto 0; }
+  @media screen and (min-width: 60em) {
+    .Pages {
+      display: flex; }
+      .Pages > div {
+        box-sizing: border-box; }
+      .Pages #page-1 {
+        width: 40%;
+        max-width: 24rem;
+        margin-left: 4%; }
+      .Pages #page-2 {
+        margin: 2rem 7% 0;
+        flex: 1; }
+      .Pages > :not(.iron-selected) {
+        display: block !important; } }
+
+.Status {
+  z-index: 1;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  max-width: 400px; }
+  .Status a {
+    color: gold; }
+  @media screen and (max-width: 320px) {
+    .Status {
+      left: 0;
+      bottom: 0;
+      right: 0; } }
+
+.Modal {
+  overflow: auto;
+  display: flex;
+  flex-direction: column; }
+  .Modal paper-button {
+    font-weight: bold; }
+  @media screen and (max-width: 60em) {
+    .Modal {
+      margin: 0;
+      top: 0;
+      bottom: 0;
+      overflow: auto; } }
 
 .Settings {
   flex: 1; }
