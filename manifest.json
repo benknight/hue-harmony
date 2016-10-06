@@ -1,6 +1,6 @@
 {
-  "name": "Color Wheel for Philips Hue",
-  "short_name": "Color Wheel",
+  "name": "HueWheel for Philips Hue",
+  "short_name": "HueWheel",
   "icons": [
     {
       "src": "icon-36.png",
