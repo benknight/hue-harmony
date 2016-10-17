@@ -1,14 +1,14 @@
 requirejs.config({
 	paths: {
 		'jquery': '//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery',
-		'd3': '../lib/d3/d3',
-		'colorwheel': '../lib/kuler-d3/colorwheel',
-		'tinycolor': '../lib/tinycolor/tinycolor',
-		'hue-hacking': '../lib/hue-hacking/src/colors',
-		'jshue': '../lib/jshue/src/jshue',
-		'sortable': '../lib/Sortable/Sortable',
-		'observe-js': '../lib/observe-js/src/observe',
-		'lodash': '../lib/lodash/lodash'
+		'd3': '../bower_components/d3/d3',
+		'colorwheel': '../bower_components/kuler-d3/colorwheel',
+		'tinycolor': '../bower_components/tinycolor/tinycolor',
+		'hue-hacking': '../bower_components/hue-hacking/src/colors',
+		'jshue': '../bower_components/jshue/src/jshue',
+		'sortable': '../bower_components/Sortable/Sortable',
+		'observe-js': '../bower_components/observe-js/src/observe',
+		'lodash': '../bower_components/lodash/lodash'
 	},
 	shim: {
 		'jshue': { exports: 'jsHue' }
