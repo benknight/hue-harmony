@@ -6,7 +6,7 @@ define(['d3', 'colorwheel'], function (d3, ColorWheel) {
 		Polymer.dom(container).setAttribute('elevation', 2);
 		var modeToggle = document.createElement('paper-radio-group');
 
-		// Don't use Monochrome
+		// Don't use Shades
 		delete ColorWheel.modes.SHADES;
 
 		for (var mode in ColorWheel.modes) {
