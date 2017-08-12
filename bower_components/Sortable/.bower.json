@@ -1,12 +1,8 @@
 {
   "name": "Sortable",
   "main": [
-    "Sortable.js",
-    "ng-sortable.js",
-    "knockout-sortable.js",
-    "react-sortable-mixin.js"
+    "Sortable.js"
   ],
-  "version": "1.2.1",
   "homepage": "http://rubaxa.github.io/Sortable/",
   "authors": [
     "RubaXa <ibnRubaXa@gmail.com>"
@@ -20,7 +16,8 @@
     "drag",
     "and",
     "drop",
-    "dnd"
+    "dnd",
+    "web-components"
   ],
   "license": "MIT",
   "ignore": [
@@ -29,13 +26,14 @@
     "test",
     "tests"
   ],
-  "_release": "1.2.1",
+  "version": "1.6.0",
+  "_release": "1.6.0",
   "_resolution": {
     "type": "version",
-    "tag": "1.2.1",
-    "commit": "4297da26caf3f79f7999b9eb89ebbcbe51276c41"
+    "tag": "1.6.0",
+    "commit": "317d98d905d1d9690e3f0de747310cf64d554141"
   },
-  "_source": "git://github.com/RubaXa/Sortable.git",
-  "_target": "~1.2.0",
+  "_source": "https://github.com/RubaXa/Sortable.git",
+  "_target": "~1.6.0",
   "_originalSource": "Sortable"
 }

@@ -1,5 +1,5 @@
 # Sortable
-Sortable is a minimalist JavaScript library for reorderable drag-and-drop lists.
+Sortable is a <s>minimalist</s> JavaScript library for reorderable drag-and-drop lists.
 
 Demo: http://rubaxa.github.io/Sortable/
 
@@ -12,7 +12,17 @@ Demo: http://rubaxa.github.io/Sortable/
  * Supports drag handles *and selectable text* (better than voidberg's html5sortable)
  * Smart auto-scrolling
  * Built using native HTML5 drag and drop API
- * Supports [Meteor](meteor/README.md), [AngularJS](#ng) and [React](#react)
+ * Supports
+  * [Meteor](https://github.com/SortableJS/meteor-sortablejs)
+  * AngularJS
+    * [2.0+](https://github.com/SortableJS/angular-sortablejs)
+    * [1.*](https://github.com/SortableJS/angular-legacy-sortablejs)
+  * React
+    * [ES2015+](https://github.com/SortableJS/react-sortablejs)
+    * [Mixin](https://github.com/SortableJS/react-mixin-sortablejs)
+  * [Knockout](https://github.com/SortableJS/knockout-sortablejs)
+  * [Polymer](https://github.com/SortableJS/polymer-sortablejs)
+  * [Vue](https://github.com/SortableJS/Vue.Draggable)
  * Supports any CSS library, e.g. [Bootstrap](#bs)
  * Simple API
  * [CDN](#cdn)
@@ -23,12 +33,28 @@ Demo: http://rubaxa.github.io/Sortable/
 
 
 ### Articles
+
  * [Sortable v1.0 — New capabilities](https://github.com/RubaXa/Sortable/wiki/Sortable-v1.0-—-New-capabilities/) (December 22, 2014)
  * [Sorting with the help of HTML5 Drag'n'Drop API](https://github.com/RubaXa/Sortable/wiki/Sorting-with-the-help-of-HTML5-Drag'n'Drop-API/) (December 23, 2013)
 
 
 <br/>
 
+### Install
+
+Via npm
+
+```bash
+$ npm install sortablejs --save
+```
+
+Via bower:
+
+```bash
+$ bower install --save sortablejs
+```
+
+<br/>
 
 ### Usage
 ```html
@@ -44,7 +70,7 @@ var el = document.getElementById('items');
 var sortable = Sortable.create(el);
 ```
 
-You can use any element for the list and its elements, not just `ul`/`li`. Here is an [example with `div`s](http://jsbin.com/luxero/2/edit?html,js,output).
+You can use any element for the list and its elements, not just `ul`/`li`. Here is an [example with `div`s](http://jsbin.com/qumuwe/edit?html,js,output).
 
 
 ---
@@ -61,24 +87,39 @@ var sortable = new Sortable(el, {
 	animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
 	handle: ".my-handle",  // Drag handle selector within list items
 	filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
-	draggable: ".item",  // Specifies which items inside the element should be sortable
+	preventOnFilter: true, // Call `event.preventDefault()` when triggered `filter`
+	draggable: ".item",  // Specifies which items inside the element should be draggable
 	ghostClass: "sortable-ghost",  // Class name for the drop placeholder
+	chosenClass: "sortable-chosen",  // Class name for the chosen item
+	dragClass: "sortable-drag",  // Class name for the dragging item
 	dataIdAttr: 'data-id',
+
+	forceFallback: false,  // ignore the HTML5 DnD behaviour and force the fallback to kick in
+
+	fallbackClass: "sortable-fallback",  // Class name for the cloned DOM Element when using forceFallback
+	fallbackOnBody: false,  // Appends the cloned DOM Element into the Document's Body
+	fallbackTolerance: 0, // Specify in pixels how far the mouse should move before it's considered as a drag.        
 	
 	scroll: true, // or HTMLElement
+	scrollFn: function(offsetX, offsetY, originalEvent) { ... }, // if you have custom scrollbar scrollFn may be used for autoscrolling
 	scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
 	scrollSpeed: 10, // px
-	
-	setData: function (dataTransfer, dragEl) {
-		dataTransfer.setData('Text', dragEl.textContent);
+
+	setData: function (/** DataTransfer */dataTransfer, /** HTMLElement*/dragEl) {
+		dataTransfer.setData('Text', dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
 	},
 
-	// dragging started
+	// Element is chosen
+	onChoose: function (/**Event*/evt) {
+		evt.oldIndex;  // element index within parent
+	},
+
+	// Element dragging started
 	onStart: function (/**Event*/evt) {
 		evt.oldIndex;  // element index within parent
 	},
-	
-	// dragging ended
+
+	// Element dragging ended
 	onEnd: function (/**Event*/evt) {
 		evt.oldIndex;  // element's old index within parent
 		evt.newIndex;  // element's new index within parent
@@ -111,15 +152,22 @@ var sortable = new Sortable(el, {
 	onFilter: function (/**Event*/evt) {
 		var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
 	},
-	
+
 	// Event when you move an item in the list or between lists
-	onMove: function (/**Event*/evt) {
+	onMove: function (/**Event*/evt, /**Event*/originalEvent) {
 		// Example: http://jsbin.com/tuyafe/1/edit?js,output
 		evt.dragged; // dragged HTMLElement
 		evt.draggedRect; // TextRectangle {left, top, right и bottom}
 		evt.related; // HTMLElement on which have guided
 		evt.relatedRect; // TextRectangle
-		// retrun false; — for cancel
+		originalEvent.clientY; // mouse position
+		// return false; — for cancel
+	},
+	
+	// Called when creating a clone of element
+	onClone: function (/**Event*/evt) {
+		var origEl = evt.item;
+		var cloneEl = evt.clone;
 	}
 });
 ```
@@ -133,8 +181,15 @@ To drag elements from one list into another, both lists must have the same `grou
 You can also define whether lists can give away, give and keep a copy (`clone`), and receive elements.
 
  * name: `String` — group name
- * pull: `true|false|'clone'` — ability to move from the list. `clone` — copy the item, rather than move.
- * put: `true|false|["foo", "bar"]` — whether elements can be added from other lists, or an array of group names from which elements can be taken. Demo: http://jsbin.com/naduvo/2/edit?html,js,output
+ * pull: `true|false|'clone'|function` — ability to move from the list. `clone` — copy the item, rather than move.
+ * put: `true|false|["foo", "bar"]|function` — whether elements can be added from other lists, or an array of group names from which elements can be taken.
+ * revertClone: `boolean` — revert cloned element to initial position after moving to a another list.
+
+
+Demo:
+ - http://jsbin.com/naduvo/edit?js,output
+ - http://jsbin.com/rusuvot/edit?js,output — use of complex logic in the `pull` and` put`
+ - http://jsbin.com/magogub/edit?js,output — use `revertClone: true`
 
 
 ---
@@ -143,7 +198,7 @@ You can also define whether lists can give away, give and keep a copy (`clone`),
 #### `sort` option
 Sorting inside list.
 
-Demo: http://jsbin.com/xizeh/2/edit?html,js,output
+Demo: http://jsbin.com/videzob/edit?html,js,output
 
 
 ---
@@ -152,7 +207,7 @@ Demo: http://jsbin.com/xizeh/2/edit?html,js,output
 #### `delay` option
 Time in milliseconds to define when the sorting should start.
 
-Demo: http://jsbin.com/xizeh/4/edit?html,js,output
+Demo: http://jsbin.com/xizeh/edit?html,js,output
 
 
 ---
@@ -161,7 +216,7 @@ Demo: http://jsbin.com/xizeh/4/edit?html,js,output
 #### `disabled` options
 Disables the sortable if set to `true`.
 
-Demo: http://jsbin.com/xiloqu/1/edit?html,js,output
+Demo: http://jsbin.com/xiloqu/edit?html,js,output
 
 ```js
 var sortable = Sortable.create(list);
@@ -182,7 +237,7 @@ To make list items draggable, Sortable disables text selection by the user.
 That's not always desirable. To allow text selection, define a drag handler,
 which is an area of every list element that allows it to be dragged around.
 
-Demo: http://jsbin.com/newize/1/edit?html,js,output
+Demo: http://jsbin.com/newize/edit?html,js,output
 
 ```js
 Sortable.create(el, {
@@ -233,9 +288,9 @@ Sortable.create(list, {
 
 
 #### `ghostClass` option
-Class name for the drop placeholder.
+Class name for the drop placeholder (default `sortable-ghost`).
 
-Demo: http://jsbin.com/hunifu/1/edit?css,js,output
+Demo: http://jsbin.com/hunifu/4/edit?css,js,output
 
 ```css
 .ghost {
@@ -253,12 +308,68 @@ Sortable.create(list, {
 ---
 
 
+#### `chosenClass` option
+Class name for the chosen item  (default `sortable-chosen`).
+
+Demo: http://jsbin.com/hunifu/3/edit?html,css,js,output
+
+```css
+.chosen {
+  color: #fff;
+  background-color: #c00;
+}
+```
+
+```js
+Sortable.create(list, {
+  delay: 500,
+  chosenClass: "chosen"
+});
+```
+
+
+---
+
+
+#### `forceFallback` option
+If set to `true`, the Fallback for non HTML5 Browser will be used, even if we are using an HTML5 Browser.
+This gives us the possibility to test the behaviour for older Browsers even in newer Browser, or make the Drag 'n Drop feel more consistent between Desktop , Mobile and old Browsers.
+
+On top of that, the Fallback always generates a copy of that DOM Element and appends the class `fallbackClass` defined in the options. This behaviour controls the look of this 'dragged' Element.
+
+Demo: http://jsbin.com/yacuqib/edit?html,css,js,output
+
+
+---
+
+
+#### `fallbackTolerance` option
+Emulates the native drag threshold. Specify in pixels how far the mouse should move before it's considered as a drag.
+Useful if the items are also clickable like in a list of links.
+
+When the user clicks inside a sortable element, it's not uncommon for your hand to move a little between the time you press and the time you release.  
+Dragging only starts if you move the pointer past a certain tolerance, so that you don't accidentally start dragging every time you click.
+
+3 to 5 are probably good values.
+
+
+---
+
+
 #### `scroll` option
 If set to `true`, the page (or sortable-area) scrolls when coming to an edge.
 
 Demo:
- - `window`: http://jsbin.com/boqugumiqi/1/edit?html,js,output 
- - `overflow: hidden`: http://jsbin.com/kohamakiwi/1/edit?html,js,output
+ - `window`: http://jsbin.com/tutuzeh/edit?html,js,output
+ - `overflow: hidden`: http://jsbin.com/kolisu/edit?html,js,output
+
+
+---
+
+
+#### `scrollFn` option
+Defines function that will be used for autoscrolling. el.scrollTop/el.scrollLeft is used by default.
+Useful when you have custom scrollbar with dedicated scroll function.
 
 
 ---
@@ -278,156 +389,23 @@ The speed at which the window should scroll once the mouse pointer gets within t
 ---
 
 
-<a name="ng"></a>
-### Support AngularJS
-Include [ng-sortable.js](ng-sortable.js)
+### Event object ([demo](http://jsbin.com/xedusu/edit?js,output))
 
-Demo: http://jsbin.com/naduvo/1/edit?html,js,output
-
-```html
-<div ng-app="myApp" ng-controller="demo">
-	<ul ng-sortable>
-		<li ng-repeat="item in items">{{item}}</li>
-	</ul>
-
-	<ul ng-sortable="{ group: 'foobar' }">
-		<li ng-repeat="item in foo">{{item}}</li>
-	</ul>
-
-	<ul ng-sortable="barConfig">
-		<li ng-repeat="item in bar">{{item}}</li>
-	</ul>
-</div>
-```
+ - to:`HTMLElement` — list, in which moved element.
+ - from:`HTMLElement` — previous list
+ - item:`HTMLElement` — dragged element
+ - clone:`HTMLElement`
+ - oldIndex:`Number|undefined` — old index within parent
+ - newIndex:`Number|undefined` — new index within parent
 
 
-```js
-angular.module('myApp', ['ng-sortable'])
-	.controller('demo', ['$scope', function ($scope) {
-		$scope.items = ['item 1', 'item 2'];
-		$scope.foo = ['foo 1', '..'];
-		$scope.bar = ['bar 1', '..'];
-		$scope.barConfig = {
-			group: 'foobar',
-			animation: 150,
-			onSort: function (/** ngSortEvent */evt){
-				// @see https://github.com/RubaXa/Sortable/blob/master/ng-sortable.js#L18-L24
-			}
-		};
-	}]);
-```
-
-
----
-
-
-<a name="react"></a>
-### Support React
-Include [react-sortable-mixin.js](react-sortable-mixin.js).
-See [more options](react-sortable-mixin.js#L26).
-
-
-```jsx
-var SortableList = React.createClass({
-	mixins: [SortableMixin],
-
-	getInitialState: function() {
-		return {
-			items: ['Mixin', 'Sortable']
-		};
-	},
-
-	handleSort: function (/** Event */evt) { /*..*/ },
-
-	render: function() {
-		return <ul>{
-			this.state.items.map(function (text) {
-				return <li>{text}</li>
-			})
-		}</ul>
-	}
-});
-
-React.render(<SortableList />, document.body);
-
-
-//
-// Groups
-//
-var AllUsers = React.createClass({
-	mixins: [SortableMixin],
-
-	sortableOptions: {
-		ref: "user",
-		group: "shared",
-		model: "users"
-	},
-
-	getInitialState: function() {
-		return { users: ['Abbi', 'Adela', 'Bud', 'Cate', 'Davis', 'Eric']; };
-	},
-
-	render: function() {
-		return (
-			<h1>Users</h1>
-			<ul ref="users">{
-				this.state.users.map(function (text) {
-					return <li>{text}</li>
-				})
-			}</ul>
-		);
-	}
-});
-
-var ApprovedUsers = React.createClass({
-	mixins: [SortableMixin],
-	sortableOptions: { group: "shared" },
-
-	getInitialState: function() {
-		return { items: ['Hal', 'Judy']; };
-	},
-
-	render: function() {
-		return <ul>{
-			this.state.items.map(function (text) {
-				return <li>{text}</li>
-			})
-		}</ul>
-	}
-});
-
-React.render(<div>
-	<AllUsers/>
-	<hr/>
-	<ApprovedUsers/>
-</div>, document.body);
-```
-
-
----
-
-
-<a name="ko"></a>
-### Support KnockoutJS
-Include [knockout-sortable.js](knockout-sortable.js)
-
-```html
-<div data-bind="sortable: {foreach: yourObservableArray, options: {/* sortable options here */}}">
-	<!-- optional item template here -->
-</div>
-
-<div data-bind="draggable: {foreach: yourObservableArray, options: {/* sortable options here */}}">
-	<!-- optional item template here -->
-</div>
-```
-
-Using this bindingHandler sorts the observableArray when the user sorts the HTMLElements.
-
-The sortable/draggable bindingHandlers supports the same syntax as Knockouts built in [template](http://knockoutjs.com/documentation/template-binding.html) binding except for the `data` option, meaning that you could supply the name of a template or specify a separate templateEngine. The difference between the sortable and draggable handlers is that the draggable has the sortable `group` option set to `{pull:'clone',put: false}` and the `sort` option set to false by default (overridable).
-
-Other attributes are:
-*	options: an object that contains settings for the underlaying sortable, ie `group`,`handle`, events etc.
-*	collection: if your `foreach` array is a computed then you would supply the underlaying observableArray that you would like to sort here.
+#### `move` event object
+ - to:`HTMLElement`
+ - from:`HTMLElement`
+ - dragged:`HTMLElement`
+ - draggedRect:` TextRectangle`
+ - related:`HTMLElement` — element on which have guided
+ - relatedRect:` TextRectangle`
 
 
 ---
@@ -491,7 +469,7 @@ Sortable.create(el, {
 		 * @returns {Array}
 		 */
 		get: function (sortable) {
-			var order = localStorage.getItem(sortable.options.group);
+			var order = localStorage.getItem(sortable.options.group.name);
 			return order ? order.split('|') : [];
 		},
 
@@ -501,7 +479,7 @@ Sortable.create(el, {
 		 */
 		set: function (sortable) {
 			var order = sortable.toArray();
-			localStorage.setItem(sortable.options.group, order.join('|'));
+			localStorage.setItem(sortable.options.group.name, order.join('|'));
 		}
 	}
 })
@@ -513,7 +491,7 @@ Sortable.create(el, {
 
 <a name="bs"></a>
 ### Bootstrap
-Demo: http://jsbin.com/luxero/2/edit?html,js,output
+Demo: http://jsbin.com/qumuwe/edit?html,js,output
 
 ```html
 <!-- Latest compiled and minified CSS -->
@@ -572,6 +550,7 @@ Link to the active instance.
 * bind(ctx`:Mixed`, fn`:Function`)`:Function` — Takes a function and returns a new one that will always have a particular context
 * is(el`:HTMLElement`, selector`:String`)`:Boolean` — check the current matched set of elements against a selector
 * closest(el`:HTMLElement`, selector`:String`[, ctx`:HTMLElement`])`:HTMLElement|Null` — for each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree
+* clone(el`:HTMLElement`)`:HTMLElement` — create a deep copy of the set of matched elements
 * toggleClass(el`:HTMLElement`, name`:String`, state`:Boolean`) — add or remove one classes from each element
 
 
@@ -583,11 +562,11 @@ Link to the active instance.
 
 ```html
 <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.2.1/Sortable.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
 
 
 <!-- jsDelivr :: Sortable (http://www.jsdelivr.com/) -->
-<script src="//cdn.jsdelivr.net/sortable/1.2.1/Sortable.min.js"></script>
+<script src="//cdn.jsdelivr.net/sortable/1.6.0/Sortable.min.js"></script>
 
 
 <!-- jsDelivr :: Sortable :: Latest (http://www.jsdelivr.com/) -->
@@ -613,13 +592,13 @@ Now you can use `jquery.fn.sortable.js`:<br/>
 
 ```js
   $("#list").sortable({ /* options */ }); // init
-  
+
   $("#list").sortable("widget"); // get Sortable instance
-  
+
   $("#list").sortable("destroy"); // destroy Sortable instance
-  
+
   $("#list").sortable("{method-name}"); // call an instance method
-  
+
   $("#list").sortable("{method-name}", "foo", "bar"); // call an instance method with parameters
 ```
 
@@ -630,14 +609,14 @@ And `grunt jquery:mySortableFunc` → `jquery.fn.mySortableFunc.js`
 
 ### Contributing (Issue/PR)
 
-Please, [read this](CONTRIBUTING.md). 
+Please, [read this](CONTRIBUTING.md).
 
 
 ---
 
 
 ## MIT LICENSE
-Copyright 2013-2015 Lebedev Konstantin <ibnRubaXa@gmail.com>
+Copyright 2013-2017 Lebedev Konstantin <ibnRubaXa@gmail.com>
 http://rubaxa.github.io/Sortable/
 
 Permission is hereby granted, free of charge, to any person obtaining
