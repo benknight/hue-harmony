@@ -232,6 +232,7 @@
         self.updateHarmony(this, theta1 < theta2 ? -1 * theta1 : theta2);
       })
       .on('dragstart', function () {
+        d3.event.sourceEvent.preventDefault();
         self.getVisibleMarkers().attr('data-startingHue', function (d) {
           return ColorWheel.scientificToArtisticSmooth(d.color.h);
         });
