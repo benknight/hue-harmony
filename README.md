@@ -1,8 +1,8 @@
-# HueWheel – A Color Wheel for Philips Hue
+# Harmony for Philips Hue
 
-Use HueWheel to set your Philips Hue lights colors based on the color relationships on an artist's color wheel. Inspired by [Adobe Color](https://color.adobe.com).
+Use Harmony to set your Philips Hue lights colors based on the color relationships on an artist's color wheel. Inspired by [Adobe Color](https://color.adobe.com).
 
-Check it out here! http://benknight.github.io/huewheel
+Check it out here! http://benknight.github.io/hue-harmony
 
 ## Setting the bridge IP
 
