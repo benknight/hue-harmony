@@ -8,6 +8,9 @@ define(
 
 			Sortable.create(theme.node(), {
 				animation: 150,
+				onStart: function (event) {
+					event.preventDefault();
+				},
 				onEnd: function () {
 					colorWheel.dispatch.updateEnd();
 				}
