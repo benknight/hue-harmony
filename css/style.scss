@@ -73,8 +73,8 @@ paper-radio-button {
 	span {
 		display: inline-block;
 		background:
-			linear-gradient(to bottom, transparent 40%, rgba(black, 0.8) 100%),
-			linear-gradient(to right, red, yellow, cyan);
+			linear-gradient(to bottom, transparent 40%, rgba(black, 0.5) 100%),
+			linear-gradient(to left, red, yellow, cyan);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     font-weight: bold;
@@ -311,7 +311,7 @@ paper-radio-button {
 .Theme-handle {
 	position: absolute;
 	top: 18px;
-	left: 10px;
+	left: 16px;
 }
 
 .Theme-color {
