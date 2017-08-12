@@ -19,6 +19,9 @@ define(
 					'class': 'Theme-swatch',
 					'data-marker-id': function (d, i) { return i }
 				});
+				newSwatches.append('img')
+					.attr('class', 'Theme-handle')
+					.attr('src', 'img/drag-handle.svg');
 				newSwatches.append('div').attr('class', 'Theme-color');
 				swatches.exit().remove();
 			});

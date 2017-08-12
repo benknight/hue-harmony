@@ -5,21 +5,23 @@ html {
   font-family: -apple-system, '.SFNSText-Regular', sans-serif !important;
   background: #333 url(../img/stripes.png);
   color: white; }
-  @media (min-width: 60em) {
-    html {
-      overflow: hidden;
-      height: 100%; } }
+
+@media (min-width: 60em) {
+  html {
+    overflow: hidden;
+    height: 100%; } }
 
 body {
   box-sizing: border-box;
   position: relative;
   padding: 5.5rem 0 0 0;
   overflow: auto; }
-  @media (min-width: 60em) {
-    body {
-      padding: 3rem 0 2rem 0;
-      height: 100%;
-      overflow: auto; } }
+
+@media (min-width: 60em) {
+  body {
+    padding: 3rem 0 2rem 0;
+    height: 100%;
+    overflow: auto; } }
 
 hr {
   opacity: 0.25; }
@@ -30,16 +32,18 @@ paper-radio-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start; }
-  @media (min-width: 60em) {
-    paper-radio-group {
-      flex-wrap: wrap;
-      flex-direction: row; } }
+
+@media (min-width: 60em) {
+  paper-radio-group {
+    flex-wrap: wrap;
+    flex-direction: row; } }
 
 paper-radio-button {
   box-sizing: border-box; }
-  @media (min-width: 60em) {
-    paper-radio-button {
-      width: 50%; } }
+
+@media (min-width: 60em) {
+  paper-radio-button {
+    width: 50%; } }
 
 .HeaderContainer {
   z-index: 1;
@@ -51,21 +55,24 @@ paper-radio-button {
   position: relative;
   padding: 1rem 1.5rem;
   background-color: black; }
-  @media (min-width: 60em) {
-    .Header {
-      background-color: rgba(0, 0, 0, 0.33); } }
-  .Header span {
-    display: inline-block;
-    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(to right, red, yellow, cyan);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    font-weight: bold;
-    letter-spacing: -0.5px;
-    line-height: 1; }
-  .Header img {
-    height: 1.2em;
-    float: left;
-    margin: -1px 0.5rem 0 0; }
+
+@media (min-width: 60em) {
+  .Header {
+    background-color: rgba(0, 0, 0, 0.33); } }
+
+.Header span {
+  display: inline-block;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(to right, red, yellow, cyan);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  line-height: 1; }
+
+.Header img {
+  height: 1.2em;
+  float: left;
+  margin: -1px 0.5rem 0 0; }
 
 .SettingsButton {
   position: absolute;
@@ -76,30 +83,33 @@ paper-radio-button {
   font-size: 0.8rem;
   background: black;
   color: white; }
-  @media (min-width: 60em) {
-    .Tabs {
-      background-color: rgba(0, 0, 0, 0.5); } }
-  @media (min-width: 60em) {
-    .Tabs {
-      display: none !important; } }
+
+@media (min-width: 60em) {
+  .Tabs {
+    background-color: rgba(0, 0, 0, 0.5); } }
+
+@media (min-width: 60em) {
+  .Tabs {
+    display: none !important; } }
 
 .Pages {
   max-width: 65rem;
   margin: 1.5rem auto 0; }
-  @media (min-width: 60em) {
-    .Pages {
-      display: flex; }
-      .Pages > div {
-        box-sizing: border-box; }
-      .Pages #page-1 {
-        width: 40%;
-        max-width: 24rem;
-        margin-left: 4%; }
-      .Pages #page-2 {
-        margin: 2rem 7% 0;
-        flex: 1; }
-      .Pages > :not(.iron-selected) {
-        display: block !important; } }
+
+@media (min-width: 60em) {
+  .Pages {
+    display: flex; }
+  .Pages > div {
+    box-sizing: border-box; }
+  .Pages #page-1 {
+    width: 40%;
+    max-width: 24rem;
+    margin-left: 4%; }
+  .Pages #page-2 {
+    margin: 2rem 7% 0;
+    flex: 1; }
+  .Pages > :not(.iron-selected) {
+    display: block !important; } }
 
 .Status {
   z-index: 1;
@@ -107,36 +117,43 @@ paper-radio-button {
   left: 1rem;
   right: 1rem;
   max-width: 400px; }
-  .Status a {
-    color: gold; }
-  @media (max-width: 320px) {
-    .Status {
-      left: 0;
-      bottom: 0;
-      right: 0; } }
+
+.Status a {
+  color: gold; }
+
+@media (max-width: 320px) {
+  .Status {
+    left: 0;
+    bottom: 0;
+    right: 0; } }
 
 .Modal {
   overflow: auto;
   display: flex;
   flex-direction: column; }
-  .Modal paper-button {
-    font-weight: bold; }
-  @media (max-width: 60em) {
-    .Modal {
-      margin: 0;
-      top: 0;
-      bottom: 0;
-      overflow: auto; } }
+
+.Modal paper-button {
+  font-weight: bold; }
+
+@media (max-width: 60em) {
+  .Modal {
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto; } }
 
 .Settings {
   flex: 1; }
-  .Settings p:first-child {
-    margin-top: 0; }
-  .Settings hr {
-    margin: 1rem -9999px; }
-  @media (min-width: 60em) {
-    .Settings {
-      max-width: 400px; } }
+
+.Settings p:first-child {
+  margin-top: 0; }
+
+.Settings hr {
+  margin: 1rem -9999px; }
+
+@media (min-width: 60em) {
+  .Settings {
+    max-width: 400px; } }
 
 .Settings + .buttons {
   flex-shrink: 0; }
@@ -150,18 +167,20 @@ paper-radio-button {
   bottom: 0;
   left: 0;
   background-color: #333; }
-  @media (min-width: 60em) {
-    .Gradient {
-      opacity: 0.8;
-      height: 66vh;
-      -webkit-filter: blur(150px);
-      filter: blur(150px);
-      -webkit-transform: translateZ(0);
-      will-change: transform; } }
-  @media (max-width: 60em) {
-    .Gradient {
-      background-color: transparent !important;
-      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent) !important; } }
+
+@media (min-width: 60em) {
+  .Gradient {
+    opacity: 0.8;
+    height: 66vh;
+    -webkit-filter: blur(150px);
+    filter: blur(150px);
+    -webkit-transform: translateZ(0);
+    will-change: transform; } }
+
+@media (max-width: 60em) {
+  .Gradient {
+    background-color: transparent !important;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent) !important; } }
 
 .Wheel svg {
   width: 100%; }
@@ -179,11 +198,13 @@ paper-radio-button {
 .Controls {
   display: flex;
   flex-wrap: wrap; }
-  @media (max-width: 60em) {
-    .Controls {
-      margin-top: 2rem; } }
-  .Controls hr {
-    width: 100%; }
+
+@media (max-width: 60em) {
+  .Controls {
+    margin-top: 2rem; } }
+
+.Controls hr {
+  width: 100%; }
 
 .Switches {
   flex: 1; }
@@ -193,18 +214,20 @@ paper-radio-button {
   position: relative;
   height: 50px;
   margin-bottom: 1.5rem; }
-  .Switch b {
-    font-weight: normal;
-    margin-left: 15px; }
+
+.Switch b {
+  font-weight: normal;
+  margin-left: 15px; }
 
 .Switch-toggle {
   cursor: pointer;
   position: absolute;
   top: 18px;
   right: 0; }
-  @media (max-width: 60em) {
-    .Switch-toggle {
-      right: 0.5rem; } }
+
+@media (max-width: 60em) {
+  .Switch-toggle {
+    right: 0.5rem; } }
 
 .Switch-slider {
   position: absolute;
@@ -226,17 +249,11 @@ paper-radio-button {
   width: 50px;
   height: 50px;
   padding: 0 0 1.5rem 1.8rem; }
-  .Theme-swatch:before {
-    content: "";
-    position: absolute;
-    top: 22px;
-    left: 18px;
-    display: block;
-    width: 2px;
-    height: 2px;
-    border: 2px dotted rgba(255, 255, 255, 0.5);
-    outline: 2px dotted rgba(255, 255, 255, 0.5);
-    outline-offset: 2px; }
+
+.Theme-handle {
+  position: absolute;
+  top: 18px;
+  left: 10px; }
 
 .Theme-color {
   width: 100%;
@@ -254,3 +271,7 @@ paper-radio-button {
 .sortable-ghost .theme__color {
   background-color: transparent !important;
   box-shadow: none; }
+
+/*# sourceMappingURL=style.css.map */
+
+/*# sourceMappingURL=style.css.map */

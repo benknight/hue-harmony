@@ -306,19 +306,12 @@ paper-radio-button {
 	padding: 0 0 1.5rem 1.8rem;
 
 	$border-style: 2px dotted rgba(white, 0.5);
+}
 
-	&:before {
-		content: "";
-		position: absolute;
-		top: 22px;
-		left: 18px;
-		display: block;
-		width: 2px;
-		height: 2px;
-		border: $border-style;
-		outline: $border-style;
-		outline-offset: 2px;
-	}
+.Theme-handle {
+	position: absolute;
+	top: 18px;
+	left: 10px;
 }
 
 .Theme-color {
