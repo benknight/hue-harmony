@@ -40,6 +40,10 @@ paper-radio-group {
 	flex-direction: column;
 	align-items: flex-start;
 
+	@media (max-width: $breakpoint) {
+		box-shadow: 0 999px 0 999px white;
+	}
+
 	@media (min-width: $breakpoint) {
 		flex-wrap: wrap;
 		flex-direction: row;
@@ -112,7 +116,7 @@ paper-radio-button {
 
 .Pages {
 	max-width: 65rem;
-	margin: 1.5rem auto 0;
+	margin: 0 auto;
 
 	@media (min-width: $breakpoint) {
 		display: flex;
