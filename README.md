@@ -11,3 +11,7 @@ The app will try to automatically detect the bridge on your local network.  If i
 ## Demo Mode
 
 If the app finds no local bridge, it can be simulated in demo mode.
+
+## Screenshot
+
+<img src=screenshot.png alt=Screenshot width=400 /> <img src=screenshot2.png alt=Screenshot width=400 />
