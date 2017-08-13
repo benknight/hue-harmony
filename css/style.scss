@@ -256,8 +256,7 @@ paper-radio-button {
 .Switch {
 	box-sizing: border-box;
 	position: relative;
-	height: 50px;
-	margin-bottom: 1.5rem;
+	height: 80px;
 
 	b {
 		font-weight: normal;
@@ -279,7 +278,7 @@ paper-radio-button {
 .Switch-slider {
 	position: absolute;
 	left: 0;
-	bottom: 0;
+	top: 14px;
 	width: 80%;
 	width: calc(100% - 70px);
 }
@@ -297,11 +296,8 @@ paper-radio-button {
 	position: relative;
 	cursor: move;
 	cursor: -webkit-grabbing;
-	width: 50px;
-	height: 50px;
-	padding: 0 0 1.5rem 1.8rem;
-
-	$border-style: 2px dotted rgba(white, 0.5);
+	width: 80px;
+	height: 80px;
 }
 
 .Theme-handle {
@@ -311,8 +307,11 @@ paper-radio-button {
 }
 
 .Theme-color {
-	width: 100%;
-	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 }
 
@@ -323,12 +322,5 @@ paper-radio-button {
 }
 
 .sortable-ghost {
-	&:before {
-		display: none;
-	}
-
-	.theme__color {
-		background-color: transparent !important;
-		box-shadow: none;
-	}
+	visibility: hidden;
 }

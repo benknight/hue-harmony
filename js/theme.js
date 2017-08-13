@@ -7,7 +7,7 @@ define(
 			var sandbox = d3.select('.Controls').append('div').style('display', 'none');
 
 			Sortable.create(theme.node(), {
-				animation: 150,
+				animation: 100,
 				onStart: function (event) {
 					event.preventDefault();
 				},
