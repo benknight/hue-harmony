@@ -120,6 +120,7 @@ paper-radio-button {
 
 	@media (min-width: $breakpoint) {
 		display: flex;
+		margin-top: 1.5rem;
 
 		> div {
 			box-sizing: border-box;
