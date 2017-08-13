@@ -205,12 +205,20 @@ paper-radio-button {
 	bottom: 0;
 	left: 0;
 	background-color: #333;
-	opacity: 0.8;
-	height: 66vh;
-	-webkit-filter: blur(150px);
-	filter: blur(150px);
-	-webkit-transform: translateZ(0);
-	will-change: transform;
+
+	@media (min-width: $breakpoint) {
+		opacity: 0.8;
+		height: 66vh;
+		-webkit-filter: blur(150px);
+		filter: blur(150px);
+		-webkit-transform: translateZ(0);
+		will-change: transform;
+	}
+
+	@media (max-width: $breakpoint) {
+		background-color: transparent !important;
+		background-image: radial-gradient(circle, rgba(white, 0.6), transparent) !important;
+	}
 }
 
 .Wheel {
