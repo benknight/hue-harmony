@@ -43,7 +43,7 @@
 		on-iron-localstorage-load-empty="initSettings"></iron-localstorage>
 	<div class="Gradient"></div>
 	<paper-toast class="Status" id="status"><a></a></paper-toast>
-	<paper-dialog with-backdrop class="Modal" id="info">
+	<paper-dialog with-backdrop class="Modal" id="info" opened="{{showSettings}}">
 		<div class="Settings">
 			<p>Use Harmony to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/hue-harmony">source code on Github.</a></p>
 			<hr>
@@ -70,7 +70,7 @@
 			</template>
 		</div>
 		<div class="buttons">
-			<paper-button dialog-confirm>Save</paper-button>
+			<paper-button onClick="window.location.hash = ''">Save</paper-button>
 		</div>
 	</paper-dialog>
 	<div class="HeaderContainer">
@@ -80,7 +80,7 @@
 				class="SettingsButton"
 				title="Settings"
 				icon="settings"
-				onClick="document.querySelector('#info').open()"
+				onClick="window.location.hash = '#settings'"
 			/>
 		</header>
 		<paper-tabs class="Tabs" selected="{{selected}}">
@@ -98,6 +98,9 @@
 	</iron-pages>
 </template>
 <script>
+	// Clear hash
+	window.location.hash = '';
+
 	window.APP_SETTINGS_VERSION = 2;
 
 	// Initialize with these settings
@@ -110,6 +113,14 @@
 			auto_discover: true,
 		};
 	};
+
+	window.addEventListener('hashchange', function () {
+		if (window.location.hash === '#settings') {
+			document.querySelector('#app').showSettings = true;
+		} else {
+			document.querySelector('#app').showSettings = false;
+		}
+	});
 
 	window.addEventListener('WebComponentsReady', function (e) {
 		console.log('Components are ready');
