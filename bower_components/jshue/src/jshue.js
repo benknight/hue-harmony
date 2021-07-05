@@ -237,7 +237,7 @@ var jsHueAPI = function(XMLHttpRequest, JSON) {
          * @param {Function} failure failure callback
          * @return {Boolean} true if request was sent, false otherwise
          */
-        discover: _get.bind(null, 'https://www.meethue.com/api/nupnp'),
+        discover: _get.bind(null, 'https://discovery.meethue.com'),
         /**
          * Creates bridge object (jsHueBridge).
          *
