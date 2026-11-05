@@ -1,159 +1,107 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#000000">
-<meta name="description" content="Set your Philips Hue lights using color theory. Yay science!">
-<title>Harmony for Philips Hue &ndash; Set your Philips Hue lights using color science!</title>
-<script>
-	// Force http:
-	window.location.protocol == 'https:' && (window.location.protocol = 'http:')
-</script>
-<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-<link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-<link rel="import" href="bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="bower_components/iron-localstorage/iron-localstorage.html">
-<link rel="import" href="bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-<link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="bower_components/paper-material/paper-material.html">
-<link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
-<link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
-<link rel="import" href="bower_components/paper-slider/paper-slider.html">
-<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="custom-style.html">
-<link rel="icon" href="icon-48.png">
-<link rel="apple-touch-icon" href="icon-192.png" />
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
-<link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
-<link rel="stylesheet" href="css/style.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="color-scheme" content="dark">
+	<meta name="theme-color" content="#000000">
+	<meta name="description" content="Set your Philips Hue lights using color theory on an artist's color wheel.">
+	<title>Harmony for Philips Hue</title>
+	<link rel="icon" href="icon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="icon-192.png">
+	<link rel="manifest" href="manifest.webmanifest">
+	<link rel="stylesheet" href="css/style.css">
+	<script type="module" src="js/main.js"></script>
 </head>
 <body>
-<template id="app" is="dom-bind">
-	<iron-localstorage
-		name="settings"
-		value={{settings}}
-		on-iron-localstorage-load-empty="initSettings"></iron-localstorage>
-	<div class="Gradient"></div>
-	<paper-toast class="Status" id="status"><a></a></paper-toast>
-	<paper-dialog with-backdrop class="Modal" id="info" opened="{{showSettings}}">
-		<div class="Settings">
-			<p>Use Harmony to set your Philips Hue lights colors based on the color relationships on an <a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank">artist’s color wheel</a>. Inspired by <a href="https://color.adobe.com" target="_blank">Adobe Color</a>. Made by <a href="https://benknight.github.io">Benjamin Knight</a>. Checkout the <a href="https://github.com/benknight/hue-harmony">source code on Github.</a></p>
-			<hr>
-			<div>
-				<paper-input
-					type="text"
-					label="Bridge IP"
-					readonly={{settings.auto_discover}}
-					value="{{settings.bridge_ip}}"></paper-input>
-				<paper-checkbox checked={{settings.auto_discover}}>Automatically discover bridge</paper-checkbox>
-				<div><small>Uncheck this to manually set the bridge IP address.</small></div>
+	<div class="backdrop is-empty" id="backdrop" aria-hidden="true"></div>
+
+	<header class="header">
+		<h1 class="header__title">
+			<img class="header__logo" src="icon.svg" alt="" width="32" height="32">
+			<span class="header__name">Harmony <span class="header__suffix">for Philips Hue</span></span>
+			<span class="header__badge">Demo</span>
+		</h1>
+		<button class="icon-button" id="settings-button" type="button" aria-label="Settings" title="Settings">
+			<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+				<path fill="currentColor" d="M19.14 12.94a7.07 7.07 0 0 0 0-1.88l2.03-1.58a.5.5 0 0 0 .12-.62l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.1 7.1 0 0 0-1.63-.94l-.36-2.54a.49.49 0 0 0-.49-.42h-3.84a.49.49 0 0 0-.49.42l-.36 2.54c-.59.24-1.13.56-1.63.94l-2.39-.96a.49.49 0 0 0-.6.22L2.67 8.86a.49.49 0 0 0 .12.62l2.03 1.58a7.07 7.07 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.62l1.92 3.32c.12.22.37.3.6.22l2.39-.96c.5.38 1.04.7 1.63.94l.36 2.54c.04.24.25.42.49.42h3.84c.24 0 .45-.18.49-.42l.36-2.54c.59-.24 1.13-.56 1.63-.94l2.39.96c.22.08.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.62l-2.03-1.58ZM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2Z"/>
+			</svg>
+		</button>
+	</header>
+
+	<main class="app">
+		<section class="panel panel--wheel" aria-label="Color wheel">
+			<div id="wheel"></div>
+			<fieldset class="modes" id="modes">
+				<legend class="visually-hidden">Color harmony</legend>
+			</fieldset>
+		</section>
+
+		<section class="panel panel--lights" aria-label="Lights">
+			<ul class="lights is-empty" id="lights"></ul>
+			<p class="lights__empty">Lights will appear here once the bridge is connected.</p>
+			<p class="lights__hint">Drag a light by its handle to move it into a different color slot.</p>
+		</section>
+	</main>
+
+	<template id="light-template">
+		<li class="light">
+			<button class="light__handle" type="button" aria-label="Reorder">
+				<svg viewBox="0 0 6 10" width="6" height="10" aria-hidden="true">
+					<path fill="currentColor" d="M0 0h2v2H0zM4 0h2v2H4zM0 4h2v2H0zM4 4h2v2H4zM0 8h2v2H0zM4 8h2v2H4z"/>
+				</svg>
+			</button>
+			<span class="light__swatch" aria-hidden="true"></span>
+			<div class="light__body">
+				<label class="light__name"></label>
+				<input class="light__brightness" type="range" min="1" max="254" step="1">
 			</div>
-			<template is="dom-if" if="{{settings.lights}}">
-				<hr>
-				<h4>Active Lights</h4>
-				<p><small>Only the checked lights will be controlled by this app.  Use this to ignore certain lights.</small></p>
-				<p class="layout horizontal wrap">
-					<template is="dom-repeat" items="{{settings.lights}}">
-						<div style="width: 50%; margin-bottom: 1rem;">
-							<paper-checkbox checked={{item.active}}>{{item.name}}</paper-checkbox>
-						</div>
-					</template>
-				</p>
-			</template>
-		</div>
-		<div class="buttons">
-			<paper-button onClick="window.location.hash = ''">Save</paper-button>
-		</div>
-	</paper-dialog>
-	<div class="HeaderContainer">
-		<header class="Header">
-			<img src="icon-96.png"> <span>Harmony for Philips Hue</span>
-			<paper-icon-button
-				class="SettingsButton"
-				title="Settings"
-				icon="settings"
-				onClick="window.location.hash = '#settings'"
-			/>
-		</header>
-		<paper-tabs class="Tabs" selected="{{selected}}">
-			<paper-tab>Wheel</paper-tab>
-			<paper-tab>Lights</paper-tab>
-		</paper-tabs>
+			<input class="light__switch" type="checkbox" role="switch">
+		</li>
+	</template>
+
+	<div class="toast" id="toast" role="status" aria-live="polite" hidden>
+		<span class="toast__text"></span>
+		<button class="toast__action" type="button" hidden></button>
 	</div>
-	<iron-pages class="Pages" selected="{{selected}}">
-		<div id="page-1">
-			<div id="wheel" class="Wheel"></div>
-		</div>
-		<div id="page-2">
-			<div id="controls" class="Controls"></div>
-		</div>
-	</iron-pages>
-</template>
-<script>
-	// Clear hash
-	window.location.hash = '';
 
-	window.APP_SETTINGS_VERSION = 2;
+	<dialog class="settings" id="settings" aria-labelledby="settings-title">
+		<form method="dialog" class="settings__form">
+			<h2 class="settings__title" id="settings-title">Settings</h2>
+			<p class="settings__about">
+				Harmony sets your Philips Hue lights using the color relationships on an
+				<a href="https://en.wikipedia.org/wiki/Color_wheel" target="_blank" rel="noopener">artist’s color wheel</a>.
+				Inspired by <a href="https://color.adobe.com" target="_blank" rel="noopener">Adobe Color</a>.
+				Made by <a href="https://benknight.github.io" target="_blank" rel="noopener">Benjamin Knight</a>;
+				<a href="https://github.com/benknight/hue-harmony" target="_blank" rel="noopener">source on GitHub</a>.
+			</p>
 
-	// Initialize with these settings
-	document.querySelector('#app').initSettings = function () {
-		this.settings = {
-			lights: null,
-			bridge_ip: null,
-			username: null,
-			version: window.APP_SETTINGS_VERSION,
-			auto_discover: true,
-		};
-	};
+			<fieldset class="settings__group">
+				<legend>Bridge</legend>
+				<label class="field">
+					<span class="field__label">Bridge IP address</span>
+					<input name="bridgeIp" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="192.168.1.2">
+				</label>
+				<label class="check">
+					<input name="autoDiscover" type="checkbox">
+					Find the bridge automatically
+				</label>
+				<p class="hint">Turn this off to set the IP address yourself, for example if you have more than one bridge.</p>
+			</fieldset>
 
-	window.addEventListener('hashchange', function () {
-		if (window.location.hash === '#settings') {
-			document.querySelector('#app').showSettings = true;
-		} else {
-			document.querySelector('#app').showSettings = false;
-		}
-	});
+			<fieldset class="settings__group" hidden>
+				<legend>Lights</legend>
+				<p class="hint">Only checked lights are controlled by Harmony.</p>
+				<div class="settings__lights" id="settings-lights"></div>
+			</fieldset>
 
-	window.addEventListener('WebComponentsReady', function (e) {
-		console.log('Components are ready');
-		// Append main script
-		var script = document.createElement('script');
-		script.setAttribute('data-main', 'js/main');
-		script.setAttribute('src', 'bower_components/requirejs/require.js');
-		document.body.appendChild(script);
-	});
-
-	// Refresh the page after certain minutes of inactivity
-	var blurTimestamp = Date.now();
-	var staleThresholdMinutes = 60;
-
-	window.addEventListener('blur', function () {
-		blurTimestamp = Date.now();
-	});
-
-	window.addEventListener('focus', function () {
-		var deltaMinutes = (Date.now() - blurTimestamp) / (1000 * 60);
-		console.log('Window focused. Elapsed time (minutes):', deltaMinutes.toFixed(2));
-		if (deltaMinutes >= staleThresholdMinutes) {
-			window.location.reload();
-		}
-	});
-</script>
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-32552202-1', 'auto');
-ga('send', 'pageview');
-</script>
+			<menu class="settings__actions">
+				<button class="button button--quiet" value="reset" title="Forget the bridge and all settings">Reset</button>
+				<span class="settings__spacer"></span>
+				<button class="button" value="cancel">Cancel</button>
+				<button class="button button--primary" value="save">Save</button>
+			</menu>
+		</form>
+	</dialog>
 </body>
 </html>
