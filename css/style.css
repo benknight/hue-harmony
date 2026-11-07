@@ -369,6 +369,10 @@ body.is-demo .header__badge {
 	outline-offset: 2px;
 }
 
+body.is-demo .modes__option[data-mode="Custom"] {
+	display: none;
+}
+
 .modes__option input {
 	position: absolute;
 	opacity: 0;

@@ -158,6 +158,12 @@ class App {
       this.sync = new LightSync(bridge, this.#onSyncError);
       this.#adoptState(state);
       document.body.classList.toggle('is-demo', bridge.demo);
+      // The demo has no Custom mode: its pretend lights have no colors
+      // worth preserving, so start it on a harmony instead.
+      if (bridge.demo && this.wheel.mode === MODES.CUSTOM) {
+        this.modes.querySelector(`input[value="${MODES.ANALOGOUS}"]`).checked = true;
+        this.wheel.setMode(MODES.ANALOGOUS);
+      }
       if (this.lights.size === 0) {
         this.toast.show(MSG.NO_LIGHTS, { action: 'Settings', onAction: () => this.openSettings() });
       } else if (!quiet) {
@@ -307,6 +313,7 @@ class App {
     for (const mode of Object.values(MODES)) {
       const label = document.createElement('label');
       label.className = 'modes__option';
+      label.dataset.mode = mode;
       const input = Object.assign(document.createElement('input'), {
         type: 'radio',
         name: 'mode',
